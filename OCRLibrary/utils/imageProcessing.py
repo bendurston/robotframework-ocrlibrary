@@ -23,16 +23,66 @@ def convert_BGR_to_GRAY(img):
     """
     return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-def convert_BGR_to_HSV(img, colour1, colour2):
+def convert_BGR_to_HSV(img):
     """
-    Extracts the given colours from the image.
+    Converts image from BGR to HSV.
     """
-    img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    hsv_colour1 = np.asarray(colour1)
-    hsv_colour2 = np.asarray(colour2)
-    mask = cv2.inRange(img_hsv, hsv_colour1, hsv_colour2)
-    return mask
-    
+    return cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+
+def mask_single_colour_BGR(img, lower_bound_colour, upper_bound_colour):
+    """
+    Purpose:
+        Maskes any colour that is not in the range of the bounds of the provided colour.
+    Args:
+        img - provided read image.
+        lower_bound_colour - the lower bound of the colour to not mask in BGR format.
+        upper_bound_colour - the upper bound of the colour to not mask in BGR format.
+    Returns:
+        res - image with colours masked.
+    """
+    lower_bound_colour = np.array(lower_bound_colour)
+    upper_bound_colour = np.array(upper_bound_colour)
+    mask = cv2.inRange(img, lower_bound_colour, upper_bound_colour)
+    res = cv2.bitwise_and(img, img, mask= mask)
+    return res
+
+def mask_double_colour_BGR(img, lower_bound_colour1, upper_bound_colour1, lower_bound_colour2, upper_bound_colour2):
+    """
+    Purpose:
+        Maskes any colour that is not in the range of the bounds of the two provided colours.
+    Args:
+        img - provided read image.
+        lower_bound_colour1 - the lower bound of the first colour to not mask in BGR format.
+        upper_bound_colour1 - the upper bound of the first colour to not mask in BGR format.        
+        lower_bound_colour2 - the lower bound of the second colour to not mask in BGR format.
+        upper_bound_colour2 - the upper bound of the second colour to not mask in BGR format.
+    Returns:
+        res - image with colours masked.
+    """
+    lower_bound_colour1 = np.array(lower_bound_colour1)
+    upper_bound_colour1 = np.array(upper_bound_colour1)
+    lower_bound_colour2 = np.array(lower_bound_colour2)
+    upper_bound_colour2 = np.array(upper_bound_colour2)
+    mask1 = cv2.inRange(img, lower_bound_colour1, upper_bound_colour1)
+    mask2 = cv2.inRange(img, lower_bound_colour2, upper_bound_colour2)
+    mask = cv2.bitwise_or(mask1, mask2)
+    res = cv2.bitwise_and(img, img, mask= mask)
+    return res
+
+def mask_single_colour_HSV(img, lower_bound_colour, upper_bound_colour):
+    # TODO
+    pass
+
+def mask_double_colour_HSV(img, lower_bound_colour1, upper_bound_colour1, lower_bound_colour2, upper_bound_colour2):
+    # TODO
+    pass
+
+if __name__ == '__main__':
+    img = cv2.imread(r'/home/ben/Desktop/exampleImages/4colours.jpg')
+    #img = convert_BGR_to_HSV(img, [225, 225, 225], [255, 255, 255], [0,0,0], [30,30,30])
+    img = mask_single_colour_BGR(img, [0, 0, 100], [0, 0, 255])
+    cv2.imshow("Image", img)
+    cv2.waitKey(0)  
 
 # Image Thresholding
 # Reference: https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_thresholding/py_thresholding.html#thresholding
