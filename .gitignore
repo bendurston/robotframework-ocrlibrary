@@ -1,0 +1,8 @@
+# vscode directory
+.vscode/
+settings.json
+
+# envs
+.env
+
+
