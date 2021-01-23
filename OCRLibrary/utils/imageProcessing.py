@@ -2,19 +2,18 @@
 Image Processing Reference: https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_table_of_contents_imgproc/py_table_of_contents_imgproc.html#
 """
 import cv2
-import pytesseract
-import sys
+import numpy as np
 
-def image_process(path):
-    img = cv2.imread(path)
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    blur = cv2.GaussianBlur(gray, (1,1), 0)
-    thresh = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+# def image_process(path):
+#     img = cv2.imread(path)
+#     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+#     blur = cv2.GaussianBlur(gray, (1,1), 0)
+#     thresh = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
 
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1,1))
-    opening = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, kernel, iterations=1)
-    invert = 255 - opening
-    return invert
+#     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1,1))
+#     opening = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, kernel, iterations=1)
+#     invert = 255 - opening
+#     return invert
     
 # Changing Colourspaces
 # Reference: https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_colorspaces/py_colorspaces.html#converting-colorspaces
@@ -24,12 +23,16 @@ def convert_BGR_to_GRAY(img):
     """
     return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-def convert_BGR_to_HSV(img, colours):
+def convert_BGR_to_HSV(img, colour1, colour2):
     """
     Extracts the given colours from the image.
     """
-    #TODO not just a one liner.
-    return None
+    img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    hsv_colour1 = np.asarray(colour1)
+    hsv_colour2 = np.asarray(colour2)
+    mask = cv2.inRange(img_hsv, hsv_colour1, hsv_colour2)
+    return mask
+    
 
 # Image Thresholding
 # Reference: https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_thresholding/py_thresholding.html#thresholding
