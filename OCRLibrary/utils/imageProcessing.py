@@ -77,13 +77,6 @@ def mask_double_colour_HSV(img, lower_bound_colour1, upper_bound_colour1, lower_
     # TODO
     pass
 
-if __name__ == '__main__':
-    img = cv2.imread(r'/home/ben/Desktop/exampleImages/4colours.jpg')
-    #img = convert_BGR_to_HSV(img, [225, 225, 225], [255, 255, 255], [0,0,0], [30,30,30])
-    img = mask_single_colour_BGR(img, [0, 0, 100], [0, 0, 255])
-    cv2.imshow("Image", img)
-    cv2.waitKey(0)  
-
 # Image Thresholding
 # Reference: https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_thresholding/py_thresholding.html#thresholding
 # Note: Threshold first argument, image, should be gray scale. Second argument is the threshold value which is used to classify the pixel values.
