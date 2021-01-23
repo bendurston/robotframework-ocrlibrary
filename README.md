@@ -1,5 +1,5 @@
 # Robot Framework OCR Library
-A robot framework library that is capable of validating text in images, and locating specified text by coordinates within images.
+A robot framework library that is capable of processing images, validating text, and locating specified text by coordinates within images.
 
 ## Custom configurations for reading images.
 You can add any combination of these configurations in a string to use as an argument `config=` in `pytesseract.image_to_string()`.
@@ -37,3 +37,31 @@ An example to not detect special characters: `c- tessedit_char_whitelist=!@#$%^&
 Please note this library will not contain all image preprocessing available by OpenCV. 
 This library assumes the images are screenshots from devices, so images would be clear and do not require 
 processing such as geometric transformations.
+
+### Changing Colour Spaces
+There are currently two functions available that will change an images colour: 
++ `convert_BGR_to_HSV(img, colour)` extracts the given colour or colours from the BGR image
++ `convert_BGR_to_GRAY(img)` converts a BGR image to a gray scale image
+
+### Image Thresholding
+[Image Thresholding Reference From OpenCV](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_thresholding/py_thresholding.html#thresholding)
+
+Image thresholding is used to convert **gray scale images** to **binary images**. The gray scale image is processed
+and each pixel is checked, if the pixel is greater than the threshold value it is assigned a 1, else it is assigned a 0.
+1 and 0 represent white and black but depends on the thresholding function to determine which is which. 
+Note: these functions will mostlikely fail if the image argument is not gray scale.
+
+#### Image Thresholding without OTSU
+All of the following functions take similar arguments and return similar values.
+The first argument is the gray scale image, the second argument is the threshold value which is used to classify the pixel values.
+The second argument is the max value which represents the value to be given if the pixel value is more than (sometimes less than) the
+threshold value. The fourth argument is the different image thresholding style.
+Available Functions:
++ `thresholding_binary()`
++ `thresholding_binary_inv()`
++ `thresholding_thrunc()`
++ `thresholding_tozero()`
++ `thresholding_tozero_inv()`
+Here is a reference of the results of the above functions:
+
+![alt text](https://github.com/bendurston/robotframework-ocrlibrary/blob/main/docs/images/image_thresholding_without_otsu.png)
