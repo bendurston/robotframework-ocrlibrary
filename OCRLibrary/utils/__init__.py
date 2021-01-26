@@ -1,1 +1,1 @@
-__all__ = ["imageProcessing"]
+__all__ = ["imageprocessing"]

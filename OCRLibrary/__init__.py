@@ -1,1 +1,1 @@
-# OCR Library module
+__all__ = ["keywords", "utils", "tests"]

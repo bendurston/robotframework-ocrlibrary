@@ -1,1 +1,1 @@
-__all__ = ["contentCheck", "objectLocation"]
+__all__ = ["content_check", "object_location"]
