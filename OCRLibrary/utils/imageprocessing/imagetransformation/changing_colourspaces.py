@@ -5,7 +5,7 @@ Reference:
     https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_colorspaces/py_colorspaces.html#converting-colorspaces
 """
 
-def convert_BGR_to_GRAY(img):
+def convert_bgr_to_gray(img):
     """
     Purpose:
         Converts image from BGR to gray scale.
@@ -16,7 +16,7 @@ def convert_BGR_to_GRAY(img):
     """
     return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-def convert_BGR_to_HSV(img):
+def convert_bgr_to_hsv(img):
     """
     Purpose:
         Converts image from BGR to HSV.
@@ -27,7 +27,7 @@ def convert_BGR_to_HSV(img):
     """
     return cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-def mask_single_colour_BGR(img, lower_bound_colour, upper_bound_colour):
+def mask_single_colour_bgr(img, lower_bound_colour, upper_bound_colour):
     """
     Purpose:
         Maskes any colour that is not in the range of the bounds of the provided colour.
@@ -44,7 +44,7 @@ def mask_single_colour_BGR(img, lower_bound_colour, upper_bound_colour):
     result = cv2.bitwise_and(img, img, mask= mask)
     return result
 
-def mask_double_colour_BGR(img, lower_bound_colour1, upper_bound_colour1, lower_bound_colour2, upper_bound_colour2):
+def mask_double_colour_bgr(img, lower_bound_colour1, upper_bound_colour1, lower_bound_colour2, upper_bound_colour2):
     """
     Purpose:
         Maskes any colour that is not in the range of the bounds of the two provided colours.
@@ -67,7 +67,7 @@ def mask_double_colour_BGR(img, lower_bound_colour1, upper_bound_colour1, lower_
     result = cv2.bitwise_and(img, img, mask= mask)
     return result
 
-def mask_single_colour_HSV(img_hsv, lower_bound_colour, upper_bound_colour):
+def mask_single_colour_hsv(img_hsv, lower_bound_colour, upper_bound_colour):
     """
     Purpose:
         Maskes any colour that is not in the range of the bounds of the provided colour.
@@ -84,7 +84,7 @@ def mask_single_colour_HSV(img_hsv, lower_bound_colour, upper_bound_colour):
     result = cv2.bitwise_and(img, img, mask= mask)
     return result
 
-def mask_double_colour_HSV(img_hsv, lower_bound_colour1, upper_bound_colour1, lower_bound_colour2, upper_bound_colour2):
+def mask_double_colour_hsv(img_hsv, lower_bound_colour1, upper_bound_colour1, lower_bound_colour2, upper_bound_colour2):
     """
     Purpose:
         Maskes any colour that is not in the range of the bounds of the two provided colours.
