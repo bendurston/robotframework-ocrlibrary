@@ -17,7 +17,7 @@ Notes:
     just return the thresholded image.
 """
 
-def thresholding_binary(img, thresh, max_thresh):
+def threshold_binary(img, thresh, max_thresh):
     """
     Purpose:
         Apply binary threshold to grayscale image.
@@ -30,7 +30,7 @@ def thresholding_binary(img, thresh, max_thresh):
     """
     return cv2.threshold(img, thresh, max_thresh, cv2.THRESH_BINARY)[1]
 
-def thresholding_binary_inv(img, thresh, max_thresh):
+def threshold_binary_inv(img, thresh, max_thresh):
     """
     Purpose:
         Apply inverted binary threshold to grayscale image.
@@ -43,7 +43,7 @@ def thresholding_binary_inv(img, thresh, max_thresh):
     """
     return cv2.threshold(img, thresh, max_thresh, cv2.THRESH_BINARY_INV)[1]
 
-def thresholding_thrunc(img, thresh, max_thresh):
+def threshold_thrunc(img, thresh, max_thresh):
     """
     Purpose:
         Apply thruncated threshold to grayscale image.
@@ -82,7 +82,7 @@ def threshold_tozero_inv(img, thresh, max_thresh):
     """
     return cv2.threshold(img, thresh, max_thresh, cv2.THRESH_TOZERO_INV)[1]
 
-def thresholding_binary_otsu(img, max_thresh):
+def threshold_binary_otsu(img, max_thresh):
     """
     Purpose:
         Apply binary threshold with otsu threshold to grayscale image.
@@ -95,7 +95,7 @@ def thresholding_binary_otsu(img, max_thresh):
     """
     return cv2.threshold(img, 0, max_thresh, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
 
-def thresholding_binary_inv_otsu(img, max_thresh):
+def threshold_binary_inv_otsu(img, max_thresh):
     """
     Purpose:
         Apply inverted binary threshold with otsu threshold to grayscale image.
@@ -108,7 +108,7 @@ def thresholding_binary_inv_otsu(img, max_thresh):
     """
     return cv2.threshold(img, 0, max_thresh, cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
 
-def thresholding_thrunc_otsu(img, max_thresh):
+def threshold_thrunc_otsu(img, max_thresh):
     """
     Purpose:
         Apply thruncated threshold with otsu threshold to grayscale image.
