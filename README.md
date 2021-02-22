@@ -23,6 +23,15 @@ Page segmentation modes provide different ways a poage of text can be analyzed. 
 
 To change your page segmentation mode, add `--psm <mode>` to your custom configuration string. 
 
+### OCR Engine Modes
+Select the OCR engine modes to be used by pytesseract:
++ 0    Legacy engine only.
++ 1    Neural nets LSTM engine only.
++ 2    Legacy + LSTM engines.
++ 3    Default, based on what is available.
+
+To change your ocr engine mode, add `--oem <mode>` to your custom configuration string.
+
 ### Whitelisting Characters
 This configuration specifies which characters to detect.
 Add the characters you want to detect to the string: `c- tessedit_char_whitelist=`.
