@@ -1,1 +1,1 @@
-__all__ = ['imagetransformation', 'image_processing']
+__all__ = ['imagetransformation', 'image_processing_gray', 'imgage_processing_colour']

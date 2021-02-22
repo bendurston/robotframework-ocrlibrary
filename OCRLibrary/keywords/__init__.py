@@ -1,1 +1,1 @@
-__all__ = ["content_check", "object_location"]
+__all__ = ["content_check", "object_location", "process_image"]
