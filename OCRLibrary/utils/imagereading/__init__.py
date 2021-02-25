@@ -1,1 +1,1 @@
-__all__ = ["image_reading"]
+__all__ = ["image_reading", "text_locating"]

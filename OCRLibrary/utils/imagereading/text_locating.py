@@ -2,7 +2,6 @@ import cv2
 import pytesseract
 from pytesseract import Output
 
-
 def locate_text(img, text):
     """
     This keyword is find the coordinates of text in an image.
@@ -21,6 +20,3 @@ def locate_text(img, text):
                 x = int(location[0]) + int((location[2]/2))
                 y = int(location[1]) + int((location[3]/2))
                 """
-
-
-    

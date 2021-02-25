@@ -1,1 +1,1 @@
-__all__ = ["keywords", "utils", "tests"]
+__all__ = ["OCRLibraryKeywords", "utils"]
