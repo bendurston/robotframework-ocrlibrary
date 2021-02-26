@@ -32,7 +32,43 @@ def Validate_Image_Content(processed_img, expected_content, index=0, pyt_conf='-
 #### Content Validation Keywords - End ####
 
 #### Content Location Keywords - Start ####
-# TODO
+def Locate_Text_Coordinates(processed_img, text, pyt_conf='--psm 6', lang='eng'):
+    """
+    """
+    # TODO Check if tuple or list should be returned for access in robotframework
+    if isinstance(processed_img, numpy.ndarray):
+        coordinates = return_text_coordinates(processed_img, text, pyt_conf, lang)
+    else:
+        raise InvalidImageArgument("The argument provided is invalid. Please give an image that has been returned from any of the image processing keywords.")
+    return coordinates
+
+def Locate_Multiple_Text_Coordinates(processed_img, text, pyt_conf='--psm 6', lang='eng'):
+    """
+    """
+    if isinstance(processed_img, numpy.ndarray):
+        multiple_coordinates = return_multiple_text_coordinates(processed_img, text, pyt_conf, lang)
+    else:
+        raise InvalidImageArgument("The argument provided is invalid. Please give an image that has been returned from any of the image processing keywords.")
+    return multiple_coordinates
+
+def Locate_Text_Bounds(processed_img, text, pyt_conf='--psm 6', lang='eng'):
+    """
+    """
+    if isinstance(processed_img, numpy.ndarray):
+        bounds = return_text_bounds(processed_img, text, pyt_conf, lang)
+    else:
+        raise InvalidImageArgument("The argument provided is invalid. Please give an image that has been returned from any of the image processing keywords.")
+    return bounds
+
+def Locate_Multiple_Text_Bounds(processed_img, text, pyt_conf='--psm 6', lang='eng'):
+    """
+    """
+    if isinstance(processed_img, numpy.ndarray):
+        multiple_bounds = return_multiple_text_bounds(processed_img, text, pyt_conf, lang)
+    else:
+        raise InvalidImageArgument("The argument provided is invalid. Please give an image that has been returned from any of the image processing keywords.")
+    return multiple_bounds
+
 #### Location Check Keywords - End ####
 
 #### Image Processing Keywords - Start ####
