@@ -1,6 +1,7 @@
 """
 Robot Framework Keywords
 """
+import numpy
 from utils.imageprocessing.image_processing_gray import .
 from utils.imageprocessing.image_processing_colour import .
 from utils.imagereading.image_reading import .
@@ -21,15 +22,11 @@ def Validate_Image_Content(processed_img, expected_content, index=0, pyt_conf='-
         pyt_conf - pytesseract configuration (see README.md) defaulted to --psm 6
         lang - the language used in the image defaulted to english
     """
-    try:
-        if cv2.haveImageReader(processed_img):
-            raise InvalidImageArgument("The argument provided is invalid. Please give an image that has been returned from any of the image processing keywords.")
-    except TypeError:
+    if isinstance(processed_img, numpy.ndarray):
         actual_content = return_image_content(processed_img, pyt_conf, lang)
         if expected_content not in actual_content:
-            raise ContentNotFound(f"The expected content: {expected_content}\nwas not found in the actual content: {actual_content}")
-    except:
-        # May need to adjust message after testing.
+            raise ContentNotFound(f"The expected content: {expected_content}\nwas not found in the actual content: {actual_content}")    
+    else:
         raise InvalidImageArgument("The argument provided is invalid. Please give an image that has been returned from any of the image processing keywords.")
 
 #### Content Validation Keywords - End ####

@@ -1,22 +1,59 @@
-import cv2
-import pytesseract
+from pytesseract import image_to_data
 from pytesseract import Output
 
-def locate_text(img, text):
+def return_text_coordinates(img, text, pyt_conf, lang):
     """
     This keyword is find the coordinates of text in an image.
     """
-    data = pytesseract.image_to_data(img, output_type=Output.DICT, config='--psm 6', lang='eng')
-    num_boxes = len(data['level'])
-    text = text.lower()
-    for i in range(num_boxes):
-            text_data = data['text'][i].lower()
+    data = image_to_data(img, output_type=Output.DICT, config=pyt_conf, lang=lang)
+    boxes = len(data['level'])
+    for i in range(boxes):
+            text_from_image = data['text'][i]
             if text_data == text:
-                (x, y, w, h) = (data['left'][i], data['top'][i], data['width'][i], data['height'][i])
-                # May have to fix return statement if there are multiple pieces of the same text
-                return (x, y, w, h)
-                """
-                To find middle of returned box.
-                x = int(location[0]) + int((location[2]/2))
-                y = int(location[1]) + int((location[3]/2))
-                """
+                box_bounds = (int(data['left'][i]), int(data['top'][i]), int(data['width'][i]), int(data['height'][i]))
+                x = box_bounds[0] + box_bounds[2]/2
+                y = box_bounds[1] + box_bounds[3]/2
+                return x, y
+
+def return_text_bounds(img, text, pyt_conf, lang):
+    """
+    This keyword is find the coordinates of text in an image.
+    """
+    data = image_to_data(img, output_type=Output.DICT, config=pyt_conf, lang=lang)
+    boxes = len(data['level'])
+    for i in range(boxes):
+            text_from_image = data['text'][i]
+            if text_data == text:
+                box_bounds = (int(data['left'][i]), int(data['top'][i]), int(data['width'][i]), int(data['height'][i]))
+                return box_bounds
+                
+def return_multiple_text_coordinates(img, text, pyt_conf, lang):
+    """
+    To be used when there are multiple occurrences of the same text you wish to find.
+    """
+    data = image_to_data(img, output_type=Output.DICT, config=pyt_conf, lang=lang)
+    boxes = len(data['level'])
+    list_of_coordinates = []
+    for i in range(boxes):
+            text_from_image = data['text'][i]
+            if text_data == text:
+                box_bounds = (int(data['left'][i]), int(data['top'][i]), int(data['width'][i]), int(data['height'][i]))
+                x = box_bounds[0] + box_bounds[2]/2
+                y = box_bounds[1] + box_bounds[3]/2
+                coordinates = (x, y)
+                list_of_coordinates.append(coordinates)
+    return list_of_coordinates
+
+def return_multiple_text_bounds(img, text, pyt_conf, lang)
+    """
+    To be used when there are multiple occurrences of the same text you wish to find.
+    """
+    data = image_to_data(img, output_type=Output.DICT, config=pyt_conf, lang=lang)
+    boxes = len(data['level'])
+    list_of_box_bounds = []
+    for i in range(boxes):
+            text_from_image = data['text'][i]
+            if text_data == text:
+                box_bounds = (int(data['left'][i]), int(data['top'][i]), int(data['width'][i]), int(data['height'][i]))
+                list_of_box_bounds.append(box_bounds)
+    return list_of_box_bounds
