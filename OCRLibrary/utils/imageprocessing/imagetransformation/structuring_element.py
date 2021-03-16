@@ -1,6 +1,9 @@
 """
 Structuring Element
 """
+
+#TODO Add check, kernel sizes must be positive and odd or a zero
+
 def get_rect_kernel(kernel_size):
     """
     Purpose:

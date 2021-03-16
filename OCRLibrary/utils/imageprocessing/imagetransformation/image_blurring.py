@@ -29,6 +29,16 @@ def blurring_gaussian(img, kernel, other):
     
     return cv2.GaussianBlur(img, kernel, other)
 
-# TODO median filtering
+def median_filtering(img, kernel_size):
+    """
+    Purpose:
+        Apply a filter based off the median of all the pizels under the kernel window.
+    Args:
+        img - the image to apply the filter to.
+        kernel_size - the size of the kernel
+    Returns:
+        The filtered image.
+    """
+    # TODO if kernel_size is not 0, positive or odd, throw an error, else return
+    return cv2.medianBlur(img, kernel_size)
 
-# TODO bilateral filtering

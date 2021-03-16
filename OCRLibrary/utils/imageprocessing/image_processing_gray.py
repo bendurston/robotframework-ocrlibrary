@@ -3,7 +3,6 @@ High level implementations of functions within image transformation/
 """
 import cv2
 from imagetransformation.changing_colourspaces import .
-from imagetransformation.image_blurring import .
 from imagetransformation.image_thresholding import .
 from imagetransformation.morphological_transformations import .
 from imagetransformation.structuring_element import .
@@ -188,34 +187,4 @@ def process_blackhat_with_ellipse_kernel(img, kernel_size):
 
 def process_blackhat_with_cross_kernel(img, kernel_size):
     pass
-
-### Image blurring 
-def process_image_filtering_with_rect_kernel(img, kernel_size, depth):
-    pass
-
-def process_image_filtering_with_ellipse_kernel(img, kernel_size, depth):
-    pass
-
-def process_image_filtering_with_cross_kernel(img, kernel_size, depth):
-    pass
-
-def process_blurring_averaging_with_rect_kernel(img, kernel_size):
-    pass
-
-def process_blurring_averaging_with_ellipse_kernel(img, kernel_size):
-    pass
-
-def process_blurring_averaging_with_cross_kernel(img, kernel_size):
-    pass
-
-def process_blurring_gaussian_with_rect_kernel(img, kernel_size):
-    pass
-
-def process_blurring_gaussian_with_ellipse_kernel(img, kernel_size):
-    pass
-
-def process_blurring_gaussian_with_cross_kernel(img, kernel_size):
-    pass
-
-# TODO add median filtering and bilateral filtering 
 
