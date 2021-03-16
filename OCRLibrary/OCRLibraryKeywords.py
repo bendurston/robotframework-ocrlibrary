@@ -2,6 +2,7 @@
 Robot Framework Keywords
 """
 import numpy
+import cv2
 from utils.imageprocessing.image_processing_gray import .
 from utils.imageprocessing.image_processing_colour import .
 from utils.imagereading.image_reading import .
@@ -72,5 +73,29 @@ def Locate_Multiple_Text_Bounds(processed_img, text, pyt_conf='--psm 6', lang='e
 #### Location Check Keywords - End ####
 
 #### Image Processing Keywords - Start ####
-# TODO
+def Get_Gray_Scale_Image(img_path):
+    """
+    Purpose:
+        Convert image to gray scale
+    Args:
+        img_path - the path to the image.
+    Returns:
+        A read image in gray scale.
+    """
+    return process_to_gray_scale(img_path)
+
+# TODO: Create Keywords that do the basic grayscale with/without thresholding (one just plain bgr to gray)
+# TODO: Then make keywords that have the prefix "Apply" to apply any other image processing technique.
+
 #### Image Processing Keywords - End
+
+def Save_Image(path, img):
+    """
+    Purpose:
+        Saves the image in the specified path.
+    Args:
+        path - the path the save the image at.
+        img - the image being saved (is of type InputArray)
+    """
+    cv2.imwrite(str(path), img)
+

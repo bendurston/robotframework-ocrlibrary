@@ -6,7 +6,15 @@ from imagetransformation.changing_colourspaces import .
 from imagetransformation.image_blurring import .
 from imagetransformation.image_thresholding import .
 from imagetransformation.morphological_transformations import .
+from imagetransformation.structuring_element import .
 
+def process_to_gray_scale(img_path):
+    """
+    #TODO
+    """
+    img = cv2.imread(img_path)
+    gray_img = convert_bgr_to_gray(img)
+    return gray_img
 
 def process_to_binary_image(img_path, inverse=False, threshold=127, max_threshold=255):
     """
@@ -124,3 +132,90 @@ def process_to_thrunc_otsu_image(img_path, max_threshold=255):
     gray_img = convert_bgr_to_gray(img)
     thrunc_image_tuple = threshold_thrunc_otsu(gray_img, max_threshold)
     return thrunc_image_tuple
+
+### Morphological transformations
+
+def process_erosion_with_rect_kernel(img, kernel_size, iteration=1):
+    pass
+
+def process_erosion_with_ellipse_kernel(img, kernel_size, iteration=1):
+    pass
+
+def process_erosion_with_cross_kernel(img, kernel_size, iteration=1):
+    pass
+
+def process_dilation_with_rect_kernel(img, kernel_size, iteration=1):
+    pass
+
+def process_dilation_with_ellipse_kernel(img, kernel_size, iteration=1):
+    pass
+
+def process_dilation_with_cross_kernel(img, kernel_size, iteration=1):
+    pass
+
+def process_opening_with_rect_kernel(img, kernel_size):
+    pass
+
+def process_opening_with_ellipse_kernel(img, kernel_size):
+    pass
+
+def process_opening_with_cross_kernel(img, kernel_size):
+    pass
+
+def process_closing_with_rect_kernel(img, kernel_size):
+    pass
+
+def process_closing_with_ellipse_kernel(img, kernel_size):
+    pass
+
+def process_closing_with_cross_kernel(img, kernel_size):
+    pass
+
+def process_tophat_with_rect_kernel(img, kernel_size):
+    pass
+
+def process_tophat_with_ellipse_kernel(img, kernel_size):
+    pass
+
+def process_tophat_with_cross_kernel(img, kernel_size):
+    pass
+
+def process_blackhat_with_rect_kernel(img, kernel_size):
+    pass
+
+def process_blackhat_with_ellipse_kernel(img, kernel_size):
+    pass
+
+def process_blackhat_with_cross_kernel(img, kernel_size):
+    pass
+
+### Image blurring 
+def process_image_filtering_with_rect_kernel(img, kernel_size, depth):
+    pass
+
+def process_image_filtering_with_ellipse_kernel(img, kernel_size, depth):
+    pass
+
+def process_image_filtering_with_cross_kernel(img, kernel_size, depth):
+    pass
+
+def process_blurring_averaging_with_rect_kernel(img, kernel_size):
+    pass
+
+def process_blurring_averaging_with_ellipse_kernel(img, kernel_size):
+    pass
+
+def process_blurring_averaging_with_cross_kernel(img, kernel_size):
+    pass
+
+def process_blurring_gaussian_with_rect_kernel(img, kernel_size):
+    pass
+
+def process_blurring_gaussian_with_ellipse_kernel(img, kernel_size):
+    pass
+
+def process_blurring_gaussian_with_cross_kernel(img, kernel_size):
+    pass
+
+# TODO add median filtering and bilateral filtering 
+

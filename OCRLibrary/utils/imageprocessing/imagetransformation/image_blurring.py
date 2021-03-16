@@ -18,11 +18,13 @@ def image_filtering(img, depth, kernel):
 def blurring_averaging(img, kernel):
     """
     Purpose:
+    #TODO
     """
     return cv2.blur(img, kernel)
 
 def blurring_gaussian(img, kernel, other):
     """
+    #TODO
     """
     
     return cv2.GaussianBlur(img, kernel, other)
@@ -30,5 +32,3 @@ def blurring_gaussian(img, kernel, other):
 # TODO median filtering
 
 # TODO bilateral filtering
-
-# TODO Image filtering cv2.filter2D()
