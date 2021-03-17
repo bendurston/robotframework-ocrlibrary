@@ -2,18 +2,25 @@
 High level implementations of functions within image transformation/
 """
 import cv2
-from imagetransformation.changing_colourspaces import .
-from imagetransformation.image_thresholding import .
-from imagetransformation.morphological_transformations import .
-from imagetransformation.structuring_element import .
+from imagetransformation.changing_colourspaces import *
+from imagetransformation.image_thresholding import *
+from imagetransformation.morphological_transformations import *
+from imagetransformation.structuring_element import *
 
 def process_to_gray_scale(img_path):
     """
-    #TODO
+    Purpose:
+        Process an image to gray scale.
+    Args:
+        img_path - path to the image to process.
+    Returns:
+        gray scale image read by opencv.
     """
     img = cv2.imread(img_path)
     gray_img = convert_bgr_to_gray(img)
     return gray_img
+
+### Image thresholding
 
 def process_to_binary_image(img_path, inverse=False, threshold=127, max_threshold=255):
     """
@@ -116,7 +123,7 @@ def process_to_thrunc_image(img_path, threshold=177, max_threshold=255):
 
 
 def process_to_thrunc_otsu_image(img_path, max_threshold=255):
-     """
+    """
     Purpose:
         Process an image to gray scale and apply thruncation and otsu threshold (values considered to be white will be set to white, the 
         rest of the image will remain gray scale).
@@ -135,56 +142,281 @@ def process_to_thrunc_otsu_image(img_path, max_threshold=255):
 ### Morphological transformations
 
 def process_erosion_with_rect_kernel(img, kernel_size, iteration=1):
-    pass
+    """
+    Purpose:
+        Applies erosion morph with a rectangle shaped kernel of the specified size, to the image.
+    Args:
+        img - binary image.
+        kernel_size - the size of the kernel to use in morphological transformation.
+        iteration - Number of times the morph is performed (defaults to 1)
+    Returns:
+        Image with applied morphological transformation.
+    """
+    kernel = get_rect_kernel(kernel_size)
+    return morph_erosion(img, kernel, iteration)
 
 def process_erosion_with_ellipse_kernel(img, kernel_size, iteration=1):
-    pass
+    """
+    Purpose:
+        Applies erosion morph with a ellispe shaped kernel of the specified size, to the image.
+    Args:
+        img - binary image.
+        kernel_size - the size of the kernel to use in morphological transformation.
+        iteration - Number of times the morph is performed (defaults to 1)
+    Returns:
+        Image with applied morphological transformation.
+    """
+    kernel = get_ellipse_kernel(kernel_size)
+    return morph_erosion(img, kernel, iteration)
 
 def process_erosion_with_cross_kernel(img, kernel_size, iteration=1):
-    pass
+    """
+    Purpose:
+        Applies erosion morph with a cross shaped kernel of the specified size, to the image.
+    Args:
+        img - binary image.
+        kernel_size - the size of the kernel to use in morphological transformation.
+        iteration - Number of times the morph is performed (defaults to 1)
+    Returns:
+        Image with applied morphological transformation.
+    """
+    kernel = get_cross_kernel(kernel_size)
+    return morph_erosion(img, kernel, iteration)
 
 def process_dilation_with_rect_kernel(img, kernel_size, iteration=1):
-    pass
+    """
+    Purpose:
+        Applies dilation morph with a rectangle shaped kernel of the specified size, to the image.
+    Args:
+        img - binary image.
+        kernel_size - the size of the kernel to use in morphological transformation.
+        iteration - Number of times the morph is performed (defaults to 1)
+    Returns:
+        Image with applied morphological transformation.
+    """
+    kernel = get_rect_kernel(kernel_size)
+    return morph_dilation(img, kernel, iteration)
 
 def process_dilation_with_ellipse_kernel(img, kernel_size, iteration=1):
-    pass
+    """
+    Purpose:
+        Applies dilation morph with ellisple shaped kernel of the specified size, to the image.
+    Args:
+        img - binary image.
+        kernel_size - the size of the kernel to use in morphological transformation.
+        iteration - Number of times the morph is performed (defaults to 1)
+    Returns:
+        Image with applied morphological transformation.
+    """
+    kernel = get_ellipse_kernel(kernel_size)
+    return morph_dilation(img, kernel, iteration)    
 
 def process_dilation_with_cross_kernel(img, kernel_size, iteration=1):
-    pass
+    """
+    Purpose:
+        Applies dilation morph with cross shaped kernel of the specified size, to the image.
+    Args:
+        img - binary image.
+        kernel_size - the size of the kernel to use in morphological transformation.
+        iteration - Number of times the morph is performed (defaults to 1)
+    Returns:
+        Image with applied morphological transformation.
+    """
+    kernel = get_cross_kernel(kernel_size)
+    return morph_dilation(img, kernel, iteration)
 
 def process_opening_with_rect_kernel(img, kernel_size):
-    pass
+    """
+    Purpose:
+        Applies opening morph with a rectangle shaped kernel of the specified size, to the image.
+    Args:
+        img - binary image.
+        kernel_size - the size of the kernel to use in morphological transformation.
+    Returns:
+        Image with applied morphological transformation.
+    """
+    kernel = get_rect_kernel(kernel_size)
+    return morph_opening(img, kernel)
 
 def process_opening_with_ellipse_kernel(img, kernel_size):
-    pass
+    """
+    Purpose:
+        Applies opening morph with ellisple shaped kernel of the specified size, to the image.
+    Args:
+        img - binary image.
+        kernel_size - the size of the kernel to use in morphological transformation.
+    Returns:
+        Image with applied morphological transformation.
+    """
+    kernel = get_ellipse_kernel(kernel_size)
+    return morph_opening(img, kernel)
 
 def process_opening_with_cross_kernel(img, kernel_size):
-    pass
+    """
+    Purpose:
+        Applies opening morph with cross shaped kernel of the specified size, to the image.
+    Args:
+        img - binary image.
+        kernel_size - the size of the kernel to use in morphological transformation.
+    Returns:
+        Image with applied morphological transformation.
+    """
+    kernel = get_cross_kernel(kernel_size)
+    return morph_opening(img, kernel)
 
 def process_closing_with_rect_kernel(img, kernel_size):
-    pass
+    """
+    Purpose:
+        Applies closing morph with a rectangle shaped kernel of the specified size, to the image.
+    Args:
+        img - binary image.
+        kernel_size - the size of the kernel to use in morphological transformation.
+    Returns:
+        Image with applied morphological transformation.
+    """
+    kernel = get_rect_kernel(kernel_size)
+    return morph_closing(img, kernel)
 
 def process_closing_with_ellipse_kernel(img, kernel_size):
-    pass
+    """
+    Purpose:
+        Applies closing morph with ellisple shaped kernel of the specified size, to the image.
+    Args:
+        img - binary image.
+        kernel_size - the size of the kernel to use in morphological transformation.
+    Returns:
+        Image with applied morphological transformation.
+    """
+    kernel = get_ellipse_kernel(kernel_size)
+    return morph_closing(img, kernel)
 
 def process_closing_with_cross_kernel(img, kernel_size):
-    pass
+    """
+    Purpose:
+        Applies closing morph with cross shaped kernel of the specified size, to the image.
+    Args:
+        img - binary image.
+        kernel_size - the size of the kernel to use in morphological transformation.
+    Returns:
+        Image with applied morphological transformation.
+    """
+    kernel = get_cross_kernel(kernel_size)
+    return morph_closing(img, kernel)
+
+def process_gradient_with_rect_kernel(img, kernel_size):
+    """
+    Purpose:
+        Applies gradient morph with a rectangle shaped kernel of the specified size, to the image.
+    Args:
+        img - binary image.
+        kernel_size - the size of the kernel to use in morphological transformation.
+    Returns:
+        Image with applied morphological transformation.
+    """
+    kernel = get_rect_kernel(kernel_size)
+    return morph_gradient(img, kernel)
+
+def process_gradient_with_ellipse_kernel(img, kernel_size):
+    """
+    Purpose:
+        Applies gradient morph with ellisple shaped kernel of the specified size, to the image.
+    Args:
+        img - binary image.
+        kernel_size - the size of the kernel to use in morphological transformation.
+    Returns:
+        Image with applied morphological transformation.
+    """
+    kernel = get_ellipse_kernel(kernel_size)
+    return morph_gradient(img, kernel)
+
+def process_gradient_with_cross_kernel(img, kernel_size):
+    """
+    Purpose:
+        Applies gradient morph with cross shaped kernel of the specified size, to the image.
+    Args:
+        img - binary image.
+        kernel_size - the size of the kernel to use in morphological transformation.
+    Returns:
+        Image with applied morphological transformation.
+    """
+    kernel = get_cross_kernel(kernel_size)
+    return morph_gradient(img, kernel)
 
 def process_tophat_with_rect_kernel(img, kernel_size):
-    pass
+    """
+    Purpose:
+        Applies tophat morph with a rectangle shaped kernel of the specified size, to the image.
+    Args:
+        img - binary image.
+        kernel_size - the size of the kernel to use in morphological transformation.
+    Returns:
+        Image with applied morphological transformation.
+    """
+    kernel = get_rect_kernel(kernel_size)
+    return morph_top_hat(img, kernel)
 
 def process_tophat_with_ellipse_kernel(img, kernel_size):
-    pass
+    """
+    Purpose:
+        Applies tophat morph with ellisple shaped kernel of the specified size, to the image.
+    Args:
+        img - binary image.
+        kernel_size - the size of the kernel to use in morphological transformation.
+    Returns:
+        Image with applied morphological transformation.
+    """
+    kernel = get_ellipse_kernel(kernel_size)
+    return morph_top_hat(img, kernel)
 
 def process_tophat_with_cross_kernel(img, kernel_size):
-    pass
+    """
+    Purpose:
+        Applies tophat morph with cross shaped kernel of the specified size, to the image.
+    Args:
+        img - binary image.
+        kernel_size - the size of the kernel to use in morphological transformation.
+    Returns:
+        Image with applied morphological transformation.
+    """
+    kernel = get_cross_kernel(kernel_size)
+    return morph_top_hat(img, kernel)
 
 def process_blackhat_with_rect_kernel(img, kernel_size):
-    pass
+    """
+    Purpose:
+        Applies blackhat morph with a rectangle shaped kernel of the specified size, to the image.
+    Args:
+        img - binary image.
+        kernel_size - the size of the kernel to use in morphological transformation.
+    Returns:
+        Image with applied morphological transformation.
+    """
+    kernel = get_rect_kernel(kernel_size)
+    return morph_black_hat(img, kernel)
 
 def process_blackhat_with_ellipse_kernel(img, kernel_size):
-    pass
+    """
+    Purpose:
+        Applies blackhat morph with ellisple shaped kernel of the specified size, to the image.
+    Args:
+        img - binary image.
+        kernel_size - the size of the kernel to use in morphological transformation.
+    Returns:
+        Image with applied morphological transformation.
+    """
+    kernel = get_ellipse_kernel(kernel_size)
+    return morph_black_hat(img, kernel)
 
 def process_blackhat_with_cross_kernel(img, kernel_size):
-    pass
+    """
+    Purpose:
+        Applies blackhat morph with cross shaped kernel of the specified size, to the image.
+    Args:
+        img - binary image.
+        kernel_size - the size of the kernel to use in morphological transformation.
+    Returns:
+        Image with applied morphological transformation.
+    """
+    kernel = get_cross_kernel(kernel_size)
+    return morph_black_hat(img, kernel_size)
 

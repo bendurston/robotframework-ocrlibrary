@@ -33,7 +33,7 @@ def morph_closing(img, kernel):
     """
     return cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel)
 
-def morp_gradient(img, kernel):
+def morph_gradient(img, kernel):
     """
     Will give the object an outline. 
     """
@@ -41,12 +41,12 @@ def morp_gradient(img, kernel):
 
 def morph_top_hat(img, kernel):
     """
-    #TODO
+    Will give the difference between input image and opening image.
     """
     return cv2.morphologyEx(img, cv2.MORPH_TOPHAT, kernel)
 
 def morph_black_hat(img, kernel):
     """
-    #TODO
+    Will give the difference between tthe closing of the input image and the input image.
     """
     return cv2.morphologyEx(img, cv2.MORPH_BLACKHAT, kernel)

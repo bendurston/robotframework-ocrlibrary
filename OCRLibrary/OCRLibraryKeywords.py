@@ -3,13 +3,13 @@ Robot Framework Keywords
 """
 import numpy
 import cv2
-from utils.imageprocessing.image_processing_gray import .
-from utils.imageprocessing.image_processing_colour import .
-from utils.imagereading.image_reading import .
-from utils.imagereading.text_locating import .
+from utils.imageprocessing.image_processing_gray import *
+from utils.imageprocessing.image_processing_colour import *
+from utils.imagereading.image_reading import *
+from utils.imagereading.text_locating import *
 
-from utils.exceptions.content_validation_exceptions import .
-from utils.exceptions.common_exceptions import .
+from utils.exceptions.content_validation_exceptions import *
+from utils.exceptions.common_exceptions import *
 
 #### Content Validation Keywords - Start ####
 def Validate_Image_Content(processed_img, expected_content, index=0, pyt_conf='--psm 6', lang='eng'):
