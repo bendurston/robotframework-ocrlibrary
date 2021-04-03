@@ -13,6 +13,15 @@ def verify_valid_kernel_size(kernel_size):
     else:
         raise InvalidKernelSize("The kernel size argument provided is invalid. Please provide a size that is either 0 or a positive odd number.")
 
+def raise_invalid_kernel_type(kernel_type):
+    raise InvalidKernelType(f"The provided kernel type: {kernel_type} is invalid. Please provide a type that is either 0, 1 or 2.")
+
+def verify_valid_iteration(iteration):
+    if type(iteration) is not int:
+        raise InvalidIteration(f"The provided iteration: {iteration} is invalid. Iteration must be an integer.")
+    if iteration < 1:
+        raise InvalidIteration(f"The provided iteration: {iteration} is invalid. Please select and integer that is greater than or equal to 1.")
+
 def verify_valid_image(processed_image):
     if isinstance(processed_img, numpy.ndarray):
         continue

@@ -43,10 +43,10 @@ def threshold_binary_inv(img, thresh, max_thresh):
     """
     return cv2.threshold(img, thresh, max_thresh, cv2.THRESH_BINARY_INV)[1]
 
-def threshold_thrunc(img, thresh, max_thresh):
+def threshold_trunc(img, thresh, max_thresh):
     """
     Purpose:
-        Apply thruncated threshold to grayscale image.
+        Apply truncated threshold to grayscale image.
     Arguments:
         img - a gray scale image.
         thresh - threshold value used to classify the pixel values.
@@ -54,7 +54,7 @@ def threshold_thrunc(img, thresh, max_thresh):
     Returns:
         Thresholded image.
     """
-    return cv2.threshold(img, thresh, max_thresh, cv2.THRESH_THRUNC)[1]
+    return cv2.threshold(img, thresh, max_thresh, cv2.THRESH_TRUNC)[1]
 
 def threshold_tozero(img, thresh, max_thresh):
     """
@@ -108,10 +108,10 @@ def threshold_binary_inv_otsu(img, max_thresh):
     """
     return cv2.threshold(img, 0, max_thresh, cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
 
-def threshold_thrunc_otsu(img, max_thresh):
+def threshold_trunc_otsu(img, max_thresh):
     """
     Purpose:
-        Apply thruncated threshold with otsu threshold to grayscale image.
+        Apply truncated threshold with otsu threshold to grayscale image.
     Arguments:
         img - a gray scale image.
         max_thresh - the max value to be given if a pixels value is more than the threshold value.
@@ -119,7 +119,7 @@ def threshold_thrunc_otsu(img, max_thresh):
         tuple[0] - optimized threshold value.
         tuple[1] - thresholded image.
     """
-    return cv2.threshold(img, 0, max_thresh, cv2.THRESH_THRUNC+cv2.THRESH_OTSU)
+    return cv2.threshold(img, 0, max_thresh, cv2.THRESH_TRUNC+cv2.THRESH_OTSU)
 
 def threshold_tozero_otsu(img, max_thresh):
     """

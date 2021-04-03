@@ -7,7 +7,27 @@ class Error(Exception):
 class InvalidKernelSize(Error):
     """
     Purpose:
-        Exception raised when the when the provided kernel size is invalid.
+        Exception raised when the provided kernel size is invalid.
+    Attributes:
+        message - explanation of the error.
+    """
+    def __init__(self, message):
+        self.message = message
+
+class InvalidKernelType(Error):
+    """
+    Purpose:
+        Execption raised when the provided kernel type is invalid (i.e. not rectangle, ellipse, or cross).
+    Attributes:
+        message - explanation of the error.
+    """
+    def __init__(self, message):
+        self.message = message
+
+class InvalidIteration(Error):
+    """
+    Purpose:
+        Execption raised when the provided iteration is invalid.
     Attributes:
         message - explanation of the error.
     """

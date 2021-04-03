@@ -72,9 +72,236 @@ def Get_Gray_Scale_Image(img_path):
     """
     return process_to_gray_scale(img_path)
 
-# TODO: Create Keywords that do the basic grayscale with/without thresholding (one just plain bgr to gray)
+def Get_Binary_Image(img_path, apply_otsu=False, inverse=False, max_threshold=255, threshold=127):
+    """
+    Purpose:
+        Process image to a binary image.
+        If apply_otsu is true, a tuple will be returned. Index 0 contains the optimal threshold value found by
+        the ostu threshold, and index 1 has the binary image.
+    Args:
+        img_path - path to the image to process
+        apply_otsu - boolean, apply otsu threshold to the image.
+        inverse - if true an inverted binary thresholding will be applied (optional). 
+        threshold - threshold value used to classify the pixel values (optional).
+        max_threshold - the max value to be given if a pixels value is more than the threshold value (optional).
+    Returns:
+        A binary image.
+    """
+    if apply_otsu:
+        # TODO check for valid threshold values for otsu.
+        return process_to_binary_otsu_image(img_path, inverse, max_threshold)
+    else:
+        # TODO check for valid threshold values.
+        return process_to_binary_image(img_path, inverse, threshold, max_threshold)
 
-# TODO: Then make keywords that have the prefix "Apply" to apply any other image processing technique.
+def Get_To_Zero_Image(img_path, apply_otsu=False, inverse=False, max_threshold=255, threshold=127):
+    """
+    Purpose:
+        Process image to a tozero image. 
+        All values considered black (if no inverse) will be set to black, the rest of 
+        the image will remain in gray scale. If inverse is true, the values considered to be white will be set to black,
+        the rest of the image will remain in gray scale.
+        If apply_otsu is true, a tuple will be returned. Index 0 contains the optimal threshold value found by
+        the ostu threshold, and index 1 has the tozero image.
+    Args:
+        img_path - path to the image to process
+        apply_otsu - boolean, apply otsu threshold to the image.
+        inverse - if true an inverted tozeo thresholding will be applied (optional). 
+        threshold - threshold value used to classify the pixel values (optional).
+        max_threshold - the max value to be given if a pixels value is more than the threshold value (optional).
+    Returns:
+        A tozero image.
+    """
+    if apply_otsu:
+        # TODO check for valid threshold values for otsu.
+        return process_to_tozero_otsu_image(img_path, inverse, max_threshold)
+    else:
+        # TODO check for valid threshold values.
+        return process_to_tozero_image(img_path, inverse, threshold, max_threshold)
+
+def Get_Trunc_Image(img_path, apply_otsu=False, max_threshold=255, threshold=127):
+    """
+    Purpose:
+        Process an image to gray scale and apply truncation threshold (values considered to be white will be set to white, the 
+        rest of the image will remain gray scale).
+        If apply_otsu is true, a tuple will be returned. Index 0 contains the optimal threshold value found by
+        the ostu threshold, and index 1 has the tozero image.
+    Args:
+        img_path - path to the image to process
+        apply_otsu - boolean, apply otsu threshold to the image.
+        threshold - threshold value used to classify the pixel values (optional).
+        max_threshold - the max value to be given if a pixels value is more than the threshold value (optional).
+    Returns:
+        A trunc image.
+    """
+    if apply_otsu:
+        # TODO check for valid threshold values for otsu.
+        return process_to_trunc_otsu_image(img_path, max_threshold)
+    else:
+        # TODO check for valid threshold values.
+        return process_to_trunc_image(img_path, threshold, max_threshold)
+        
+# Binary images transformations - start
+
+def Apply_Erosion_To_Image(img, kernel_size, kernel_type=0, iteration=1):
+    """
+    Purpose:
+        Applies the erosion morphological transformation to a binary image.
+    Args:
+        img - processed binary image.
+        kernel_size - size of the kernel
+        kernel_type - shape of kernel used. 0 = rectangle, 1 = ellipse, and 2 = cross.
+        iteration - number of iterations to perform on image.
+    Returns:
+        Image with erosion morphological transformation applied.
+    """
+    verify_valid_kernel_size(kernel_size)
+    verify_valid_iteration(iteration)
+    if kernel_type == 0:
+        return process_erosion_with_rect_kernel(img, kernel_size, iteration)
+    elif kernel_type == 1:
+        return process_erosion_with_ellipse_kernel(img, kernel_size, iteration)
+    elif kernel_type == 2:
+        return process_erosion_with_cross_kernel(img, kernel_size, iteration)
+    else
+        raise_invalid_kernel_type(kernel_type)
+
+def Apply_Dilation_To_Image(img, kernel_size, kernel_type=0, iteration=1):
+    """
+    Purpose:
+        Applies the dilation morphological transformation to a binary image.
+    Args:
+        img - processed binary image.
+        kernel_size - size of the kernel
+        kernel_type - shape of kernel used. 0 = rectangle, 1 = ellipse, and 2 = cross.
+        iteration - number of iterations to perform on image.
+    Returns:
+        Image with dilation morphological transformation applied.
+    """
+    verify_valid_kernel_size(kernel_size)
+    verify_valid_iteration(iteration)
+    if kernel_type == 0:
+        return process_dilation_with_rect_kernel(img, kernel_size, iteration)
+    elif kernel_type == 1:
+        return process_dilation_with_ellipse_kernel(img, kernel_size, iteration)
+    elif kernel_type == 2:
+        return process_dilation_with_cross_kernel(img, kernel_size, iteration)
+    else
+        raise_invalid_kernel_type(kernel_type)    
+    
+def Apply_Opening_To_Image(img, kernel_size, kernel_type=0):
+    """
+    Purpose:
+        Applies the opening morphological transformation to a binary image.
+    Args:
+        img - processed binary image.
+        kernel_size - size of the kernel
+        kernel_type - shape of kernel used. 0 = rectangle, 1 = ellipse, and 2 = cross.
+    Returns:
+        Image with opening morphological transformation applied.
+    """
+    verify_valid_kernel_size(kernel_size)
+    if kernel_type == 0:
+        return process_opening_with_rect_kernel(img, kernel_size)
+    elif kernel_type == 1:
+        return process_opening_with_ellipse_kernel(img, kernel_size)
+    elif kernel_type == 2:
+        return process_opening_with_cross_kernel(img, kernel_size)
+    else
+        raise_invalid_kernel_type(kernel_type)
+
+def Apply_Closing_To_Image(img, kernel_size, kernel_type=0):
+    """
+    Purpose:
+        Applies the closing morphological transformation to a binary image.
+    Args:
+        img - processed binary image.
+        kernel_size - size of the kernel
+        kernel_type - shape of kernel used. 0 = rectangle, 1 = ellipse, and 2 = cross.
+    Returns:
+        Image with closing morphological transformation applied.
+    """
+    verify_valid_kernel_size(kernel_size)
+    if kernel_type == 0:
+        return process_closing_with_rect_kernel(img, kernel_size)
+    elif kernel_type == 1:
+        return process_closing_with_ellipse_kernel(img, kernel_size)
+    elif kernel_type == 2:
+        return process_closing_with_cross_kernel(img, kernel_size)
+    else
+        raise_invalid_kernel_type(kernel_type)
+
+def Apply_Gradient_To_Image(img, kernel_size, kernel_type=0):
+    """
+    Purpose:
+        Applies the gradient morphological transformation to a binary image.
+    Args:
+        img - processed binary image.
+        kernel_size - size of the kernel
+        kernel_type - shape of kernel used. 0 = rectangle, 1 = ellipse, and 2 = cross.
+    Returns:
+        Image with gradien morphological transformation applied.
+    """
+    verify_valid_kernel_size(kernel_size)
+    if kernel_type == 0:
+        return process_gradient_with_rect_kernel(img, kernel_size)
+    elif kernel_type == 1:
+        return process_gradient_with_ellipse_kernel(img, kernel_size)
+    elif kernel_type == 2:
+        return process_gradient_with_cross_kernel(img, kernel_size)
+    else
+        raise_invalid_kernel_type(kernel_type)
+
+def Apply_Top_Hat_To_Image(img, kernel_size, kernel_type=0):
+    """
+    Purpose:
+        Applies the top hat morphological transformation to a binary image.
+    Args:
+        img - processed binary image.
+        kernel_size - size of the kernel
+        kernel_type - shape of kernel used. 0 = rectangle, 1 = ellipse, and 2 = cross.
+    Returns:
+        Image with top hat morphological transformation applied.
+    """
+    verify_valid_kernel_size(kernel_size)
+    if kernel_type == 0:
+        return process_tophat_with_rect_kernel(img, kernel_size)
+    elif kernel_type == 1:
+        return process_tophat_with_ellipse_kernel(img, kernel_size)
+    elif kernel_type == 2:
+        return process_tophat_with_cross_kernel(img, kernel_size)
+    else
+        raise_invalid_kernel_type(kernel_type)
+
+def Apply_Black_Hat_To_Image(img, kernel_size, kernel_type=0):
+    """
+    Purpose:
+        Applies the black hat morphological transformation to a binary image.
+    Args:
+        img - processed binary image.
+        kernel_size - size of the kernel
+        kernel_type - shape of kernel used. 0 = rectangle, 1 = ellipse, and 2 = cross.
+    Returns:
+        Image with black hat morphological transformation applied.
+    """
+    verify_valid_kernel_size(kernel_size)
+    if kernel_type == 0:
+        return process_blackhat_with_rect_kernel(img, kernel_size)
+    elif kernel_type == 1:
+        return process_blackhat_with_ellipse_kernel(img, kernel_size)
+    elif kernel_type == 2:
+        return process_blackhat_with_cross_kernel(img, kernel_size)
+    else
+        raise_invalid_kernel_type(kernel_type)
+
+# Binary images transformations - end
+
+
+# Generic image (any colour) transformations - start
+
+# image blurring
+
+# Generic image (any colour) transformations - end
 
 #### Image Processing Keywords - End
 
