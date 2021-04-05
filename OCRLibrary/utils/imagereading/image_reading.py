@@ -12,4 +12,4 @@ def return_image_content(img, config, lang):
         config - configuration to read the image.
         lang - the language of the text to read.
     """
-   return pt.image_to_string(img, config=config, lang=lang)
+    return pt.image_to_string(img, config=config, lang=lang)

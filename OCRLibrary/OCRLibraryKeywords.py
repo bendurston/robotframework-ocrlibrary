@@ -3,12 +3,12 @@ Robot Framework Keywords
 """
 import numpy
 import cv2
-from utils.imageprocessing.image_processing_gray import *
-from utils.imageprocessing.image_processing_colour import *
-from utils.imagereading.image_reading import *
-from utils.imagereading.text_locating import *
+from OCRLibrary.utils.imageprocessing.image_processing_gray import *
+from OCRLibrary.utils.imageprocessing.image_processing_colour import *
+from OCRLibrary.utils.imagereading.image_reading import *
+from OCRLibrary.utils.imagereading.text_locating import *
 
-from utils.exceptions.exception_handler import *
+from OCRLibrary.utils.exceptions.exception_handler import *
 
 #### Content Validation Keywords - Start ####
 def Validate_Image_Content(processed_img, expected_content, index=0, pyt_conf='--psm 6', lang='eng'):
@@ -163,7 +163,7 @@ def Apply_Erosion_To_Image(img, kernel_size, kernel_type=0, iteration=1):
         return process_erosion_with_ellipse_kernel(img, kernel_size, iteration)
     elif kernel_type == 2:
         return process_erosion_with_cross_kernel(img, kernel_size, iteration)
-    else
+    else:
         raise_invalid_kernel_type(kernel_type)
 
 def Apply_Dilation_To_Image(img, kernel_size, kernel_type=0, iteration=1):
@@ -186,7 +186,7 @@ def Apply_Dilation_To_Image(img, kernel_size, kernel_type=0, iteration=1):
         return process_dilation_with_ellipse_kernel(img, kernel_size, iteration)
     elif kernel_type == 2:
         return process_dilation_with_cross_kernel(img, kernel_size, iteration)
-    else
+    else:
         raise_invalid_kernel_type(kernel_type)    
     
 def Apply_Opening_To_Image(img, kernel_size, kernel_type=0):
@@ -207,7 +207,7 @@ def Apply_Opening_To_Image(img, kernel_size, kernel_type=0):
         return process_opening_with_ellipse_kernel(img, kernel_size)
     elif kernel_type == 2:
         return process_opening_with_cross_kernel(img, kernel_size)
-    else
+    else:
         raise_invalid_kernel_type(kernel_type)
 
 def Apply_Closing_To_Image(img, kernel_size, kernel_type=0):
@@ -228,7 +228,7 @@ def Apply_Closing_To_Image(img, kernel_size, kernel_type=0):
         return process_closing_with_ellipse_kernel(img, kernel_size)
     elif kernel_type == 2:
         return process_closing_with_cross_kernel(img, kernel_size)
-    else
+    else:
         raise_invalid_kernel_type(kernel_type)
 
 def Apply_Gradient_To_Image(img, kernel_size, kernel_type=0):
@@ -249,7 +249,7 @@ def Apply_Gradient_To_Image(img, kernel_size, kernel_type=0):
         return process_gradient_with_ellipse_kernel(img, kernel_size)
     elif kernel_type == 2:
         return process_gradient_with_cross_kernel(img, kernel_size)
-    else
+    else:
         raise_invalid_kernel_type(kernel_type)
 
 def Apply_Top_Hat_To_Image(img, kernel_size, kernel_type=0):
@@ -270,7 +270,7 @@ def Apply_Top_Hat_To_Image(img, kernel_size, kernel_type=0):
         return process_tophat_with_ellipse_kernel(img, kernel_size)
     elif kernel_type == 2:
         return process_tophat_with_cross_kernel(img, kernel_size)
-    else
+    else:
         raise_invalid_kernel_type(kernel_type)
 
 def Apply_Black_Hat_To_Image(img, kernel_size, kernel_type=0):
@@ -291,7 +291,7 @@ def Apply_Black_Hat_To_Image(img, kernel_size, kernel_type=0):
         return process_blackhat_with_ellipse_kernel(img, kernel_size)
     elif kernel_type == 2:
         return process_blackhat_with_cross_kernel(img, kernel_size)
-    else
+    else:
         raise_invalid_kernel_type(kernel_type)
 
 # Binary images transformations - end

@@ -44,7 +44,7 @@ def return_text_bounds(img, text, pyt_conf, lang):
                 box_bounds = (int(data['left'][i]), int(data['top'][i]), int(data['width'][i]), int(data['height'][i]))
                 return box_bounds
 
-def return_multiple_text_bounds(img, text, pyt_conf, lang)
+def return_multiple_text_bounds(img, text, pyt_conf, lang):
     """
     To be used when there are multiple occurrences of the same text you wish to find.
     """

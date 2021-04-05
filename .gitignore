@@ -8,3 +8,4 @@ settings.json
 # misc
 notes.txt
 
+__pycache__/

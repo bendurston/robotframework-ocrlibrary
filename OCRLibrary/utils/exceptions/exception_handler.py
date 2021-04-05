@@ -1,6 +1,6 @@
 import numpy
 
-from exceptions import *
+from OCRLibrary.utils.exceptions.exceptions import *
 
 def verify_content(expected_content, actual_content):
     if expected_content not in actual_content:
@@ -24,7 +24,7 @@ def verify_valid_iteration(iteration):
 
 def verify_valid_image(processed_image):
     if isinstance(processed_img, numpy.ndarray):
-        continue
+        pass
     else:
         raise InvalidImageArgument("The image argument provided is invalid. Please give an image that has been returned from any of the image processing keywords.")
 
