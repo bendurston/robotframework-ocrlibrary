@@ -24,7 +24,7 @@ def Validate_Image_Content(processed_img, expected_content, index=0, pyt_conf='-
     """
     verify_valid_image(processed_img)
     actual_content = return_image_content(processed_img, pyt_conf, lang)
-    verify_content(expected_content, actual_content)    
+    return verify_content(expected_content, actual_content)    
 
 #### Content Validation Keywords - End ####
 
