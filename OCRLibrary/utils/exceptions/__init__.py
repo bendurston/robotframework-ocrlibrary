@@ -1,2 +1,5 @@
-__all__ = ["exceptions", "exception_handler"]
+"""
+exceptions module
+"""
 
+__all__ = ["exceptions", "exception_handler"]

@@ -9,3 +9,5 @@ settings.json
 notes.txt
 
 __pycache__/
+
+.pylintrc

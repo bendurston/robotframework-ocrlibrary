@@ -1,7 +1,6 @@
 """
 Robot Framework Keywords
 """
-import numpy
 import cv2
 from OCRLibrary.utils.imageprocessing.image_processing_gray import *
 from OCRLibrary.utils.imageprocessing.image_processing_colour import *
@@ -11,10 +10,11 @@ from OCRLibrary.utils.imagereading.text_locating import *
 from OCRLibrary.utils.exceptions.exception_handler import *
 
 #### Content Validation Keywords - Start ####
-def Validate_Image_Content(processed_img, expected_content, index=0, pyt_conf='--psm 6', lang='eng'):
+def Validate_Image_Content(processed_img, expected_content, pyt_conf='--psm 6', lang='eng'):
     """
     Purpose:
-        Confirm that an image contains the expected content. 
+        Confirm that an image contains the expected content
+
     Args:
         processed_img - a read and processed image (result of any of the image processing keywords)
         expected_content - content to check for in the image
@@ -24,8 +24,7 @@ def Validate_Image_Content(processed_img, expected_content, index=0, pyt_conf='-
     """
     verify_valid_image(processed_img)
     actual_content = return_image_content(processed_img, pyt_conf, lang)
-    return verify_content(expected_content, actual_content)    
-
+    return verify_content(expected_content, actual_content)
 #### Content Validation Keywords - End ####
 
 #### Content Location Keywords - Start ####
@@ -33,6 +32,7 @@ def Locate_Text_Coordinates(processed_img, text, pyt_conf='--psm 6', lang='eng')
     """
     """
     # TODO Check if tuple or list should be returned for access in robotframework
+    # TODO Throw error if return is None
     verify_valid_image(processed_img)
     coordinates = return_text_coordinates(processed_img, text, pyt_conf, lang)
     return coordinates
@@ -40,6 +40,7 @@ def Locate_Text_Coordinates(processed_img, text, pyt_conf='--psm 6', lang='eng')
 def Locate_Multiple_Text_Coordinates(processed_img, text, pyt_conf='--psm 6', lang='eng'):
     """
     """
+    # TODO Throw error if return is empty
     verify_valid_image(processed_img)
     multiple_coordinates = return_multiple_text_coordinates(processed_img, text, pyt_conf, lang)
     return multiple_coordinates
@@ -47,6 +48,7 @@ def Locate_Multiple_Text_Coordinates(processed_img, text, pyt_conf='--psm 6', la
 def Locate_Text_Bounds(processed_img, text, pyt_conf='--psm 6', lang='eng'):
     """
     """
+    # TODO Throw error if return is None
     verify_valid_image(processed_img)
     bounds = return_text_bounds(processed_img, text, pyt_conf, lang)
     return bounds
@@ -54,6 +56,7 @@ def Locate_Text_Bounds(processed_img, text, pyt_conf='--psm 6', lang='eng'):
 def Locate_Multiple_Text_Bounds(processed_img, text, pyt_conf='--psm 6', lang='eng'):
     """
     """
+    # TODO Throw error if return is empty
     verify_valid_image(processed_img)
     multiple_bounds = return_multiple_text_bounds(processed_img, text, pyt_conf, lang)
     return multiple_bounds
