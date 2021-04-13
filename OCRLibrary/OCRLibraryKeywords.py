@@ -2,13 +2,26 @@
 Robot Framework Keywords
 """
 import cv2
-from OCRLibrary.utils.imageprocessing.image_processing_gray import *
-from OCRLibrary.utils.imageprocessing.image_processing_colour import *
-from OCRLibrary.utils.imageprocessing.image_processing_generic import *
-from OCRLibrary.utils.imagereading.image_reading import *
-from OCRLibrary.utils.imagereading.text_locating import *
-
-from OCRLibrary.utils.exceptions.exception_handler import *
+from OCRLibrary.utils.imageprocessing.image_processing_gray \
+    import (process_to_gray_scale, process_to_binary_image, process_to_binary_otsu_image, process_to_tozero_image,
+    process_to_tozero_otsu_image, process_to_trunc_image, process_to_trunc_otsu_image, process_erosion_with_rect_kernel,
+    process_erosion_with_ellipse_kernel, process_erosion_with_cross_kernel, process_dilation_with_rect_kernel,
+    process_dilation_with_ellipse_kernel, process_dilation_with_cross_kernel, process_opening_with_rect_kernel,
+    process_opening_with_ellipse_kernel, process_opening_with_cross_kernel, process_closing_with_rect_kernel, process_closing_with_ellipse_kernel,
+    process_closing_with_cross_kernel, process_gradient_with_rect_kernel, process_gradient_with_ellipse_kernel, process_gradient_with_cross_kernel,
+    process_tophat_with_rect_kernel, process_tophat_with_ellipse_kernel, process_tophat_with_cross_kernel, process_blackhat_with_rect_kernel,
+    process_blackhat_with_ellipse_kernel, process_blackhat_with_cross_kernel)
+# from OCRLibrary.utils.imageprocessing.image_processing_colour import *
+from OCRLibrary.utils.imageprocessing.image_processing_generic \
+    import (process_image_filtering_with_rect_kernel, process_image_filtering_with_ellipse_kernel, process_image_filtering_with_cross_kernel,
+    process_blurring_averaging_with_rect_kernel, process_blurring_averaging_with_ellipse_kernel, process_blurring_averaging_with_cross_kernel,
+    process_blurring_gaussian_with_rect_kernel, process_blurring_gaussian_with_ellipse_kernel, process_blurring_gaussian_with_cross_kernel,
+    process_median_filtering)
+from OCRLibrary.utils.imagereading.image_reading import return_image_content
+from OCRLibrary.utils.imagereading.text_locating \
+    import (return_text_coordinates, return_multiple_text_coordinates, return_text_bounds, return_multiple_text_bounds)
+from OCRLibrary.utils.exceptions.exception_handler \
+    import (verify_content, verify_valid_kernel_size, raise_invalid_kernel_type, verify_valid_iteration, verify_valid_image)
 
 #### Content Validation Keywords - Start ####
 def Validate_Image_Content(processed_img, expected_content, pyt_conf='--psm 6', lang='eng'):
@@ -93,10 +106,11 @@ def Get_Binary_Image(img_path, apply_otsu=False, inverse=False, max_threshold=25
     """
     if apply_otsu:
         # TODO check for valid threshold values for otsu.
-        return process_to_binary_otsu_image(img_path, inverse, max_threshold)
+        processed_image = process_to_binary_otsu_image(img_path, inverse, max_threshold)
     else:
         # TODO check for valid threshold values.
-        return process_to_binary_image(img_path, inverse, threshold, max_threshold)
+        processed_image = process_to_binary_image(img_path, inverse, threshold, max_threshold)
+    return processed_image
 
 def Get_To_Zero_Image(img_path, apply_otsu=False, inverse=False, max_threshold=255, threshold=127):
     """
@@ -118,10 +132,11 @@ def Get_To_Zero_Image(img_path, apply_otsu=False, inverse=False, max_threshold=2
     """
     if apply_otsu:
         # TODO check for valid threshold values for otsu.
-        return process_to_tozero_otsu_image(img_path, inverse, max_threshold)
+        processed_image = process_to_tozero_otsu_image(img_path, inverse, max_threshold)
     else:
         # TODO check for valid threshold values.
-        return process_to_tozero_image(img_path, inverse, threshold, max_threshold)
+        processed_image = process_to_tozero_image(img_path, inverse, threshold, max_threshold)
+    return processed_image
 
 def Get_Trunc_Image(img_path, apply_otsu=False, max_threshold=255, threshold=127):
     """
@@ -140,11 +155,11 @@ def Get_Trunc_Image(img_path, apply_otsu=False, max_threshold=255, threshold=127
     """
     if apply_otsu:
         # TODO check for valid threshold values for otsu.
-        return process_to_trunc_otsu_image(img_path, max_threshold)
+        processed_image = process_to_trunc_otsu_image(img_path, max_threshold)
     else:
         # TODO check for valid threshold values.
-        return process_to_trunc_image(img_path, threshold, max_threshold)
-        
+        processed_image = process_to_trunc_image(img_path, threshold, max_threshold)
+    return processed_image
 # Binary images transformations - start
 
 def Apply_Erosion_To_Image(img, kernel_size, kernel_type=0, iteration=1):
@@ -162,13 +177,14 @@ def Apply_Erosion_To_Image(img, kernel_size, kernel_type=0, iteration=1):
     verify_valid_kernel_size(kernel_size)
     verify_valid_iteration(iteration)
     if kernel_type == 0:
-        return process_erosion_with_rect_kernel(img, kernel_size, iteration)
+        processed_image = process_erosion_with_rect_kernel(img, kernel_size, iteration)
     elif kernel_type == 1:
-        return process_erosion_with_ellipse_kernel(img, kernel_size, iteration)
+        processed_image = process_erosion_with_ellipse_kernel(img, kernel_size, iteration)
     elif kernel_type == 2:
-        return process_erosion_with_cross_kernel(img, kernel_size, iteration)
+        processed_image = process_erosion_with_cross_kernel(img, kernel_size, iteration)
     else:
-        raise_invalid_kernel_type(kernel_type)
+        return raise_invalid_kernel_type(kernel_type)
+    return processed_image
 
 def Apply_Dilation_To_Image(img, kernel_size, kernel_type=0, iteration=1):
     """
@@ -185,14 +201,15 @@ def Apply_Dilation_To_Image(img, kernel_size, kernel_type=0, iteration=1):
     verify_valid_kernel_size(kernel_size)
     verify_valid_iteration(iteration)
     if kernel_type == 0:
-        return process_dilation_with_rect_kernel(img, kernel_size, iteration)
+        processed_image = process_dilation_with_rect_kernel(img, kernel_size, iteration)
     elif kernel_type == 1:
-        return process_dilation_with_ellipse_kernel(img, kernel_size, iteration)
+        processed_image = process_dilation_with_ellipse_kernel(img, kernel_size, iteration)
     elif kernel_type == 2:
-        return process_dilation_with_cross_kernel(img, kernel_size, iteration)
+        processed_image = process_dilation_with_cross_kernel(img, kernel_size, iteration)
     else:
-        raise_invalid_kernel_type(kernel_type)    
-    
+        return raise_invalid_kernel_type(kernel_type)    
+    return processed_image
+
 def Apply_Opening_To_Image(img, kernel_size, kernel_type=0):
     """
     Purpose:
@@ -206,13 +223,14 @@ def Apply_Opening_To_Image(img, kernel_size, kernel_type=0):
     """
     verify_valid_kernel_size(kernel_size)
     if kernel_type == 0:
-        return process_opening_with_rect_kernel(img, kernel_size)
+        processed_image = process_opening_with_rect_kernel(img, kernel_size)
     elif kernel_type == 1:
-        return process_opening_with_ellipse_kernel(img, kernel_size)
+        processed_image = process_opening_with_ellipse_kernel(img, kernel_size)
     elif kernel_type == 2:
-        return process_opening_with_cross_kernel(img, kernel_size)
+        processed_image = process_opening_with_cross_kernel(img, kernel_size)
     else:
-        raise_invalid_kernel_type(kernel_type)
+        return raise_invalid_kernel_type(kernel_type)
+    return processed_image
 
 def Apply_Closing_To_Image(img, kernel_size, kernel_type=0):
     """
@@ -227,13 +245,14 @@ def Apply_Closing_To_Image(img, kernel_size, kernel_type=0):
     """
     verify_valid_kernel_size(kernel_size)
     if kernel_type == 0:
-        return process_closing_with_rect_kernel(img, kernel_size)
+        processed_image = process_closing_with_rect_kernel(img, kernel_size)
     elif kernel_type == 1:
-        return process_closing_with_ellipse_kernel(img, kernel_size)
+        processed_image = process_closing_with_ellipse_kernel(img, kernel_size)
     elif kernel_type == 2:
-        return process_closing_with_cross_kernel(img, kernel_size)
+        processed_image = process_closing_with_cross_kernel(img, kernel_size)
     else:
-        raise_invalid_kernel_type(kernel_type)
+        return raise_invalid_kernel_type(kernel_type)
+    return processed_image
 
 def Apply_Gradient_To_Image(img, kernel_size, kernel_type=0):
     """
@@ -248,13 +267,14 @@ def Apply_Gradient_To_Image(img, kernel_size, kernel_type=0):
     """
     verify_valid_kernel_size(kernel_size)
     if kernel_type == 0:
-        return process_gradient_with_rect_kernel(img, kernel_size)
+        processed_image = process_gradient_with_rect_kernel(img, kernel_size)
     elif kernel_type == 1:
-        return process_gradient_with_ellipse_kernel(img, kernel_size)
+        processed_image = process_gradient_with_ellipse_kernel(img, kernel_size)
     elif kernel_type == 2:
-        return process_gradient_with_cross_kernel(img, kernel_size)
+        processed_image = process_gradient_with_cross_kernel(img, kernel_size)
     else:
-        raise_invalid_kernel_type(kernel_type)
+        return raise_invalid_kernel_type(kernel_type)
+    return processed_image
 
 def Apply_Top_Hat_To_Image(img, kernel_size, kernel_type=0):
     """
@@ -269,13 +289,14 @@ def Apply_Top_Hat_To_Image(img, kernel_size, kernel_type=0):
     """
     verify_valid_kernel_size(kernel_size)
     if kernel_type == 0:
-        return process_tophat_with_rect_kernel(img, kernel_size)
+        processed_image = process_tophat_with_rect_kernel(img, kernel_size)
     elif kernel_type == 1:
-        return process_tophat_with_ellipse_kernel(img, kernel_size)
+        processed_image = process_tophat_with_ellipse_kernel(img, kernel_size)
     elif kernel_type == 2:
-        return process_tophat_with_cross_kernel(img, kernel_size)
+        processed_image = process_tophat_with_cross_kernel(img, kernel_size)
     else:
-        raise_invalid_kernel_type(kernel_type)
+        return raise_invalid_kernel_type(kernel_type)
+    return processed_image
 
 def Apply_Black_Hat_To_Image(img, kernel_size, kernel_type=0):
     """

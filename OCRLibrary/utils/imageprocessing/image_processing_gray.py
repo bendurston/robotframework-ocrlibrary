@@ -2,10 +2,15 @@
 High level implementations of functions within image transformation/
 """
 import cv2
-from OCRLibrary.utils.imageprocessing.imagetransformation.changing_colourspaces import *
-from OCRLibrary.utils.imageprocessing.imagetransformation.image_thresholding import *
-from OCRLibrary.utils.imageprocessing.imagetransformation.morphological_transformations import *
-from OCRLibrary.utils.imageprocessing.imagetransformation.structuring_element import *
+from OCRLibrary.utils.imageprocessing.imagetransformation.changing_colourspaces import convert_bgr_to_gray
+from OCRLibrary.utils.imageprocessing.imagetransformation.image_thresholding \
+    import (threshold_binary, threshold_binary_inv, threshold_trunc, threshold_tozero, threshold_tozero_inv,
+    threshold_binary_otsu, threshold_binary_inv_otsu, threshold_trunc_otsu, threshold_tozero_otsu, threshold_tozero_inv_otsu)
+from OCRLibrary.utils.imageprocessing.imagetransformation.morphological_transformations \
+    import (morph_erosion, morph_dilation, morph_opening, morph_closing, morph_gradient,
+    morph_top_hat, morph_black_hat)
+from OCRLibrary.utils.imageprocessing.imagetransformation.structuring_element \
+    import (get_rect_kernel, get_ellipse_kernel, get_cross_kernel)
 
 def process_to_gray_scale(img_path):
     """
@@ -28,7 +33,7 @@ def process_to_binary_image(img_path, inverse=False, threshold=127, max_threshol
          Process an image to binary colours.
     Args:
         img_path - path to the image to process
-        inverse - if true an inverted binary thresholding will be applied (optional). 
+        inverse - if true an inverted binary thresholding will be applied (optional).
         threshold - threshold value used to classify the pixel values (optional).
         max_threshold - the max value to be given if a pixels value is more than the threshold value (optional).
     Returns:
@@ -48,7 +53,7 @@ def process_to_binary_otsu_image(img_path, inverse=False, max_threshold=255):
         Process an image to binary colours using binary otsu thresholding.
     Args:
         img_path - path to the image to process
-        inverse - if true an inverted binary thresholding will be applied (optional). 
+        inverse - if true an inverted binary thresholding will be applied (optional).
         max_threshold - the max value to be given if a pixels value is more than the threshold value (optional).
     Returns:
         binary_image_tuple[0] - optimal threshold value found by otsu threshold.
@@ -65,12 +70,12 @@ def process_to_binary_otsu_image(img_path, inverse=False, max_threshold=255):
 def process_to_tozero_image(img_path, inverse=False, threshold=177, max_threshold=255):
     """
     Purpose:
-        Process an image tozero. All values considered black (if no inverse) will be set to black, the rest of 
+        Process an image tozero. All values considered black (if no inverse) will be set to black, the rest of
         the image will remain in gray scale. If inverse is true, the values considered to be white will be set to black,
         the rest of the image will remain in gray scale.
     Args:
         img_path - path to the image to process
-        inverse - if true an inverted binary thresholding will be applied (optional). 
+        inverse - if true an inverted binary thresholding will be applied (optional).
         threshold - threshold value used to classify the pixel values (optional).
         max_threshold - the max value to be given if a pixels value is more than the threshold value (optional).
     Returns:
@@ -89,8 +94,8 @@ def process_to_tozero_otsu_image(img_path, inverse=False, max_threshold=255):
     Purpose:
         Process an image tozero colours using tozero otsu thresholding.
     Args:
-        img_path - path to the image to process 
-        inverse - if true an inverted tozero thresholding will be applied (optional). 
+        img_path - path to the image to process
+        inverse - if true an inverted tozero thresholding will be applied (optional).
         max_threshold - the max value to be given if a pixels value is more than the threshold value (optional).
     Returns:
         tozero_image_tuple[0] - optimal threshold value found by otsu threshold.
@@ -107,7 +112,7 @@ def process_to_tozero_otsu_image(img_path, inverse=False, max_threshold=255):
 def process_to_trunc_image(img_path, threshold=177, max_threshold=255):
     """
     Purpose:
-        Process an image to gray scale and apply truncation threshold (values considered to be white will be set to white, the 
+        Process an image to gray scale and apply truncation threshold (values considered to be white will be set to white, the
         rest of the image will remain gray scale).
     Args:
         img_path - path to the image to process
@@ -124,7 +129,7 @@ def process_to_trunc_image(img_path, threshold=177, max_threshold=255):
 def process_to_trunc_otsu_image(img_path, max_threshold=255):
     """
     Purpose:
-        Process an image to gray scale and apply truncation and otsu threshold (values considered to be white will be set to white, the 
+        Process an image to gray scale and apply truncation and otsu threshold (values considered to be white will be set to white, the
         rest of the image will remain gray scale).
     Args:
         img_path - path to the image to process
@@ -208,7 +213,7 @@ def process_dilation_with_ellipse_kernel(img, kernel_size, iteration=1):
         Image with applied morphological transformation.
     """
     kernel = get_ellipse_kernel(kernel_size)
-    return morph_dilation(img, kernel, iteration)    
+    return morph_dilation(img, kernel, iteration)
 
 def process_dilation_with_cross_kernel(img, kernel_size, iteration=1):
     """

@@ -1,8 +1,11 @@
+"""
+Exceptions module.
+"""
+
 class Error(Exception):
     """
     Base Class for all custom exceptions
     """
-    pass
 
 class InvalidKernelSize(Error):
     """

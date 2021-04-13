@@ -1,21 +1,7 @@
+"""
+Image thresholding module.
+"""
 import cv2
-
-"""
-Reference: 
-    https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_thresholding/py_thresholding.html#thresholding
-
-Notes:
-
-    Threshold first argument, image, should be gray scale. Second argument is the threshold value which is used to classify the pixel values.
-    The third argument is the max value which represents the value to be given if the pixel value is more than (sometimes less than) the threshold value.
-    The fourth argument are the different styles of thresholding: cvs.THRESH_BINARY, cvs.THRESH_BINARY_INV, cvs.THRESH_THRUNC, cvs.THRESH_TOZERO, and cvs.THRESH_TOZERO_INV
-
-    OTSU thresholding images should be in grayscale!
-
-    All thresholding functions return a tuple, tuple[0] is the retVal, and tuple[1] is the thresholded image. 
-    The thresholding functions without otsu thresholding will return the thresh argument as retVal. Therefore the tuple is indexed to 
-    just return the thresholded image.
-"""
 
 def threshold_binary(img, thresh, max_thresh):
     """
