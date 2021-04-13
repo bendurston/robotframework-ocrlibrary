@@ -1,4 +1,4 @@
-name: unittest
+name: Build
 
 # Run this workflow every time a new commit pushed to your repository
 on: push
@@ -6,7 +6,7 @@ on: push
 jobs:
   # Set the job key. The key is displayed as the job name
   # when a job name is not provided
-  unittest:
+  Build:
     # Name the Job
     name: Execute unit tests
     # Set the type of machine to run on
