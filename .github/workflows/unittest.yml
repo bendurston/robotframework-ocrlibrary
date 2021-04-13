@@ -1,4 +1,4 @@
-name: linter
+name: unittest
 
 # Run this workflow every time a new commit pushed to your repository
 on: push
@@ -6,9 +6,9 @@ on: push
 jobs:
   # Set the job key. The key is displayed as the job name
   # when a job name is not provided
-  linter:
+  unittest:
     # Name the Job
-    name: Lint code base
+    name: Execute unit tests
     # Set the type of machine to run on
     runs-on: ubuntu-latest
 
@@ -19,14 +19,14 @@ jobs:
       # Installs requirements
       - name: Install Requirements
         run: |
+          apt-get install tesseract-ocr
           python -m pip install --upgrade pip
-          pip install pylint
           pip install cv2
           pip install pytesseract
-      # Runs Pylint
-      - name: Run Pylint
+      # Runs unit tests
+      - name: Run Unit Tests
         run: |
-          pylint --exit-zero OCRLibrary/
+          python -m unittest discover tests/
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
