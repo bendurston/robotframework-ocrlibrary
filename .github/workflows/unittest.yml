@@ -21,7 +21,7 @@ jobs:
         run: |
           sudo apt-get install tesseract-ocr
           python -m pip install --upgrade pip
-          pip install cv2
+          pip install opencv-python
           pip install pytesseract
       # Runs unit tests
       - name: Run Unit Tests
