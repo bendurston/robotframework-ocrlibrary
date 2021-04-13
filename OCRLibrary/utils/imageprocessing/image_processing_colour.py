@@ -9,4 +9,3 @@ High level implementations of functions within image transformation
 
 ## TODO: Add changing colour space functions
 
-# Add function to just read an image. (Assumes its in colour)

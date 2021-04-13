@@ -27,14 +27,15 @@ from OCRLibrary.utils.exceptions.exception_handler \
 def Validate_Image_Content(processed_img, expected_content, pyt_conf='--psm 6', lang='eng'):
     """
     Purpose:
-        Confirm that an image contains the expected content
-
+        Confirm that an image contains the expected content.
     Args:
         processed_img - a read and processed image (result of any of the image processing keywords)
         expected_content - content to check for in the image
         index - the occurance of the actual text (e.g. index=1 will check if there expected content is in the second occurance).
         pyt_conf - pytesseract configuration (see README.md) defaulted to --psm 6
         lang - the language used in the image defaulted to english
+    Returns:
+        Returns True if content is found.
     """
     verify_valid_image(processed_img)
     actual_content = return_image_content(processed_img, pyt_conf, lang)
@@ -44,33 +45,74 @@ def Validate_Image_Content(processed_img, expected_content, pyt_conf='--psm 6', 
 #### Content Location Keywords - Start ####
 def Locate_Text_Coordinates(processed_img, text, pyt_conf='--psm 6', lang='eng'):
     """
+    Purpose:
+        Locates the coordinates of the provided text. This keyword gets the first occurrance of the text.
+        Use Locate Multiple Text Coordinates if there is more than one occurrance of the text.
+    Args:
+        processed_img - the processed image.
+        text - the text to locate.
+        pyt_conf - the pytesseract image reading configuration.
+        lang - the language of the text being read.
+    Returns:
+        The coordinates found, stored in a tuple (x, y). If nothing is found, None is returned.
     """
-    # TODO Check if tuple or list should be returned for access in robotframework
-    # TODO Throw error if return is None
     verify_valid_image(processed_img)
     coordinates = return_text_coordinates(processed_img, text, pyt_conf, lang)
     return coordinates
 
 def Locate_Multiple_Text_Coordinates(processed_img, text, pyt_conf='--psm 6', lang='eng'):
     """
+    Purpose:
+        Locates the coordiantes of more than one instance of the provided text. This keyword can also be used if there is one occurrance.
+    Args:
+        processed_img - the processed image.
+        text - the text to locate.
+        pyt_conf - the pytesseract image reading configuration.
+        lang - the language of the text being read.
+    Returns:
+        A list of coordinates found, each index stores a tuple (x, y). If nothing is found, None is returned.
     """
-    # TODO Throw error if return is empty
     verify_valid_image(processed_img)
     multiple_coordinates = return_multiple_text_coordinates(processed_img, text, pyt_conf, lang)
     return multiple_coordinates
 
 def Locate_Text_Bounds(processed_img, text, pyt_conf='--psm 6', lang='eng'):
     """
+    Purpose:
+        Locates the bounds found around the provided text. This keyword gets the first occurrance of the text.
+        Use Locate Multiple Text bounds if there is more than one occurrance of the text.
+    Args:
+        processed_img - the processed image.
+        text - the text to locate.
+        pyt_conf - the pytesseract image reading configuration.
+        lang - the language of the text being read.
+    Returns:
+        A tuple of the bounds is returned. Returns None if nothing is found.
+            Tuple[0] - x (the x value of the bound furthest to the left)
+            Tuple[1] - y (the y value of the bound on the top)
+            Tuple[2] - w (the width of the bound)
+            Tuple[3] - h (the height of the bound)
     """
-    # TODO Throw error if return is None
     verify_valid_image(processed_img)
     bounds = return_text_bounds(processed_img, text, pyt_conf, lang)
     return bounds
 
 def Locate_Multiple_Text_Bounds(processed_img, text, pyt_conf='--psm 6', lang='eng'):
     """
+    Purpose:
+        Locates the bounds found around more than one instance of the provided text. This keyword can also be used if there is one occurrance.
+    Args:
+        processed_img - the processed image.
+        text - the text to locate.
+        pyt_conf - the pytesseract image reading configuration.
+        lang - the language of the text being read.
+    Returns:
+        A list of tuples containing the bounds are returned if the text is found. Returns None if nothing is found.
+            Tuple[0] - x (the x value of the bound furthest to the left)
+            Tuple[1] - y (the y value of the bound on the top)
+            Tuple[2] - w (the width of the bound)
+            Tuple[3] - h (the height of the bound)
     """
-    # TODO Throw error if return is empty
     verify_valid_image(processed_img)
     multiple_bounds = return_multiple_text_bounds(processed_img, text, pyt_conf, lang)
     return multiple_bounds
@@ -105,10 +147,8 @@ def Get_Binary_Image(img_path, apply_otsu=False, inverse=False, max_threshold=25
         A binary image.
     """
     if apply_otsu:
-        # TODO check for valid threshold values for otsu.
         processed_image = process_to_binary_otsu_image(img_path, inverse, max_threshold)
     else:
-        # TODO check for valid threshold values.
         processed_image = process_to_binary_image(img_path, inverse, threshold, max_threshold)
     return processed_image
 
@@ -131,10 +171,8 @@ def Get_To_Zero_Image(img_path, apply_otsu=False, inverse=False, max_threshold=2
         A tozero image.
     """
     if apply_otsu:
-        # TODO check for valid threshold values for otsu.
         processed_image = process_to_tozero_otsu_image(img_path, inverse, max_threshold)
     else:
-        # TODO check for valid threshold values.
         processed_image = process_to_tozero_image(img_path, inverse, threshold, max_threshold)
     return processed_image
 
@@ -154,10 +192,8 @@ def Get_Trunc_Image(img_path, apply_otsu=False, max_threshold=255, threshold=127
         A trunc image.
     """
     if apply_otsu:
-        # TODO check for valid threshold values for otsu.
         processed_image = process_to_trunc_otsu_image(img_path, max_threshold)
     else:
-        # TODO check for valid threshold values.
         processed_image = process_to_trunc_image(img_path, threshold, max_threshold)
     return processed_image
 # Binary images transformations - start
@@ -320,7 +356,7 @@ def Apply_Black_Hat_To_Image(img, kernel_size, kernel_type=0):
         raise_invalid_kernel_type(kernel_type)
     return processed_image
 # Binary images transformations - end
-
+# TODO Colour image processing
 # Generic image (any colour) transformations - start
 def Apply_Filter2D_To_Image(img, kernel_size, kernel_type=0, depth=-1):
     """
@@ -335,7 +371,6 @@ def Apply_Filter2D_To_Image(img, kernel_size, kernel_type=0, depth=-1):
     Returns:
         Image with filter2D filtering applied.
     """
-    # TODO verify valid depth?
     verify_valid_kernel_size(kernel_size)
     if kernel_type == 0:
         processed_image = process_image_filtering_with_rect_kernel(img, kernel_size, depth)
@@ -406,6 +441,16 @@ def Apply_Gaussian_Blur_To_Image(img, kernel_size, kernel_type=0):
 # Generic image (any colour) transformations - end
 
 #### Image Processing Keywords - End
+def Read_Image(img_path):
+    """
+    Purpose:
+        Reads image as is using opencv.
+    Args:
+        img_path - the path to the image.
+    Returns:
+        The read image
+    """
+    return cv2.imread(img_path)
 
 def Save_Image(path, img):
     """

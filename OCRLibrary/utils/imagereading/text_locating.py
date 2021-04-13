@@ -34,6 +34,8 @@ def return_multiple_text_coordinates(img, text, pyt_conf, lang):
             y = box_bounds[1] + box_bounds[3]/2
             coordinates = (x, y)
             list_of_coordinates.append(coordinates)
+    if not list_of_coordinates:
+        return None
     return list_of_coordinates
 
 def return_text_bounds(img, text, pyt_conf, lang):
@@ -61,4 +63,6 @@ def return_multiple_text_bounds(img, text, pyt_conf, lang):
         if text_from_image == text:
             box_bounds = (int(data['left'][i]), int(data['top'][i]), int(data['width'][i]), int(data['height'][i]))
             list_of_box_bounds.append(box_bounds)
+    if not list_of_box_bounds:
+        return None
     return list_of_box_bounds
