@@ -1,7 +1,7 @@
 # Robot Framework OCR Library
 A robot framework library that is capable of processing images, validating text, and locating specified text by coordinates within images.
 
-[![Build](https://github.com/bendurston/robotframework-ocrlibrary/actions/workflows/unittest.yml/badge.svg?branch=main)](https://github.com/bendurston/robotframework-ocrlibrary/actions/workflows/unittest.yml)
+[![Build](https://github.com/bendurston/robotframework-ocrlibrary/actions/workflows/build.yml/badge.svg)](https://github.com/bendurston/robotframework-ocrlibrary/actions/workflows/build.yml)
 
 ## Custom configurations for reading images.
 You can add any combination of these configurations in a string to use as an argument `config=` in `pytesseract.image_to_string()`.
