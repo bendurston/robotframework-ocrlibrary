@@ -24,7 +24,7 @@ jobs:
       # Runs Pylint
       - name: Run Pylint
         run: |
-          pylint OCRLibrary/
+          pylint --exit-zero OCRLibrary/
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
