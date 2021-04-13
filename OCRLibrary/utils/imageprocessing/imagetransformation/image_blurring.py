@@ -1,33 +1,46 @@
+"""
+Image blurring module.
+"""
 import cv2
 
-"""
-Reference:  
-    https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_filtering/py_filtering.html#filtering
-"""
 def image_filtering(img, depth, kernel):
     """
     Purpose:
         Removes noise if filtered with a low-pass filter. Finds edges if filtered with a high-pass filter.
     Args:
-        img - provided read image (result of cv2.imread())
-        depth - 
-        kernel - 
+        img - provided read image (result of cv2.imread()).
+        depth - desired depth of the destination image.
+        kernel - correlation kernel.
+    Returns:
+        The filtered image.
     """
     return cv2.filter2D(img, depth, kernel)
 
 def blurring_averaging(img, kernel):
     """
     Purpose:
-    #TODO
+        Apply average filtering to image. Takes average of pixels under kernel and 
+        replaces the central element with the average.
+    Args:
+        img - provided read image (result of cv2.imread()).
+        kernel - correlation kernel.
+    Returns:
+        The filtered image.
     """
     return cv2.blur(img, kernel)
 
-def blurring_gaussian(img, kernel, other):
+def blurring_gaussian(img, kernel):
     """
-    #TODO
+    Purpose:
+        Apply gaussian blurring to image.
+        Border type is set to a constant 0.
+    Args:
+        img - provided read image (result of cv2.imread()).
+        kernel - correlation kernel.
+    Returns:
+        The filtered image.
     """
-    
-    return cv2.GaussianBlur(img, kernel, other)
+    return cv2.GaussianBlur(img, kernel, 0)
 
 def median_filtering(img, kernel_size):
     """
@@ -39,6 +52,4 @@ def median_filtering(img, kernel_size):
     Returns:
         The filtered image.
     """
-    # TODO if kernel_size is not 0, positive or odd, throw an error, else return
     return cv2.medianBlur(img, kernel_size)
-

@@ -1,6 +1,7 @@
 """
-Structuring Element
+Structuring element module.
 """
+import cv2
 
 def get_rect_kernel(kernel_size):
     """
@@ -34,4 +35,3 @@ def get_cross_kernel(kernel_size):
         2D array representing a rectangular kernel.
     """
     return cv2.getStructuringElement(cv2.MORPH_CROSS, kernel_size)
-

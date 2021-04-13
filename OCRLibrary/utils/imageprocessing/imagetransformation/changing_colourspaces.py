@@ -1,9 +1,8 @@
+"""
+Changing colourspaces module.
+"""
 import cv2
-
-"""
-Reference: 
-    https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_colorspaces/py_colorspaces.html#converting-colorspaces
-"""
+import numpy as np
 
 def convert_bgr_to_gray(img):
     """
@@ -51,7 +50,7 @@ def mask_double_colour_bgr(img, lower_bound_colour1, upper_bound_colour1, lower_
     Args:
         img - provided read BGR image (result of cv2.imread()).
         lower_bound_colour1 - the lower bound of the first colour to not mask in BGR format.
-        upper_bound_colour1 - the upper bound of the first colour to not mask in BGR format.        
+        upper_bound_colour1 - the upper bound of the first colour to not mask in BGR format.
         lower_bound_colour2 - the lower bound of the second colour to not mask in BGR format.
         upper_bound_colour2 - the upper bound of the second colour to not mask in BGR format.
     Returns:
@@ -64,7 +63,7 @@ def mask_double_colour_bgr(img, lower_bound_colour1, upper_bound_colour1, lower_
     mask1 = cv2.inRange(img, lower_bound_colour1, upper_bound_colour1)
     mask2 = cv2.inRange(img, lower_bound_colour2, upper_bound_colour2)
     mask = cv2.bitwise_or(mask1, mask2)
-    result = cv2.bitwise_and(img, img, mask= mask)
+    result = cv2.bitwise_and(img, img, mask=mask)
     return result
 
 def mask_single_colour_hsv(img_hsv, lower_bound_colour, upper_bound_colour):
@@ -81,7 +80,7 @@ def mask_single_colour_hsv(img_hsv, lower_bound_colour, upper_bound_colour):
     lower_bound_colour = np.array(lower_bound_colour)
     upper_bound_colour = np.array(upper_bound_colour)
     mask = cv2.inRange(img_hsv, lower_bound_colour, upper_bound_colour)
-    result = cv2.bitwise_and(img, img, mask= mask)
+    result = cv2.bitwise_and(img_hsv, img_hsv, mask=mask)
     return result
 
 def mask_double_colour_hsv(img_hsv, lower_bound_colour1, upper_bound_colour1, lower_bound_colour2, upper_bound_colour2):
@@ -91,7 +90,7 @@ def mask_double_colour_hsv(img_hsv, lower_bound_colour1, upper_bound_colour1, lo
     Args:
         img_hsv - provided read HSV image (result of cv2.imread()).
         lower_bound_colour1 - the lower bound of the first colour to not mask in HSV format.
-        upper_bound_colour1 - the upper bound of the first colour to not mask in HSV format.        
+        upper_bound_colour1 - the upper bound of the first colour to not mask in HSV format.
         lower_bound_colour2 - the lower bound of the second colour to not mask in HSV format.
         upper_bound_colour2 - the upper bound of the second colour to not mask in HSV format.
     Returns:
@@ -104,5 +103,6 @@ def mask_double_colour_hsv(img_hsv, lower_bound_colour1, upper_bound_colour1, lo
     mask1 = cv2.inRange(img_hsv, lower_bound_colour1, upper_bound_colour1)
     mask2 = cv2.inRange(img_hsv, lower_bound_colour2, upper_bound_colour2)
     mask = cv2.bitwise_or(mask1, mask2)
-    result = cv2.bitwise_and(img, img, mask= mask)
+    result = cv2.bitwise_and(img_hsv, img_hsv, mask= mask)
     return result
+    

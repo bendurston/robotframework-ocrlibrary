@@ -19,7 +19,7 @@ def morph_dilation(img, kernel, iteration=1):
     """
     Opposite of erosion. A pixel becomes a '1' if at least one pixel under the kernel is '1'.
     """
-    return cv2.dialte(img, kernel, iterations= iteration)
+    return cv2.dilate(img, kernel, iterations=iteration)
 
 def morph_opening(img, kernel):
     """

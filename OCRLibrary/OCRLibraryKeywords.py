@@ -4,6 +4,7 @@ Robot Framework Keywords
 import cv2
 from OCRLibrary.utils.imageprocessing.image_processing_gray import *
 from OCRLibrary.utils.imageprocessing.image_processing_colour import *
+from OCRLibrary.utils.imageprocessing.image_processing_generic import *
 from OCRLibrary.utils.imagereading.image_reading import *
 from OCRLibrary.utils.imagereading.text_locating import *
 
@@ -289,21 +290,98 @@ def Apply_Black_Hat_To_Image(img, kernel_size, kernel_type=0):
     """
     verify_valid_kernel_size(kernel_size)
     if kernel_type == 0:
-        return process_blackhat_with_rect_kernel(img, kernel_size)
+        processed_image = process_blackhat_with_rect_kernel(img, kernel_size)
     elif kernel_type == 1:
-        return process_blackhat_with_ellipse_kernel(img, kernel_size)
+        processed_image = process_blackhat_with_ellipse_kernel(img, kernel_size)
     elif kernel_type == 2:
-        return process_blackhat_with_cross_kernel(img, kernel_size)
+        processed_image = process_blackhat_with_cross_kernel(img, kernel_size)
     else:
         raise_invalid_kernel_type(kernel_type)
-
+    return processed_image
 # Binary images transformations - end
 
-
 # Generic image (any colour) transformations - start
+def Apply_Filter2D_To_Image(img, kernel_size, kernel_type=0, depth=-1):
+    """
+    Purpose:
+        Applies the filter2D filter to the image.
+    Args:
+        img - processed image.
+        kernel_size - size of the kernel
+        kernel_type - shape of kernel used. 0 = rectangle, 1 = ellipse, and 2 = cross.
+        depth - desired depth of the destination image.
+            when depth=-1, the output image will have the same depth as the source.
+    Returns:
+        Image with filter2D filtering applied.
+    """
+    # TODO verify valid depth?
+    verify_valid_kernel_size(kernel_size)
+    if kernel_type == 0:
+        processed_image = process_image_filtering_with_rect_kernel(img, kernel_size, depth)
+    elif kernel_type == 1:
+        processed_image = process_image_filtering_with_ellipse_kernel(img, kernel_size, depth)
+    elif kernel_type == 2:
+        processed_image = process_image_filtering_with_cross_kernel(img, kernel_size, depth)
+    else:
+        return raise_invalid_kernel_type(kernel_type)
+    return processed_image
 
-# image blurring
+def Apply_Median_Filtering_To_Image(img, kernel_size):
+    """
+    Purpose:
+        Applies the median filter to the image.
+    Args:
+        img - processed image.
+        kernel_size - size of the kernel
+    Returns:
+        Image with a median filter applied.
+    """
+    verify_valid_kernel_size(kernel_size)
+    return process_median_filtering(img, kernel_size)
 
+def Apply_Averaging_Blur_To_Image(img, kernel_size, kernel_type=0):
+    """
+    Purpose:
+        Applies the averaging blur to the image.
+    Args:
+        img - processed image.
+        kernel_size - size of the kernel
+        kernel_type - shape of kernel used. 0 = rectangle, 1 = ellipse, and 2 = cross.
+    Returns:
+        Image with an averaging blur applied.
+    """
+    verify_valid_kernel_size(kernel_size)
+    if kernel_type == 0:
+        processed_image = process_blurring_averaging_with_rect_kernel(img, kernel_size)
+    elif kernel_type == 1:
+        processed_image = process_blurring_averaging_with_ellipse_kernel(img, kernel_size)
+    elif kernel_type == 2:
+        processed_image = process_blurring_averaging_with_cross_kernel(img, kernel_size)
+    else:
+        return raise_invalid_kernel_type(kernel_type)
+    return processed_image
+
+def Apply_Gaussian_Blur_To_Image(img, kernel_size, kernel_type=0):
+    """
+    Purpose:
+        Applies the gaussian blur to the image.
+    Args:
+        img - processed image.
+        kernel_size - size of the kernel
+        kernel_type - shape of kernel used. 0 = rectangle, 1 = ellipse, and 2 = cross.
+    Returns:
+        Image with a gaussian blur applied.
+    """
+    verify_valid_kernel_size(kernel_size)
+    if kernel_type == 0:
+        processed_image = process_blurring_gaussian_with_rect_kernel(img, kernel_size)
+    elif kernel_type == 1:
+        processed_image = process_blurring_gaussian_with_ellipse_kernel(img, kernel_size)
+    elif kernel_type == 2:
+        processed_image = process_blurring_gaussian_with_cross_kernel(img, kernel_size)
+    else:
+        return raise_invalid_kernel_type(kernel_type)
+    return processed_image
 # Generic image (any colour) transformations - end
 
 #### Image Processing Keywords - End
@@ -315,6 +393,7 @@ def Save_Image(path, img):
     Args:
         path - the path the save the image at.
         img - the image being saved (is of type InputArray)
+    Returns:
+        bool - True if successful, false otherwise.
     """
-    cv2.imwrite(str(path), img)
-
+    return cv2.imwrite(str(path), img)

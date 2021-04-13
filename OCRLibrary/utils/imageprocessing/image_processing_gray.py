@@ -37,9 +37,9 @@ def process_to_binary_image(img_path, inverse=False, threshold=127, max_threshol
     img = cv2.imread(img_path)
     gray_img = convert_bgr_to_gray(img)
     if inverse:
-        binary_image = thresholding_binary_inv(gray_img, threshold, max_threshold)
+        binary_image = threshold_binary_inv(gray_img, threshold, max_threshold)
     else:
-        binary_image = thresholding_binary(gray_img, threshold, max_threshold)
+        binary_image = threshold_binary(gray_img, threshold, max_threshold)
     return binary_image
 
 def process_to_binary_otsu_image(img_path, inverse=False, max_threshold=255):
@@ -417,5 +417,4 @@ def process_blackhat_with_cross_kernel(img, kernel_size):
         Image with applied morphological transformation.
     """
     kernel = get_cross_kernel(kernel_size)
-    return morph_black_hat(img, kernel_size)
-
+    return morph_black_hat(img, kernel)
