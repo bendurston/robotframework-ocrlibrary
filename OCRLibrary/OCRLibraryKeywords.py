@@ -11,7 +11,8 @@ from OCRLibrary.utils.imageprocessing.image_processing_gray \
     process_closing_with_cross_kernel, process_gradient_with_rect_kernel, process_gradient_with_ellipse_kernel, process_gradient_with_cross_kernel,
     process_tophat_with_rect_kernel, process_tophat_with_ellipse_kernel, process_tophat_with_cross_kernel, process_blackhat_with_rect_kernel,
     process_blackhat_with_ellipse_kernel, process_blackhat_with_cross_kernel)
-# from OCRLibrary.utils.imageprocessing.image_processing_colour import *
+from OCRLibrary.utils.imageprocessing.image_processing_colour \
+    import (process_colour_image_to_hsv, mask_colour_bgr_or_hsv, mask_colours_bgr_or_hsv)
 from OCRLibrary.utils.imageprocessing.image_processing_generic \
     import (process_image_filtering_with_rect_kernel, process_image_filtering_with_ellipse_kernel, process_image_filtering_with_cross_kernel,
     process_blurring_averaging_with_rect_kernel, process_blurring_averaging_with_ellipse_kernel, process_blurring_averaging_with_cross_kernel,
@@ -21,7 +22,8 @@ from OCRLibrary.utils.imagereading.image_reading import return_image_content
 from OCRLibrary.utils.imagereading.text_locating \
     import (return_text_coordinates, return_multiple_text_coordinates, return_text_bounds, return_multiple_text_bounds)
 from OCRLibrary.utils.exceptions.exception_handler \
-    import (verify_content, verify_valid_kernel_size, raise_invalid_kernel_type, verify_valid_iteration, verify_valid_image)
+    import (verify_content, verify_valid_kernel_size, raise_invalid_kernel_type, verify_valid_iteration, verify_valid_image,
+    verify_valid_bgr_bounds, verify_valid_hsv_bounds)
 
 #### Content Validation Keywords - Start ####
 def Validate_Image_Content(processed_img, expected_content, pyt_conf='--psm 6', lang='eng'):
@@ -140,7 +142,7 @@ def Get_Binary_Image(img_path, apply_otsu=False, inverse=False, max_threshold=25
     Args:
         img_path - path to the image to process
         apply_otsu - boolean, apply otsu threshold to the image.
-        inverse - if true an inverted binary thresholding will be applied (optional). 
+        inverse - if true an inverted binary thresholding will be applied (optional).
         threshold - threshold value used to classify the pixel values (optional).
         max_threshold - the max value to be given if a pixels value is more than the threshold value (optional).
     Returns:
@@ -155,8 +157,8 @@ def Get_Binary_Image(img_path, apply_otsu=False, inverse=False, max_threshold=25
 def Get_To_Zero_Image(img_path, apply_otsu=False, inverse=False, max_threshold=255, threshold=127):
     """
     Purpose:
-        Process image to a tozero image. 
-        All values considered black (if no inverse) will be set to black, the rest of 
+        Process image to a tozero image.
+        All values considered black (if no inverse) will be set to black, the rest of
         the image will remain in gray scale. If inverse is true, the values considered to be white will be set to black,
         the rest of the image will remain in gray scale.
         If apply_otsu is true, a tuple will be returned. Index 0 contains the optimal threshold value found by
@@ -164,7 +166,7 @@ def Get_To_Zero_Image(img_path, apply_otsu=False, inverse=False, max_threshold=2
     Args:
         img_path - path to the image to process
         apply_otsu - boolean, apply otsu threshold to the image.
-        inverse - if true an inverted tozeo thresholding will be applied (optional). 
+        inverse - if true an inverted tozeo thresholding will be applied (optional).
         threshold - threshold value used to classify the pixel values (optional).
         max_threshold - the max value to be given if a pixels value is more than the threshold value (optional).
     Returns:
@@ -179,7 +181,7 @@ def Get_To_Zero_Image(img_path, apply_otsu=False, inverse=False, max_threshold=2
 def Get_Trunc_Image(img_path, apply_otsu=False, max_threshold=255, threshold=127):
     """
     Purpose:
-        Process an image to gray scale and apply truncation threshold (values considered to be white will be set to white, the 
+        Process an image to gray scale and apply truncation threshold (values considered to be white will be set to white, the
         rest of the image will remain gray scale).
         If apply_otsu is true, a tuple will be returned. Index 0 contains the optimal threshold value found by
         the ostu threshold, and index 1 has the tozero image.
@@ -196,6 +198,59 @@ def Get_Trunc_Image(img_path, apply_otsu=False, max_threshold=255, threshold=127
     else:
         processed_image = process_to_trunc_image(img_path, threshold, max_threshold)
     return processed_image
+
+def Convert_Image_To_HSV(processed_img):
+    """
+    Purpose:
+        Converts any image read as bgr into hsv colour scheme.
+    Args:
+        processed_img - the processed image in bgr.
+    """
+    verify_valid_image(processed_img)
+    return process_colour_image_to_hsv(processed_img)
+
+def Mask_Colour(processed_img, lower_bound_colour, upper_bound_colour, colour_type=0):
+    """
+    Purpose:
+        Mask any colour in an image that is not within the provided bound (exclude one colour bound). Note if the image is BGR the bounds
+        must be ints 0 to 255. If the image is HSV the bounds must be a 3 element tuple containing ints 0 to 255.
+    Args:
+        processed_img - the processed image.
+        lower_bound_colour - the lower bound of the colour to exclude from the mask.
+        upper_bound_colour - the upper bound of the colour to exclude from the mask.
+        colour_type - 0 if the processed image is in BGR, 1 if the processed image is in HSV.
+    Returns:
+        The image with the colours masked.
+    """
+    verify_valid_image(processed_img)
+    if colour_type == 0:
+        verify_valid_bgr_bounds(lower_bound_colour, upper_bound_colour)
+    elif colour_type == 1:
+        verify_valid_hsv_bounds(lower_bound_colour, upper_bound_colour)
+    return mask_colour_bgr_or_hsv(processed_img, lower_bound_colour, upper_bound_colour)
+
+def Mask_Colours(processed_img, lower_bound_colour1, upper_bound_colour1, lower_bound_colour2, upper_bound_colour2, colour_type=0):
+    """
+    Purpose:
+        Mask any colour in an image that is not within the provided bounds (exclude two colour bounds). Note if the image is BGR the bounds
+        must be ints 0 to 255. If the image is HSV the bounds must be a 3 element tuple containing ints 0 to 255.
+    Args:
+        processed_img - the processed image.
+        lower_bound_colour1 - the lower bound of the first colour to exclude from the mask.
+        upper_bound_colour1 - the upper bound of the first colour to exclude from the mask.
+        lower_bound_colour2 - the lower bound of the second colour to exclude from the mask.
+        upper_bound_colour2 - the upper bound of the second colour to exclude from the mask.
+        colour_type - 0 if the processed image is in BGR, 1 if the processed image is in HSV.
+    Returns:
+        The image with the colours masked.
+    """
+    verify_valid_image(processed_img)
+    if colour_type == 0:
+        verify_valid_bgr_bounds(lower_bound_colour1, upper_bound_colour1, lower_bound_colour2, upper_bound_colour2)
+    elif colour_type == 1:
+        verify_valid_hsv_bounds(lower_bound_colour1, upper_bound_colour1, lower_bound_colour2, upper_bound_colour2)
+    return mask_colours_bgr_or_hsv(processed_img, lower_bound_colour1, upper_bound_colour1, lower_bound_colour2, upper_bound_colour2)
+
 # Binary images transformations - start
 
 def Apply_Erosion_To_Image(img, kernel_size, kernel_type=0, iteration=1):
@@ -243,7 +298,7 @@ def Apply_Dilation_To_Image(img, kernel_size, kernel_type=0, iteration=1):
     elif kernel_type == 2:
         processed_image = process_dilation_with_cross_kernel(img, kernel_size, iteration)
     else:
-        return raise_invalid_kernel_type(kernel_type)    
+        return raise_invalid_kernel_type(kernel_type)
     return processed_image
 
 def Apply_Opening_To_Image(img, kernel_size, kernel_type=0):
@@ -356,7 +411,6 @@ def Apply_Black_Hat_To_Image(img, kernel_size, kernel_type=0):
         raise_invalid_kernel_type(kernel_type)
     return processed_image
 # Binary images transformations - end
-# TODO Colour image processing
 # Generic image (any colour) transformations - start
 def Apply_Filter2D_To_Image(img, kernel_size, kernel_type=0, depth=-1):
     """
