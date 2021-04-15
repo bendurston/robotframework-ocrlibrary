@@ -2,9 +2,10 @@
 Exception handler module.
 """
 import numpy
+import cv2
 from OCRLibrary.utils.exceptions.exceptions \
     import (InvalidKernelSize, InvalidKernelType, InvalidIteration, ContentNotFound, InvalidImageArgument,
-    InvalidBGRBoundArguments, InvalidHSVBoundArguments)
+    InvalidBGRBoundArguments, InvalidHSVBoundArguments, InvalidImagePath, InvalidThresholdValue)
 
 def verify_content(expected_content, actual_content):
     """
@@ -78,3 +79,28 @@ def verify_valid_hsv_bounds(*arg):
                     that are ints between 0 and 255.")
         raise InvalidHSVBoundArguments("The HSV bounds provided are invalid. Please provide an int between 0 and 255.")
     return True
+
+def verify_valid_image_path(filename, read=True):
+    """
+    Function verifies if the given image can be encoded/decoded by OpenCV.
+    If read is true, function checks if image can be decoded (imread()) Otherwise the
+    function checks if the image can be encoded (imwrite()).
+    """
+    if read:
+        if cv2.haveImageReader(filename):
+            return True
+        raise InvalidImagePath("The image path provided is invalid. Please insure the path is correct \
+            or the file format is supported.")
+    if cv2.haveImageWriter(filename):
+        return True
+    raise InvalidImagePath("The provided filename cannot be encoded by OpenCV. Please \
+        insure your desired file format is supported.")
+
+def verify_valid_threshold_values(threshold, max_threshold):
+    """
+    Function verifies if the given threshold values are valid. Threshold values must be an int or a float.
+    """
+    if (isinstance(threshold, (int, float)) and isinstance(max_threshold, (int, float))):
+        return True
+    raise InvalidThresholdValue(f"Either threshold value {threshold} or {max_threshold} are invalid.\
+         Please insure the thresholds are either of type int or float.")

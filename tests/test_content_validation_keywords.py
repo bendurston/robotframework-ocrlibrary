@@ -18,7 +18,7 @@ class TestContentValidation(unittest.TestCase):
         self.processed_image = cv2.imread('tests/images/validate_image_content_test1.png')
         self.correct_expected_content = "This is a test of test case 1 for validating image content"
         self.incorrect_expected_content = "Some content that is not in the image."
-     
+
     def tearDown(self):
         """
         Test fixture tear down.

@@ -76,3 +76,23 @@ class InvalidHSVBoundArguments(Error):
     """
     def __init__(self, message):
         self.message = message
+
+class InvalidImagePath(Error):
+    """
+    Purpose:
+        Exception is raised when OpenCV is unable to decode the provided image.
+    Attributes:
+        message - explanation of the error.
+    """
+    def __init__(self, message):
+        self.message = message
+
+class InvalidThresholdValue(Error):
+    """
+    Purpose:
+        Exception is raised when invalid threshold values are supplied.
+    Attributes:
+        message - explanation of the error.
+    """
+    def __init__(self, message):
+        self.message = message

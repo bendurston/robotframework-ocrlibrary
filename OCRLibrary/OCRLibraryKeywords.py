@@ -23,7 +23,7 @@ from OCRLibrary.utils.imagereading.text_locating \
     import (return_text_coordinates, return_multiple_text_coordinates, return_text_bounds, return_multiple_text_bounds)
 from OCRLibrary.utils.exceptions.exception_handler \
     import (verify_content, verify_valid_kernel_size, raise_invalid_kernel_type, verify_valid_iteration, verify_valid_image,
-    verify_valid_bgr_bounds, verify_valid_hsv_bounds)
+    verify_valid_bgr_bounds, verify_valid_hsv_bounds, verify_valid_image_path, verify_valid_threshold_values)
 
 #### Content Validation Keywords - Start ####
 def Validate_Image_Content(processed_img, expected_content, pyt_conf='--psm 6', lang='eng'):
@@ -43,7 +43,7 @@ def Validate_Image_Content(processed_img, expected_content, pyt_conf='--psm 6', 
     actual_content = return_image_content(processed_img, pyt_conf, lang)
     return verify_content(expected_content, actual_content)
 #### Content Validation Keywords - End ####
-
+## TEXT LOCATING Keywords only work for single words. rename keywords to Locate_Word_.....
 #### Content Location Keywords - Start ####
 def Locate_Text_Coordinates(processed_img, text, pyt_conf='--psm 6', lang='eng'):
     """
@@ -131,6 +131,7 @@ def Get_Gray_Scale_Image(img_path):
     Returns:
         A read image in gray scale.
     """
+    verify_valid_image_path(img_path)
     return process_to_gray_scale(img_path)
 
 def Get_Binary_Image(img_path, apply_otsu=False, inverse=False, max_threshold=255, threshold=127):
@@ -146,8 +147,11 @@ def Get_Binary_Image(img_path, apply_otsu=False, inverse=False, max_threshold=25
         threshold - threshold value used to classify the pixel values (optional).
         max_threshold - the max value to be given if a pixels value is more than the threshold value (optional).
     Returns:
-        A binary image.
+        A binary image. If applying otsu, a tuple will be returned. For otsu tuple[0] is the optimal threshold value,
+        tuple[1] is the binary image.
     """
+    verify_valid_image_path(img_path)
+    verify_valid_threshold_values(threshold, max_threshold)
     if apply_otsu:
         processed_image = process_to_binary_otsu_image(img_path, inverse, max_threshold)
     else:
@@ -170,8 +174,11 @@ def Get_To_Zero_Image(img_path, apply_otsu=False, inverse=False, max_threshold=2
         threshold - threshold value used to classify the pixel values (optional).
         max_threshold - the max value to be given if a pixels value is more than the threshold value (optional).
     Returns:
-        A tozero image.
+        A tozero image. If applying otsu, a tuple will be returned. For otsu tuple[0] is the optimal threshold value,
+        tuple[1] is the tozero image.
     """
+    verify_valid_image_path(img_path)
+    verify_valid_threshold_values(threshold, max_threshold)
     if apply_otsu:
         processed_image = process_to_tozero_otsu_image(img_path, inverse, max_threshold)
     else:
@@ -191,8 +198,11 @@ def Get_Trunc_Image(img_path, apply_otsu=False, max_threshold=255, threshold=127
         threshold - threshold value used to classify the pixel values (optional).
         max_threshold - the max value to be given if a pixels value is more than the threshold value (optional).
     Returns:
-        A trunc image.
+        A trunc image. If applying otsu, a tuple will be returned. For otsu tuple[0] is the optimal threshold value,
+        tuple[1] is the trunc image.
     """
+    verify_valid_image_path(img_path)
+    verify_valid_threshold_values(threshold, max_threshold)
     if apply_otsu:
         processed_image = process_to_trunc_otsu_image(img_path, max_threshold)
     else:

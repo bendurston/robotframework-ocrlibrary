@@ -5,7 +5,7 @@ Module for Content Location tests.
 import unittest
 import cv2
 from OCRLibrary.OCRLibraryKeywords import Locate_Text_Coordinates, Locate_Multiple_Text_Coordinates, Locate_Text_Bounds, Locate_Multiple_Text_Bounds
-from OCRLibrary.utils.exceptions.exceptions import InvalidImageArgument, ContentNotFound
+from OCRLibrary.utils.exceptions.exceptions import InvalidImageArgument
 
 class TestContentLocation(unittest.TestCase):
     """
@@ -46,7 +46,27 @@ class TestContentLocation(unittest.TestCase):
         """
         Text was not found error
         """
+        self.assertEqual(None, Locate_Text_Coordinates(self.processed_image, "Invalid Text"))
+
+    def test_01_locate_multiple_text_coordinates(self):
+        """
+        End to end flow of Locate Multiple Text Coordinates function. All arguments are correct.
+        """
+        ## TODO Get image with multiple of the same words.
         pass
+
+    def test_02_locate_multiple_text_coordinates(self):
+        """
+        Pass in incorrect image
+        """
+        with self.assertRaises(InvalidImageArgument):
+            Locate_Multiple_Text_Coordinates(None, self.text)
+
+    def test_03_locate_multiple_text_coordinates(self):
+        """
+        Text was not found error
+        """
+        self.assertEqual(None, Locate_Multiple_Text_Coordinates(self.processed_image, "Invalid Text"))
 
     def test_01_locate_text_bounds(self):
         """
@@ -73,4 +93,24 @@ class TestContentLocation(unittest.TestCase):
         """
         Text was not found error
         """
+        self.assertEqual(None, Locate_Text_Bounds(self.processed_image, "Invalid"))
+
+    def test_01_locate_multiple_text_bounds(self):
+        """
+        End to end flow of Locate_Text_Bounds function. All correct arguments.
+        """
+        ## TODO Get image with multiple of the same words.
         pass
+
+    def test_02_locate_multiple_text_bounds(self):
+        """
+        Pass in incorrect iamge
+        """
+        with self.assertRaises(InvalidImageArgument):
+            Locate_Multiple_Text_Bounds(None, self.text)
+
+    def test_03_locate_multiple_text_bounds(self):
+        """
+        Text was not found error
+        """
+        self.assertEqual(None, Locate_Multiple_Text_Bounds(self.processed_image, "Invalid"))
