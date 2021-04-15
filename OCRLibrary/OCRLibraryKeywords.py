@@ -514,6 +514,7 @@ def Read_Image(img_path):
     Returns:
         The read image
     """
+    verify_valid_image_path(img_path)
     return cv2.imread(img_path)
 
 def Save_Image(path, img):
@@ -526,4 +527,5 @@ def Save_Image(path, img):
     Returns:
         bool - True if successful, false otherwise.
     """
+    verify_valid_image_path(path, False)
     return cv2.imwrite(str(path), img)

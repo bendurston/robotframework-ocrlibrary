@@ -16,7 +16,9 @@ class TestContentLocation(unittest.TestCase):
         Test fixture set up.
         """
         self.processed_image = cv2.imread('tests/images/locate_text_coordinates1.png')
+        self.processed_image_multi = cv2.imread('tests/images/locate_text_coordinates2.png')
         self.text = "Ok"
+        self.text_multi = "Hello"
 
     def tearDown(self):
         """
@@ -52,8 +54,13 @@ class TestContentLocation(unittest.TestCase):
         """
         End to end flow of Locate Multiple Text Coordinates function. All arguments are correct.
         """
-        ## TODO Get image with multiple of the same words.
-        pass
+        expected_x = [380, 1380]
+        expected_y = [335, 1335]
+        result = Locate_Multiple_Text_Coordinates(self.processed_image_multi, self.text_multi)
+        num_of_results = len(result) - 1
+        for i in range(0, num_of_results):
+            self.assertAlmostEqual(result[i][0], expected_x[i], delta=5)
+            self.assertAlmostEqual(result[i][1], expected_y[i], delta=5)
 
     def test_02_locate_multiple_text_coordinates(self):
         """
@@ -99,8 +106,17 @@ class TestContentLocation(unittest.TestCase):
         """
         End to end flow of Locate_Text_Bounds function. All correct arguments.
         """
-        ## TODO Get image with multiple of the same words.
-        pass
+        expected_x = [305, 1305]
+        expected_y = [305, 710]
+        expected_w = [150, 145]
+        expected_h = [60, 45]
+        result = Locate_Multiple_Text_Bounds(self.processed_image_multi, self.text_multi)
+        num_of_results = len(result) - 1
+        for i in range(0, num_of_results):
+            self.assertAlmostEqual(result[i][0], expected_x[i], delta=5)
+            self.assertAlmostEqual(result[i][1], expected_y[i], delta=5)
+            self.assertAlmostEqual(result[i][2], expected_w[i], delta=5)
+            self.assertAlmostEqual(result[i][3], expected_h[i], delta=5)
 
     def test_02_locate_multiple_text_bounds(self):
         """
