@@ -7,8 +7,10 @@ import unittest
 import cv2
 import numpy
 from OCRLibrary.OCRLibraryKeywords \
-    import (Get_Gray_Scale_Image, Get_Binary_Image, Get_To_Zero_Image, Get_Trunc_Image)
-from OCRLibrary.utils.exceptions.exceptions import InvalidImagePath, InvalidThresholdValue
+    import (Get_Gray_Scale_Image, Get_Binary_Image, Get_To_Zero_Image, Get_Trunc_Image,
+    Read_Image, Save_Image, Convert_Image_To_HSV, Mask_Colour, Mask_Colours)
+from OCRLibrary.utils.exceptions.exceptions \
+    import (InvalidImagePath, InvalidThresholdValue, InvalidImageArgument)
 
 class TestBinaryImageProcessing(unittest.TestCase):
     """
@@ -153,13 +155,57 @@ class TestBinaryImageProcessing(unittest.TestCase):
 #     def tearDown(self):
 #         pass
 
-# class TestColourImageTransformation(unittest.TestCase):
-#     """
-#     TestColourImageTransformation class
-#     """
-#     def setUp(self):
-#         pass
+class TestColourImageTransformation(unittest.TestCase):
+    """
+    TestColourImageTransformation class
+    """
+    def setUp(self):
+        self.processed_image = cv2.imread('tests/images/locate_text_coordinates1.png')
+        self.invalid_image = 'path/to/invalid/image.png'
 
-#     def tearDown(self):
-#         pass
-    
+    def tearDown(self):
+        del self.processed_image
+        del self.invalid_image
+
+    def test_01_convert_image_to_hsv(self):
+        """
+        End to end flow of Convert Image To HSV keyword.
+        """
+        hsv_image = Convert_Image_To_HSV(self.processed_image)
+        self.assertTrue(isinstance(hsv_image, numpy.ndarray))
+
+    def test_02_convert_image_to_hsv(self):
+        """
+        Invalid image argument raised InvalidImageArgument
+        """
+        with self.assertRaises(InvalidImageArgument):
+            Convert_Image_To_HSV(self.invalid_image)
+
+
+class TestBasicImageKeywords(unittest.TestCase):
+    """
+    TestBasicImageKeywords class
+    """
+    def setUp(self):
+        self.invalid_image_path = 'invalid/path/to/image.png'
+        self.invalid_path_to_image_dir = 'invalid/path/to/image/dir'
+        self.img_name = 'test_image.png'
+
+    def tearDown(self):
+        del self.invalid_image_path
+        del self.invalid_path_to_image_dir
+        del self.img_name
+
+    def test_01_read_image(self):
+        """
+        Invalid image path to raise InvalidImagePath
+        """
+        with self.assertRaises(InvalidImagePath):
+            Read_Image(self.invalid_image_path)
+
+    def test_01_save_image(self):
+        """
+        Invalid image path to raise InvalidImagePath
+        """
+        with self.assertRaises(InvalidImagePath):
+            Save_Image(self.invalid_path_to_image_dir, self.img_name)
