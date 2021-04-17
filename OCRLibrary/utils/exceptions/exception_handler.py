@@ -5,7 +5,7 @@ import numpy
 import cv2
 from OCRLibrary.utils.exceptions.exceptions \
     import (InvalidKernelSize, InvalidKernelType, InvalidIteration, ContentNotFound, InvalidImageArgument,
-    InvalidBGRBoundArguments, InvalidHSVBoundArguments, InvalidImagePath, InvalidThresholdValue)
+    InvalidBGRBoundArguments, InvalidHSVBoundArguments, InvalidImagePath, InvalidThresholdValue, InvalidDepthArgument)
 
 def verify_content(expected_content, actual_content):
     """
@@ -25,7 +25,17 @@ def verify_valid_kernel_size(kernel_size):
         if (kernel_size[0] > 0 and isinstance(kernel_size[0], int)):
             if (kernel_size[1] > 0 and isinstance(kernel_size[1], int)):
                 return True
-    raise InvalidKernelSize("The kernel size argument provided is invalid. Please provide a size that is a positive odd number.")
+    raise InvalidKernelSize("The kernel size argument provided is invalid. Please provide a size that is a positive odd number of type tuple.")
+
+def verify_valid_kernel_size_non_tuple(kernel_size):
+    """
+    Function verifies if the given kernel size is valid.
+    Kernel size must be a an int that is greater than zero and is odd.
+    """
+    if isinstance(kernel_size, int):
+        if kernel_size > 0 and kernel_size % 2 == 1:
+            return True
+    raise InvalidKernelSize("The kernel size argument provided is invalid. Please provide a size that is a positive odd number of type int.")
 
 def raise_invalid_kernel_type(kernel_type):
     """
@@ -108,3 +118,11 @@ def verify_valid_threshold_values(threshold, max_threshold):
         return True
     raise InvalidThresholdValue(f"Either threshold value {threshold} or {max_threshold} are invalid.\
          Please insure the thresholds are either of type int or float.")
+
+def verify_valid_depth(depth):
+    """
+    Function verifies if the given depth if valid. Must be a negative int.
+    """
+    if (isinstance(depth, int) and depth < 0):
+        return True
+    raise InvalidDepthArgument("The depth value provided is invalid. Please provide a negative integer.")

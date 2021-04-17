@@ -96,3 +96,13 @@ class InvalidThresholdValue(Error):
     """
     def __init__(self, message):
         self.message = message
+
+class InvalidDepthArgument(Error):
+    """
+    Purpose:
+        Exception is raised when invalid depth values are supplied.
+    Attributes:
+        message - explanation of the error.
+    """
+    def __init__(self, message):
+        self.message = message

@@ -15,15 +15,13 @@ from OCRLibrary.utils.imageprocessing.image_processing_colour \
     import (process_colour_image_to_hsv, mask_colour_bgr_or_hsv, mask_colours_bgr_or_hsv)
 from OCRLibrary.utils.imageprocessing.image_processing_generic \
     import (process_image_filtering_with_rect_kernel, process_image_filtering_with_ellipse_kernel, process_image_filtering_with_cross_kernel,
-    process_blurring_averaging_with_rect_kernel, process_blurring_averaging_with_ellipse_kernel, process_blurring_averaging_with_cross_kernel,
-    process_blurring_gaussian_with_rect_kernel, process_blurring_gaussian_with_ellipse_kernel, process_blurring_gaussian_with_cross_kernel,
-    process_median_filtering)
+    process_blurring_averaging, process_blurring_gaussian, process_median_filtering)
 from OCRLibrary.utils.imagereading.image_reading import return_image_content
 from OCRLibrary.utils.imagereading.text_locating \
     import (return_text_coordinates, return_multiple_text_coordinates, return_text_bounds, return_multiple_text_bounds)
 from OCRLibrary.utils.exceptions.exception_handler \
-    import (verify_content, verify_valid_kernel_size, raise_invalid_kernel_type, verify_valid_iteration, verify_valid_image,
-    verify_valid_bgr_bounds, verify_valid_hsv_bounds, verify_valid_image_path, verify_valid_threshold_values)
+    import (verify_content, verify_valid_kernel_size, verify_valid_kernel_size_non_tuple, raise_invalid_kernel_type, verify_valid_iteration,
+    verify_valid_image, verify_valid_bgr_bounds, verify_valid_hsv_bounds, verify_valid_image_path, verify_valid_threshold_values, verify_valid_depth)
 
 #### Content Validation Keywords - Start ####
 def Validate_Image_Content(processed_img, expected_content, pyt_conf='--psm 6', lang='eng'):
@@ -448,6 +446,7 @@ def Apply_Filter2D_To_Image(img, kernel_size, kernel_type=0, depth=-1):
         Image with filter2D filtering applied.
     """
     verify_valid_kernel_size(kernel_size)
+    verify_valid_depth(depth)
     if kernel_type == 0:
         processed_image = process_image_filtering_with_rect_kernel(img, kernel_size, depth)
     elif kernel_type == 1:
@@ -464,56 +463,39 @@ def Apply_Median_Filtering_To_Image(img, kernel_size):
         Applies the median filter to the image.
     Args:
         img - processed image.
-        kernel_size - size of the kernel
+        kernel_size - size of the kernel (int that is odd and greater than 0)
     Returns:
         Image with a median filter applied.
     """
-    verify_valid_kernel_size(kernel_size)
+    verify_valid_kernel_size_non_tuple(kernel_size)
     return process_median_filtering(img, kernel_size)
 
-def Apply_Averaging_Blur_To_Image(img, kernel_size, kernel_type=0):
+def Apply_Averaging_Blur_To_Image(img, kernel_size):
     """
     Purpose:
         Applies the averaging blur to the image.
     Args:
         img - processed image.
         kernel_size - size of the kernel
-        kernel_type - shape of kernel used. 0 = rectangle, 1 = ellipse, and 2 = cross.
     Returns:
         Image with an averaging blur applied.
     """
     verify_valid_kernel_size(kernel_size)
-    if kernel_type == 0:
-        processed_image = process_blurring_averaging_with_rect_kernel(img, kernel_size)
-    elif kernel_type == 1:
-        processed_image = process_blurring_averaging_with_ellipse_kernel(img, kernel_size)
-    elif kernel_type == 2:
-        processed_image = process_blurring_averaging_with_cross_kernel(img, kernel_size)
-    else:
-        return raise_invalid_kernel_type(kernel_type)
-    return processed_image
+    return process_blurring_averaging(img, kernel_size)
 
-def Apply_Gaussian_Blur_To_Image(img, kernel_size, kernel_type=0):
+def Apply_Gaussian_Blur_To_Image(img, kernel_size):
     """
     Purpose:
         Applies the gaussian blur to the image.
     Args:
         img - processed image.
         kernel_size - size of the kernel
-        kernel_type - shape of kernel used. 0 = rectangle, 1 = ellipse, and 2 = cross.
     Returns:
         Image with a gaussian blur applied.
     """
     verify_valid_kernel_size(kernel_size)
-    if kernel_type == 0:
-        processed_image = process_blurring_gaussian_with_rect_kernel(img, kernel_size)
-    elif kernel_type == 1:
-        processed_image = process_blurring_gaussian_with_ellipse_kernel(img, kernel_size)
-    elif kernel_type == 2:
-        processed_image = process_blurring_gaussian_with_cross_kernel(img, kernel_size)
-    else:
-        return raise_invalid_kernel_type(kernel_type)
-    return processed_image
+    return process_blurring_gaussian(img, kernel_size)
+
 # Generic image (any colour) transformations - end
 
 #### Image Processing Keywords - End

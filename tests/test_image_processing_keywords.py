@@ -1,8 +1,6 @@
-### Check if lower level mask functions work with both tuple hsv values and int bgr values.
-
-
-### Tests for all image processing keywords.. Gets and Applies
-
+"""
+Test image processing keywords module
+"""
 import unittest
 import cv2
 import numpy
@@ -13,10 +11,10 @@ from OCRLibrary.OCRLibraryKeywords \
     Apply_Top_Hat_To_Image, Apply_Black_Hat_To_Image, Apply_Filter2D_To_Image, Apply_Median_Filtering_To_Image,
     Apply_Averaging_Blur_To_Image, Apply_Gaussian_Blur_To_Image)
 from OCRLibrary.utils.exceptions.exceptions \
-    import (InvalidImagePath, InvalidThresholdValue, InvalidImageArgument,
+    import (InvalidImagePath, InvalidThresholdValue, InvalidImageArgument, InvalidDepthArgument,
     InvalidBGRBoundArguments, InvalidHSVBoundArguments, InvalidKernelSize, InvalidKernelType, InvalidIteration)
 
-class TestBinaryImageProcessing(unittest.TestCase):
+class TestBinaryImageTransformation(unittest.TestCase):
     """
     TestContentLocation class
     """
@@ -144,9 +142,9 @@ class TestBinaryImageProcessing(unittest.TestCase):
         with self.assertRaises(InvalidThresholdValue):
             Get_Trunc_Image(self.img_path, False, None, 127)
 
-class TestBinaryImageTransformation(unittest.TestCase):
+class TestBinaryImageProcessing(unittest.TestCase):
     """
-    TestBinaryImageTransformation class
+    TestBinaryImageProcessing class
     """
 
     def setUp(self):
@@ -547,15 +545,139 @@ class TestBinaryImageTransformation(unittest.TestCase):
         with self.assertRaises(InvalidKernelType):
             Apply_Black_Hat_To_Image(self.processed_image, (1, 1), "1")
 
-# class TestColourImageProcessing(unittest.TestCase):
-#     """
-#     TestColourImageProcessing class
-#     """
-#     def setUp(self):
-#         pass
+class TestColourImageProcessing(unittest.TestCase):
+    """
+    TestColourImageProcessing class
+    """
+    def setUp(self):
+        self.processed_image = cv2.imread('tests/images/locate_text_coordinates2.png')
 
-#     def tearDown(self):
-#         pass
+    def tearDown(self):
+        del self.processed_image
+
+    def test_01_apply_filter2d_to_image(self):
+        """
+        End to end flow of Apply Filter2D To Image keyword.
+        """
+        filter2d_image = Apply_Filter2D_To_Image(self.processed_image, (1, 1), 0)
+        self.assertTrue(isinstance(filter2d_image, numpy.ndarray))
+        filter2d_image = Apply_Filter2D_To_Image(self.processed_image, (1, 1), 1)
+        self.assertTrue(isinstance(filter2d_image, numpy.ndarray))
+        filter2d_image = Apply_Filter2D_To_Image(self.processed_image, (1, 1), 2)
+        self.assertTrue(isinstance(filter2d_image, numpy.ndarray))
+
+    def test_02_apply_filter2d_to_image(self):
+        """
+        Invalid kernel size argument raises InvalidKernelSize.        
+        """
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Filter2D_To_Image(self.processed_image, None, 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Filter2D_To_Image(self.processed_image, 3, 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Filter2D_To_Image(self.processed_image, "string", 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Filter2D_To_Image(self.processed_image, (10, -1), 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Filter2D_To_Image(self.processed_image, (-10, 1), 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Filter2D_To_Image(self.processed_image, (0, 0), 0)
+
+    def test_03_apply_filter2d_to_image(self):
+        """
+        Invalid depth argument raises InvalidDepthArgument.
+        """
+        with self.assertRaises(InvalidDepthArgument):
+            Apply_Filter2D_To_Image(self.processed_image, (1, 1), 0, 1)
+        with self.assertRaises(InvalidDepthArgument):
+            Apply_Filter2D_To_Image(self.processed_image, (1, 1), 0, "1")
+        with self.assertRaises(InvalidDepthArgument):
+            Apply_Filter2D_To_Image(self.processed_image, (1, 1), 0, -1.1)
+        with self.assertRaises(InvalidDepthArgument):
+            Apply_Filter2D_To_Image(self.processed_image, (1, 1), 0, None)
+
+    def test_04_apply_filter2d_to_image(self):
+        """
+        Invalid kernel type argument raises InvalidKernelType
+        """
+        with self.assertRaises(InvalidKernelType):
+            Apply_Filter2D_To_Image(self.processed_image, (1, 1), -1)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Filter2D_To_Image(self.processed_image, (1, 1), 1.1)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Filter2D_To_Image(self.processed_image, (1, 1), None)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Filter2D_To_Image(self.processed_image, (1, 1), "1")
+
+    def test_01_apply_median_filtering_to_image(self):
+        """
+        End to end flow of Apply Median Filtering To Image keyword.
+        """
+        median_filtering_image = Apply_Median_Filtering_To_Image(self.processed_image, 1)
+        self.assertTrue(isinstance(median_filtering_image, numpy.ndarray))
+
+    def test_02_apply_median_filtering_to_image(self):
+        """
+        Invalid non tuple kernel size raises InvalidKernelSize.
+        """
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Median_Filtering_To_Image(self.processed_image, 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Median_Filtering_To_Image(self.processed_image, None)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Median_Filtering_To_Image(self.processed_image, "1")
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Median_Filtering_To_Image(self.processed_image, 2)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Median_Filtering_To_Image(self.processed_image, -1)
+
+    def test_01_apply_averageing_blur_to_image(self):
+        """
+        End to end flow of Apply Averaging Blur To Image keyword.
+        """
+        averaging_blur_image = Apply_Averaging_Blur_To_Image(self.processed_image, (1, 1))
+        self.assertTrue(isinstance(averaging_blur_image, numpy.ndarray))
+
+    def test_02_apply_averageing_blur_to_image(self):
+        """
+        Invalid kernel size argument raises InvalidKernelSize.
+        """
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Averaging_Blur_To_Image(self.processed_image, None)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Averaging_Blur_To_Image(self.processed_image, 3)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Averaging_Blur_To_Image(self.processed_image, "string")
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Averaging_Blur_To_Image(self.processed_image, (10, -1))
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Averaging_Blur_To_Image(self.processed_image, (-10, 1))
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Averaging_Blur_To_Image(self.processed_image, (0, 0))
+
+    def test_01_apply_gaussian_blur_to_image(self):
+        """
+        End to end flow of Apply Gaussian Blur To Image keyword.
+        """
+        gaussian_image = Apply_Gaussian_Blur_To_Image(self.processed_image, (1,1))
+        self.assertTrue(isinstance(gaussian_image, numpy.ndarray))
+
+    def test_02_apply_gaussian_blur_to_image(self):
+        """
+        Invalid kernel size argument raises InvalidKernelSize.
+        """
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Gaussian_Blur_To_Image(self.processed_image, None)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Gaussian_Blur_To_Image(self.processed_image, 3)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Gaussian_Blur_To_Image(self.processed_image, "string")
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Gaussian_Blur_To_Image(self.processed_image, (10, -1))
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Gaussian_Blur_To_Image(self.processed_image, (-10, 1))
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Gaussian_Blur_To_Image(self.processed_image, (0, 0))
 
 class TestColourImageTransformation(unittest.TestCase):
     """

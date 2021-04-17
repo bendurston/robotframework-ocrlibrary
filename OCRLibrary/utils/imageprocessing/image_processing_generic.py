@@ -60,80 +60,26 @@ def process_median_filtering(img, kernel_size):
     """
     return median_filtering(img, kernel_size)
 
-def process_blurring_averaging_with_rect_kernel(img, kernel_size):
+def process_blurring_averaging(img, kernel_size):
     """
     Purpose:
-        Apply blurring averaging filter with a rectangle kernel to an image.
+        Apply blurring averaging filter to an image.
     Args:
         img - the processed image.
         kernel_size - size of the kernel.
     Returns:
         The filtered image.
     """
-    kernel = get_rect_kernel(kernel_size)
-    return blurring_averaging(img, kernel)
+    return blurring_averaging(img, kernel_size)
 
-def process_blurring_averaging_with_ellipse_kernel(img, kernel_size):
+def process_blurring_gaussian(img, kernel_size):
     """
     Purpose:
-        Apply blurring averaging filter with an ellispe kernel to an image.
+        Apply blurring gaussian filter to an image.
     Args:
         img - the processed image.
         kernel_size - size of the kernel.
     Returns:
         The filtered image.
     """
-    kernel = get_ellipse_kernel(kernel_size)
-    return blurring_averaging(img, kernel) 
-
-def process_blurring_averaging_with_cross_kernel(img, kernel_size):
-    """
-    Purpose:
-        Apply blurring averaging filter with a cross kernel to an image.
-    Args:
-        img - the processed image.
-        kernel_size - size of the kernel.
-    Returns:
-        The filtered image.
-    """
-    kernel = get_cross_kernel(kernel_size)
-    return blurring_averaging(img, kernel)
-
-def process_blurring_gaussian_with_rect_kernel(img, kernel_size):
-    """
-    Purpose:
-        Apply blurring gaussian filter with a rectangle kernel to an image.
-    Args:
-        img - the processed image.
-        kernel_size - size of the kernel.
-    Returns:
-        The filtered image.
-    """
-    kernel = get_rect_kernel(kernel_size)
-    return blurring_gaussian(img, kernel)
-
-def process_blurring_gaussian_with_ellipse_kernel(img, kernel_size):
-    """
-    Purpose:
-        Apply blurring gaussian filter with an ellipse kernel to an image.
-    Args:
-        img - the processed image.
-        kernel_size - size of the kernel.
-    Returns:
-        The filtered image.
-    """
-    kernel = get_ellipse_kernel(kernel_size)
-    return blurring_gaussian(img, kernel)
-
-def process_blurring_gaussian_with_cross_kernel(img, kernel_size):
-    """
-    Purpose:
-        Apply blurring gaussian filter with a cross kernel to an image.
-    Args:
-        img - the processed image.
-        kernel_size - size of the kernel.
-    Returns:
-        The filtered image.
-    """
-    kernel = get_cross_kernel(kernel_size)
-    return blurring_gaussian(img, kernel)
+    return blurring_gaussian(img, kernel_size)
