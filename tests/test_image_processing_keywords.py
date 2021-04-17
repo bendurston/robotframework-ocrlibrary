@@ -10,7 +10,8 @@ from OCRLibrary.OCRLibraryKeywords \
     import (Get_Gray_Scale_Image, Get_Binary_Image, Get_To_Zero_Image, Get_Trunc_Image,
     Read_Image, Save_Image, Convert_Image_To_HSV, Mask_Colour, Mask_Colours)
 from OCRLibrary.utils.exceptions.exceptions \
-    import (InvalidImagePath, InvalidThresholdValue, InvalidImageArgument)
+    import (InvalidImagePath, InvalidThresholdValue, InvalidImageArgument,
+    InvalidBGRBoundArguments, InvalidHSVBoundArguments)
 
 class TestBinaryImageProcessing(unittest.TestCase):
     """
@@ -162,10 +163,18 @@ class TestColourImageTransformation(unittest.TestCase):
     def setUp(self):
         self.processed_image = cv2.imread('tests/images/locate_text_coordinates1.png')
         self.invalid_image = 'path/to/invalid/image.png'
+        self.mask_img_bgr = cv2.imread('tests/images/test_colour_masking.png')
+        self.mask_img_hsv = cv2.cvtColor(self.mask_img_bgr, cv2.COLOR_BGR2HSV)
+        self.mask_multi_img_bgr = cv2.imread('tests/images/test_multi_colour_masking.png')
+        self.mask_multi_img_hsv = cv2.cvtColor(self.mask_multi_img_bgr, cv2.COLOR_BGR2HSV)
 
     def tearDown(self):
         del self.processed_image
         del self.invalid_image
+        del self.mask_img_bgr
+        del self.mask_img_hsv
+        del self.mask_multi_img_bgr
+        del self.mask_multi_img_hsv
 
     def test_01_convert_image_to_hsv(self):
         """
@@ -181,22 +190,110 @@ class TestColourImageTransformation(unittest.TestCase):
         with self.assertRaises(InvalidImageArgument):
             Convert_Image_To_HSV(self.invalid_image)
 
+    def test_01_mask_colour(self):
+        """
+        End to end flow of Mask Colour keyword.
+        """
+        masked_bgr_img = Mask_Colour(self.mask_img_bgr, (100, 0, 0), (255, 0, 0), 0)
+        masked_hsv_img = Mask_Colour(self.mask_img_hsv, (0, 75, 75), (0, 100, 100), 1)
+        self.assertTrue(isinstance(masked_bgr_img, numpy.ndarray))
+        self.assertTrue(isinstance(masked_hsv_img, numpy.ndarray))
+
+    def test_02_mask_colour(self):
+        """
+        Invalid image argument raises InvalidImageArgument.
+        """
+        with self.assertRaises(InvalidImageArgument):
+            Mask_Colour(self.invalid_image,(100, 0, 0), (255, 0, 0), 0)
+
+    def test_03_mask_colour(self):
+        """
+        Invalid bounds raises InvalidBGRBoundArguments.
+        """
+        with self.assertRaises(InvalidBGRBoundArguments):
+            Mask_Colour(self.mask_img_bgr, (0, 0, 0), (0, 0, 2560), 0)
+        with self.assertRaises(InvalidBGRBoundArguments):
+            Mask_Colour(self.mask_img_hsv, (0, 0, -2), (0, 0, 255), 0)
+        with self.assertRaises(InvalidBGRBoundArguments):
+            Mask_Colour(self.mask_img_bgr, (0, 0, 100), (0, "0", 100), 0)
+
+    def test_04_mask_colour(self):
+        """
+        Invalid bounds raises InvalidHSVBoundArguments.
+        """
+        with self.assertRaises(InvalidHSVBoundArguments):
+            Mask_Colour(self.mask_img_hsv, (0, 0, 0), (0, 0, 2560), 1)
+        with self.assertRaises(InvalidHSVBoundArguments):
+            Mask_Colour(self.mask_img_hsv, (0, 0, -2), (0, 0, 255), 1)
+        with self.assertRaises(InvalidHSVBoundArguments):
+            Mask_Colour(self.mask_img_hsv, (0, 0, 100), (0, "0", 100), 1)
+
+    def test_01_mask_colours(self):
+        """
+        End to end flow of Mask Colours keyword.
+        """
+        masked_multi_bgr_img = Mask_Colours(self.mask_multi_img_bgr, (100, 0, 0), (255, 0, 0), (0, 0, 100), (0, 0, 255), 0)
+        masked_multi_hsv_img = Mask_Colours(self.mask_multi_img_hsv, (0, 75, 75), (0, 100, 100), (50, 75, 75), (60, 100, 100), 1)
+        self.assertTrue(isinstance(masked_multi_bgr_img, numpy.ndarray))
+        self.assertTrue(isinstance(masked_multi_hsv_img, numpy.ndarray))
+
+    def test_02_mask_colours(self):
+        """
+        Invalid image argument raises InvalidImageArgument.
+        """
+        with self.assertRaises(InvalidImageArgument):
+            Mask_Colours(self.invalid_image,(100, 0, 0), (255, 0, 0), (100, 0, 0), (255, 0, 0), 0)
+
+    def test_03_mask_colours(self):
+        """
+        Invalid bounds raises InvalidBGRBoundArguments
+        """
+        with self.assertRaises(InvalidBGRBoundArguments):
+            Mask_Colours(self.mask_multi_img_bgr, (0, 0, 0), (0, 0, 2560), (0, 0, 0), (0, 0, 25), 0)
+        with self.assertRaises(InvalidBGRBoundArguments):
+            Mask_Colours(self.mask_multi_img_bgr, (0, 0, -2), (0, 0, 255), (0, 0, 0), (0, 0, 25), 0)
+        with self.assertRaises(InvalidBGRBoundArguments):
+            Mask_Colours(self.mask_multi_img_bgr, (0, 0, 100), (0, "0", 100), (0, 0, 0), (0, 0, 25), 0)
+
+    def test_04_mask_colours(self):
+        """
+        Invalid bounds raises InvalidHSVBoundArguments
+        """
+        with self.assertRaises(InvalidHSVBoundArguments):
+            Mask_Colours(self.mask_multi_img_hsv, (0, 0, 0), (0, 0, 2560), (0, 0, 0), (0, 0, 25), 1)
+        with self.assertRaises(InvalidHSVBoundArguments):
+            Mask_Colours(self.mask_multi_img_hsv, (0, 0, -2), (0, 0, 255), (0, 0, 0), (0, 0, 25), 1)
+        with self.assertRaises(InvalidHSVBoundArguments):
+            Mask_Colours(self.mask_multi_img_hsv, (0, 0, 100), (0, "0", 100), (0, 0, 0), (0, 0, 25), 1)
 
 class TestBasicImageKeywords(unittest.TestCase):
     """
     TestBasicImageKeywords class
     """
     def setUp(self):
+        self.processed_image = cv2.imread('tests/images/test_colour_masking.png')
+        self.valid_image_path = 'tests/images/test_colour_masking.png'
         self.invalid_image_path = 'invalid/path/to/image.png'
-        self.invalid_path_to_image_dir = 'invalid/path/to/image/dir'
+        self.invalid_path_to_image_dir = 'invalid/path/to/image/dir/'
         self.img_name = 'test_image.png'
+        self.valid_path_to_image_dir = 'tests/images/save_result.png'
 
     def tearDown(self):
+        del self.processed_image
+        del self.valid_image_path
         del self.invalid_image_path
         del self.invalid_path_to_image_dir
         del self.img_name
+        del self.valid_path_to_image_dir
 
     def test_01_read_image(self):
+        """
+        End to end flow of Read Image keyword.
+        """
+        read_image = Read_Image(self.valid_image_path)
+        self.assertTrue(isinstance(read_image, numpy.ndarray))
+
+    def test_02_read_image(self):
         """
         Invalid image path to raise InvalidImagePath
         """
@@ -204,6 +301,12 @@ class TestBasicImageKeywords(unittest.TestCase):
             Read_Image(self.invalid_image_path)
 
     def test_01_save_image(self):
+        """
+        End to end flow of Save Image keyword.
+        """
+        self.assertTrue(Save_Image(self.valid_path_to_image_dir, self.processed_image))
+
+    def test_02_save_image(self):
         """
         Invalid image path to raise InvalidImagePath
         """

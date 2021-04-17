@@ -40,7 +40,7 @@ def mask_single_colour(img, lower_bound_colour, upper_bound_colour):
     lower_bound_colour = np.array(lower_bound_colour)
     upper_bound_colour = np.array(upper_bound_colour)
     mask = cv2.inRange(img, lower_bound_colour, upper_bound_colour)
-    result = cv2.bitwise_and(img, img, mask= mask)
+    result = cv2.bitwise_and(img, img, mask=mask)
     return result
 
 def mask_double_colour(img, lower_bound_colour1, upper_bound_colour1, lower_bound_colour2, upper_bound_colour2):

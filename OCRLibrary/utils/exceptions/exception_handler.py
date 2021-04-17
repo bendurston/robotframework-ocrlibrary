@@ -57,13 +57,14 @@ def verify_valid_bgr_bounds(*arg):
     Function verifies if the given bgr bounds are valid.
     BGR values range from 0 to 255. This condition must be met.
     """
-    args_num = len(arg)-1
+    args_num = len(arg)
     for i in range(0, args_num):
-        if isinstance(arg[i], int):
-            if arg[i] < 0 or arg[i] > 255:
+        if ((isinstance(arg[i][0], int)) and (isinstance(arg[i][1], int)) and (isinstance(arg[i][2], int))):
+            if ((arg[i][0] < 0 or arg[i][0] > 255) or (arg[i][1] < 0 or arg[i][1] > 255) or (arg[i][2] < 0 or arg[i][2] > 255)):
                 raise InvalidBGRBoundArguments("The BGR bound(s) provided are invalid. Please give values \
                     that are ints between 0 and 255.")
-        raise InvalidBGRBoundArguments("The BGR bound(s) provided are invalid. Please provide an int between 0 and 255.")
+        else:
+            raise InvalidBGRBoundArguments("The BGR bound(s) provided are invalid. Please provide an int between 0 and 255.")
     return True
 
 def verify_valid_hsv_bounds(*arg):
@@ -71,13 +72,14 @@ def verify_valid_hsv_bounds(*arg):
     Function verifies if the given hsv bounds are valid.
     HSV values range from 0 to 255. This condition must be met.
     """
-    args_num = len(arg)-1
+    args_num = len(arg)
     for i in range(0, args_num):
-        if ((isinstance(arg[i][0], int)) and (isinstance(arg[i][2], int)) and (isinstance(arg[i][2], int))):
-            if ((arg[i][0] < 0 or arg[i][0] > 255) and (arg[i][1] < 0 or arg[i][1] > 255) and (arg[i][2] < 0 or arg[i][2] > 255)):
+        if ((isinstance(arg[i][0], int)) and (isinstance(arg[i][1], int)) and (isinstance(arg[i][2], int))):
+            if ((arg[i][0] < 0 or arg[i][0] > 255) or (arg[i][1] < 0 or arg[i][1] > 255) or (arg[i][2] < 0 or arg[i][2] > 255)):
                 raise InvalidHSVBoundArguments("The HSV bounds provided are invalid. Please give values \
-                    that are ints between 0 and 255.")
-        raise InvalidHSVBoundArguments("The HSV bounds provided are invalid. Please provide an int between 0 and 255.")
+                   that are ints between 0 and 255.")
+        else:
+            raise InvalidHSVBoundArguments("The HSV bounds provided are invalid. Please provide an int between 0 and 255.")
     return True
 
 def verify_valid_image_path(filename, read=True):

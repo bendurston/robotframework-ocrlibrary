@@ -224,6 +224,7 @@ def Mask_Colour(processed_img, lower_bound_colour, upper_bound_colour, colour_ty
     Purpose:
         Mask any colour in an image that is not within the provided bound (exclude one colour bound). Note if the image is BGR the bounds
         must be ints 0 to 255. If the image is HSV the bounds must be a 3 element tuple containing ints 0 to 255.
+        Note - Bounds can be of type tuple or list e.g - (blue, green, red), (hue, saturation, value) or [blue, green, red], [hue, saturation, value].
     Args:
         processed_img - the processed image.
         lower_bound_colour - the lower bound of the colour to exclude from the mask.
