@@ -19,11 +19,13 @@ def verify_content(expected_content, actual_content):
 def verify_valid_kernel_size(kernel_size):
     """
     Function verifies if the given kernel size is valid.
-    Kernel size must be 0, or an odd positive number
+    Kernel size must be a tuple
     """
-    if ((kernel_size == 0 or (kernel_size % 2 == 1)) and kernel_size >= 0):
-        return True
-    raise InvalidKernelSize("The kernel size argument provided is invalid. Please provide a size that is either 0 or a positive odd number.")
+    if isinstance(kernel_size, tuple):
+        if (kernel_size[0] > 0 and isinstance(kernel_size[0], int)):
+            if (kernel_size[1] > 0 and isinstance(kernel_size[1], int)):
+                return True
+    raise InvalidKernelSize("The kernel size argument provided is invalid. Please provide a size that is a positive odd number.")
 
 def raise_invalid_kernel_type(kernel_type):
     """

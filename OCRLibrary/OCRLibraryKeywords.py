@@ -245,6 +245,7 @@ def Mask_Colours(processed_img, lower_bound_colour1, upper_bound_colour1, lower_
     Purpose:
         Mask any colour in an image that is not within the provided bounds (exclude two colour bounds). Note if the image is BGR the bounds
         must be ints 0 to 255. If the image is HSV the bounds must be a 3 element tuple containing ints 0 to 255.
+        Note - Bounds can be of type tuple or list e.g - (blue, green, red), (hue, saturation, value) or [blue, green, red], [hue, saturation, value].
     Args:
         processed_img - the processed image.
         lower_bound_colour1 - the lower bound of the first colour to exclude from the mask.
@@ -312,7 +313,7 @@ def Apply_Dilation_To_Image(img, kernel_size, kernel_type=0, iteration=1):
         return raise_invalid_kernel_type(kernel_type)
     return processed_image
 
-def Apply_Opening_To_Image(img, kernel_size, kernel_type=0):
+def Apply_Opening_To_Image(img, kernel_size, kernel_type=0, iteration=1):
     """
     Purpose:
         Applies the opening morphological transformation to a binary image.
@@ -320,10 +321,12 @@ def Apply_Opening_To_Image(img, kernel_size, kernel_type=0):
         img - processed binary image.
         kernel_size - size of the kernel
         kernel_type - shape of kernel used. 0 = rectangle, 1 = ellipse, and 2 = cross.
+        iteration - number of iterations to perform on image.
     Returns:
         Image with opening morphological transformation applied.
     """
     verify_valid_kernel_size(kernel_size)
+    verify_valid_iteration(iteration)
     if kernel_type == 0:
         processed_image = process_opening_with_rect_kernel(img, kernel_size)
     elif kernel_type == 1:
@@ -334,7 +337,7 @@ def Apply_Opening_To_Image(img, kernel_size, kernel_type=0):
         return raise_invalid_kernel_type(kernel_type)
     return processed_image
 
-def Apply_Closing_To_Image(img, kernel_size, kernel_type=0):
+def Apply_Closing_To_Image(img, kernel_size, kernel_type=0, iteration=1):
     """
     Purpose:
         Applies the closing morphological transformation to a binary image.
@@ -342,10 +345,12 @@ def Apply_Closing_To_Image(img, kernel_size, kernel_type=0):
         img - processed binary image.
         kernel_size - size of the kernel
         kernel_type - shape of kernel used. 0 = rectangle, 1 = ellipse, and 2 = cross.
+        iteration - number of iterations to perform on image.
     Returns:
         Image with closing morphological transformation applied.
     """
     verify_valid_kernel_size(kernel_size)
+    verify_valid_iteration(iteration)
     if kernel_type == 0:
         processed_image = process_closing_with_rect_kernel(img, kernel_size)
     elif kernel_type == 1:
@@ -356,7 +361,7 @@ def Apply_Closing_To_Image(img, kernel_size, kernel_type=0):
         return raise_invalid_kernel_type(kernel_type)
     return processed_image
 
-def Apply_Gradient_To_Image(img, kernel_size, kernel_type=0):
+def Apply_Gradient_To_Image(img, kernel_size, kernel_type=0, iteration=1):
     """
     Purpose:
         Applies the gradient morphological transformation to a binary image.
@@ -364,10 +369,12 @@ def Apply_Gradient_To_Image(img, kernel_size, kernel_type=0):
         img - processed binary image.
         kernel_size - size of the kernel
         kernel_type - shape of kernel used. 0 = rectangle, 1 = ellipse, and 2 = cross.
+        iteration - number of iterations to perform on image.
     Returns:
         Image with gradien morphological transformation applied.
     """
     verify_valid_kernel_size(kernel_size)
+    verify_valid_iteration(iteration)
     if kernel_type == 0:
         processed_image = process_gradient_with_rect_kernel(img, kernel_size)
     elif kernel_type == 1:
@@ -378,7 +385,7 @@ def Apply_Gradient_To_Image(img, kernel_size, kernel_type=0):
         return raise_invalid_kernel_type(kernel_type)
     return processed_image
 
-def Apply_Top_Hat_To_Image(img, kernel_size, kernel_type=0):
+def Apply_Top_Hat_To_Image(img, kernel_size, kernel_type=0, iteration=1):
     """
     Purpose:
         Applies the top hat morphological transformation to a binary image.
@@ -386,10 +393,12 @@ def Apply_Top_Hat_To_Image(img, kernel_size, kernel_type=0):
         img - processed binary image.
         kernel_size - size of the kernel
         kernel_type - shape of kernel used. 0 = rectangle, 1 = ellipse, and 2 = cross.
+        iteration - number of iterations to perform on image.
     Returns:
         Image with top hat morphological transformation applied.
     """
     verify_valid_kernel_size(kernel_size)
+    verify_valid_iteration(iteration)
     if kernel_type == 0:
         processed_image = process_tophat_with_rect_kernel(img, kernel_size)
     elif kernel_type == 1:
@@ -400,7 +409,7 @@ def Apply_Top_Hat_To_Image(img, kernel_size, kernel_type=0):
         return raise_invalid_kernel_type(kernel_type)
     return processed_image
 
-def Apply_Black_Hat_To_Image(img, kernel_size, kernel_type=0):
+def Apply_Black_Hat_To_Image(img, kernel_size, kernel_type=0, iteration=1):
     """
     Purpose:
         Applies the black hat morphological transformation to a binary image.
@@ -408,10 +417,12 @@ def Apply_Black_Hat_To_Image(img, kernel_size, kernel_type=0):
         img - processed binary image.
         kernel_size - size of the kernel
         kernel_type - shape of kernel used. 0 = rectangle, 1 = ellipse, and 2 = cross.
+        iteration - number of iterations to perform on image.
     Returns:
         Image with black hat morphological transformation applied.
     """
     verify_valid_kernel_size(kernel_size)
+    verify_valid_iteration(iteration)
     if kernel_type == 0:
         processed_image = process_blackhat_with_rect_kernel(img, kernel_size)
     elif kernel_type == 1:

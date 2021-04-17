@@ -7,7 +7,7 @@ def morph_erosion(img, kernel, iteration=1):
     """
     Erodes the boundarios of foreground objects.
     """
-    return cv2.erode(img, kernel, iterations= iteration)
+    return cv2.erode(img, kernel, iterations=iteration)
 
 def morph_dilation(img, kernel, iteration=1):
     """
@@ -15,32 +15,32 @@ def morph_dilation(img, kernel, iteration=1):
     """
     return cv2.dilate(img, kernel, iterations=iteration)
 
-def morph_opening(img, kernel):
+def morph_opening(img, kernel, iteration=1):
     """
     Useful in removing noise. Like erosion then dilation.
     """
-    return cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)
+    return cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel, iterations=iteration)
 
-def morph_closing(img, kernel):
+def morph_closing(img, kernel, iteration=1):
     """
     Opposite to opening.
     """
-    return cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel)
+    return cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel, iterations=iteration)
 
-def morph_gradient(img, kernel):
+def morph_gradient(img, kernel, iteration=1):
     """
-    Will give the object an outline. 
+    Will give the object an outline.
     """
-    return cv2.morphologyEx(img, cv2.MORPH_GRADIENT, kernel)
+    return cv2.morphologyEx(img, cv2.MORPH_GRADIENT, kernel, iterations=iteration)
 
-def morph_top_hat(img, kernel):
+def morph_top_hat(img, kernel, iteration=1):
     """
     Will give the difference between input image and opening image.
     """
-    return cv2.morphologyEx(img, cv2.MORPH_TOPHAT, kernel)
+    return cv2.morphologyEx(img, cv2.MORPH_TOPHAT, kernel, iterations=iteration)
 
-def morph_black_hat(img, kernel):
+def morph_black_hat(img, kernel, iteration=1):
     """
     Will give the difference between tthe closing of the input image and the input image.
     """
-    return cv2.morphologyEx(img, cv2.MORPH_BLACKHAT, kernel)
+    return cv2.morphologyEx(img, cv2.MORPH_BLACKHAT, kernel, iterations=iteration)

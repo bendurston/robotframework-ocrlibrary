@@ -8,10 +8,13 @@ import cv2
 import numpy
 from OCRLibrary.OCRLibraryKeywords \
     import (Get_Gray_Scale_Image, Get_Binary_Image, Get_To_Zero_Image, Get_Trunc_Image,
-    Read_Image, Save_Image, Convert_Image_To_HSV, Mask_Colour, Mask_Colours)
+    Read_Image, Save_Image, Convert_Image_To_HSV, Mask_Colour, Mask_Colours, Apply_Erosion_To_Image,
+    Apply_Dilation_To_Image, Apply_Opening_To_Image, Apply_Closing_To_Image, Apply_Gradient_To_Image,
+    Apply_Top_Hat_To_Image, Apply_Black_Hat_To_Image, Apply_Filter2D_To_Image, Apply_Median_Filtering_To_Image,
+    Apply_Averaging_Blur_To_Image, Apply_Gaussian_Blur_To_Image)
 from OCRLibrary.utils.exceptions.exceptions \
     import (InvalidImagePath, InvalidThresholdValue, InvalidImageArgument,
-    InvalidBGRBoundArguments, InvalidHSVBoundArguments)
+    InvalidBGRBoundArguments, InvalidHSVBoundArguments, InvalidKernelSize, InvalidKernelType, InvalidIteration)
 
 class TestBinaryImageProcessing(unittest.TestCase):
     """
@@ -141,10 +144,408 @@ class TestBinaryImageProcessing(unittest.TestCase):
         with self.assertRaises(InvalidThresholdValue):
             Get_Trunc_Image(self.img_path, False, None, 127)
 
-# class TestBinaryImageTransformation(unittest.TestCase):
-#     """
-#     TestBinaryImageTransformation class
-#     """
+class TestBinaryImageTransformation(unittest.TestCase):
+    """
+    TestBinaryImageTransformation class
+    """
+
+    def setUp(self):
+        self.processed_image = cv2.imread('tests/images/locate_text_coordinates2.png')
+
+    def tearDown(self):
+        del self.processed_image
+
+    def test_01_apply_erosion_to_image(self):
+        """
+        End to end flow of Apply Erosion To Image keyword.
+        """
+        erosion_image = Apply_Erosion_To_Image(self.processed_image, (1, 1), 0)
+        self.assertTrue(isinstance(erosion_image, numpy.ndarray))
+        erosion_image = Apply_Erosion_To_Image(self.processed_image, (1, 1), 1)
+        self.assertTrue(isinstance(erosion_image, numpy.ndarray))
+        erosion_image = Apply_Erosion_To_Image(self.processed_image, (1, 1), 2)
+        self.assertTrue(isinstance(erosion_image, numpy.ndarray))
+
+    def test_02_apply_erosion_to_image(self):
+        """
+        Invalid kernel size argument raises InvalidKernelSize.
+        """
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Erosion_To_Image(self.processed_image, None, 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Erosion_To_Image(self.processed_image, 3, 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Erosion_To_Image(self.processed_image, "string", 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Erosion_To_Image(self.processed_image, (10, -1), 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Erosion_To_Image(self.processed_image, (-10, 1), 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Erosion_To_Image(self.processed_image, (0, 0), 0)
+
+    def test_03_apply_erosion_to_image(self):
+        """
+        Invalid iteration argument raises InvalidIteration
+        """
+        with self.assertRaises(InvalidIteration):
+            Apply_Erosion_To_Image(self.processed_image, (1, 1), 0, -1)
+        with self.assertRaises(InvalidIteration):
+            Apply_Erosion_To_Image(self.processed_image, (1, 1), 0, 0)
+        with self.assertRaises(InvalidIteration):
+            Apply_Erosion_To_Image(self.processed_image, (1, 1), 0, "string")
+        with self.assertRaises(InvalidIteration):
+            Apply_Erosion_To_Image(self.processed_image, (1, 1), 0, 1.1)
+        with self.assertRaises(InvalidIteration):
+            Apply_Erosion_To_Image(self.processed_image, (1, 1), 0, None)
+
+    def test_04_apply_erosion_to_image(self):
+        """
+        Invalid kernel type argument raises InvalidKernelType
+        """
+        with self.assertRaises(InvalidKernelType):
+            Apply_Erosion_To_Image(self.processed_image, (1, 1), -1)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Erosion_To_Image(self.processed_image, (1, 1), 1.1)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Erosion_To_Image(self.processed_image, (1, 1), None)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Erosion_To_Image(self.processed_image, (1, 1), "1")
+
+    def test_01_apply_dilation_to_image(self):
+        """
+        End to end flow of Apply Dilation To Image keyword.
+        """
+        dilation_image = Apply_Dilation_To_Image(self.processed_image, (1, 1), 0)
+        self.assertTrue(isinstance(dilation_image, numpy.ndarray))
+        dilation_image = Apply_Dilation_To_Image(self.processed_image, (1, 1), 1)
+        self.assertTrue(isinstance(dilation_image, numpy.ndarray))
+        dilation_image = Apply_Dilation_To_Image(self.processed_image, (1, 1), 2)
+        self.assertTrue(isinstance(dilation_image, numpy.ndarray))
+
+    def test_02_apply_dilation_to_image(self):
+        """
+        Invalid kernel size argument raises InvalidKernelSize.
+        """
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Erosion_To_Image(self.processed_image, None, 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Dilation_To_Image(self.processed_image, 3, 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Dilation_To_Image(self.processed_image, "string", 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Dilation_To_Image(self.processed_image, (10, -1), 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Dilation_To_Image(self.processed_image, (-10, 1), 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Dilation_To_Image(self.processed_image, (0, 0), 0)
+
+    def test_03_apply_dilation_to_image(self):
+        """
+        Invalid iteration argument raises InvalidIteration
+        """
+        with self.assertRaises(InvalidIteration):
+            Apply_Dilation_To_Image(self.processed_image, (1, 1), 0, -1)
+        with self.assertRaises(InvalidIteration):
+            Apply_Dilation_To_Image(self.processed_image, (1, 1), 0, 0)
+        with self.assertRaises(InvalidIteration):
+            Apply_Dilation_To_Image(self.processed_image, (1, 1), 0, "string")
+        with self.assertRaises(InvalidIteration):
+            Apply_Dilation_To_Image(self.processed_image, (1, 1), 0, 1.1)
+        with self.assertRaises(InvalidIteration):
+            Apply_Dilation_To_Image(self.processed_image, (1, 1), 0, None)
+
+    def test_04_apply_dilation_to_image(self):
+        """
+        Invalid kernel type argument raises InvalidKernelType
+        """
+        with self.assertRaises(InvalidKernelType):
+            Apply_Dilation_To_Image(self.processed_image, (1, 1), -1)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Dilation_To_Image(self.processed_image, (1, 1), 1.1)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Dilation_To_Image(self.processed_image, (1, 1), None)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Dilation_To_Image(self.processed_image, (1, 1), "1")
+
+    def test_01_apply_opening_to_image(self):
+        """
+        End to end flow of Apply Opening To Image keyword.
+        """
+        opening_image = Apply_Opening_To_Image(self.processed_image, (1, 1), 0)
+        self.assertTrue(isinstance(opening_image, numpy.ndarray))
+        opening_image = Apply_Opening_To_Image(self.processed_image, (1, 1), 1)
+        self.assertTrue(isinstance(opening_image, numpy.ndarray))
+        opening_image = Apply_Opening_To_Image(self.processed_image, (1, 1), 2)
+        self.assertTrue(isinstance(opening_image, numpy.ndarray))
+
+    def test_02_apply_opening_to_image(self):
+        """
+        Invalid kernel size argument raises InvalidKernelSize.
+        """
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Opening_To_Image(self.processed_image, None, 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Opening_To_Image(self.processed_image, 3, 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Opening_To_Image(self.processed_image, "string", 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Opening_To_Image(self.processed_image, (10, -1), 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Opening_To_Image(self.processed_image, (-10, 1), 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Opening_To_Image(self.processed_image, (0, 0), 0)
+
+    def test_03_apply_opening_to_image(self):
+        """
+        Invalid iteration argument raises InvalidIteration
+        """
+        with self.assertRaises(InvalidIteration):
+            Apply_Opening_To_Image(self.processed_image, (1, 1), 0, -1)
+        with self.assertRaises(InvalidIteration):
+            Apply_Opening_To_Image(self.processed_image, (1, 1), 0, 0)
+        with self.assertRaises(InvalidIteration):
+            Apply_Opening_To_Image(self.processed_image, (1, 1), 0, "string")
+        with self.assertRaises(InvalidIteration):
+            Apply_Opening_To_Image(self.processed_image, (1, 1), 0, 1.1)
+        with self.assertRaises(InvalidIteration):
+            Apply_Opening_To_Image(self.processed_image, (1, 1), 0, None)
+
+    def test_04_apply_opening_to_image(self):
+        """
+        Invalid kernel type argument raises InvalidKernelType
+        """
+        with self.assertRaises(InvalidKernelType):
+            Apply_Opening_To_Image(self.processed_image, (1, 1), -1)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Opening_To_Image(self.processed_image, (1, 1), 1.1)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Opening_To_Image(self.processed_image, (1, 1), None)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Opening_To_Image(self.processed_image, (1, 1), "1")
+
+    def test_01_apply_closing_to_image(self):
+        """
+        End to end flow of Apply Closing To Image keyword.
+        """
+        closing_image = Apply_Opening_To_Image(self.processed_image, (1, 1), 0)
+        self.assertTrue(isinstance(closing_image, numpy.ndarray))
+        closing_image = Apply_Opening_To_Image(self.processed_image, (1, 1), 1)
+        self.assertTrue(isinstance(closing_image, numpy.ndarray))
+        closing_image = Apply_Opening_To_Image(self.processed_image, (1, 1), 2)
+        self.assertTrue(isinstance(closing_image, numpy.ndarray))
+
+    def test_02_apply_closing_to_image(self):
+        """
+        Invalid kernel size argument raises InvalidKernelSize.
+        """
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Closing_To_Image(self.processed_image, None, 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Closing_To_Image(self.processed_image, 3, 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Closing_To_Image(self.processed_image, "string", 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Closing_To_Image(self.processed_image, (10, -1), 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Closing_To_Image(self.processed_image, (-10, 1), 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Closing_To_Image(self.processed_image, (0, 0), 0)
+
+    def test_03_apply_closing_to_image(self):
+        """
+        Invalid iteration argument raises InvalidIteration
+        """
+        with self.assertRaises(InvalidIteration):
+            Apply_Closing_To_Image(self.processed_image, (1, 1), 0, -1)
+        with self.assertRaises(InvalidIteration):
+            Apply_Closing_To_Image(self.processed_image, (1, 1), 0, 0)
+        with self.assertRaises(InvalidIteration):
+            Apply_Closing_To_Image(self.processed_image, (1, 1), 0, "string")
+        with self.assertRaises(InvalidIteration):
+            Apply_Closing_To_Image(self.processed_image, (1, 1), 0, 1.1)
+        with self.assertRaises(InvalidIteration):
+            Apply_Closing_To_Image(self.processed_image, (1, 1), 0, None)
+
+    def test_04_apply_closing_to_image(self):
+        """
+        Invalid kernel type argument raises InvalidKernelType
+        """
+        with self.assertRaises(InvalidKernelType):
+            Apply_Closing_To_Image(self.processed_image, (1, 1), -1)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Closing_To_Image(self.processed_image, (1, 1), 1.1)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Closing_To_Image(self.processed_image, (1, 1), None)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Closing_To_Image(self.processed_image, (1, 1), "1")
+
+    def test_01_apply_gradient_to_image(self):
+        """
+        End to end flow of Apply Gradient To Image keyword.
+        """
+        gradient_image = Apply_Gradient_To_Image(self.processed_image, (1, 1), 0)
+        self.assertTrue(isinstance(gradient_image, numpy.ndarray))
+        gradient_image = Apply_Gradient_To_Image(self.processed_image, (1, 1), 1)
+        self.assertTrue(isinstance(gradient_image, numpy.ndarray))
+        gradient_image = Apply_Gradient_To_Image(self.processed_image, (1, 1), 2)
+        self.assertTrue(isinstance(gradient_image, numpy.ndarray))
+
+    def test_02_apply_gradient_to_image(self):
+        """
+        Invalid kernel size argument raises InvalidKernelSize.
+        """
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Gradient_To_Image(self.processed_image, None, 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Gradient_To_Image(self.processed_image, 3, 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Gradient_To_Image(self.processed_image, "string", 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Gradient_To_Image(self.processed_image, (10, -1), 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Gradient_To_Image(self.processed_image, (-10, 1), 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Gradient_To_Image(self.processed_image, (0, 0), 0)
+
+    def test_03_apply_gradient_to_image(self):
+        """
+        Invalid iteration argument raises InvalidIteration
+        """
+        with self.assertRaises(InvalidIteration):
+            Apply_Gradient_To_Image(self.processed_image, (1, 1), 0, -1)
+        with self.assertRaises(InvalidIteration):
+            Apply_Gradient_To_Image(self.processed_image, (1, 1), 0, 0)
+        with self.assertRaises(InvalidIteration):
+            Apply_Gradient_To_Image(self.processed_image, (1, 1), 0, "string")
+        with self.assertRaises(InvalidIteration):
+            Apply_Gradient_To_Image(self.processed_image, (1, 1), 0, 1.1)
+        with self.assertRaises(InvalidIteration):
+            Apply_Gradient_To_Image(self.processed_image, (1, 1), 0, None)
+
+    def test_04_apply_gradient_to_image(self):
+        """
+        Invalid kernel type argument raises InvalidKernelType
+        """
+        with self.assertRaises(InvalidKernelType):
+            Apply_Gradient_To_Image(self.processed_image, (1, 1), -1)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Gradient_To_Image(self.processed_image, (1, 1), 1.1)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Gradient_To_Image(self.processed_image, (1, 1), None)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Gradient_To_Image(self.processed_image, (1, 1), "1")
+
+    def test_01_apply_top_hat_to_image(self):
+        """
+        End to end flow of Apply Top Hat To Image keyword.
+        """
+        top_hat_image = Apply_Top_Hat_To_Image(self.processed_image, (1, 1), 0)
+        self.assertTrue(isinstance(top_hat_image, numpy.ndarray))
+        top_hat_image = Apply_Top_Hat_To_Image(self.processed_image, (1, 1), 1)
+        self.assertTrue(isinstance(top_hat_image, numpy.ndarray))
+        top_hat_image = Apply_Top_Hat_To_Image(self.processed_image, (1, 1), 2)
+        self.assertTrue(isinstance(top_hat_image, numpy.ndarray))
+
+    def test_02_apply_top_hat_to_image(self):
+        """
+        Invalid kernel size argument raises InvalidKernelSize.
+        """
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Top_Hat_To_Image(self.processed_image, None, 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Top_Hat_To_Image(self.processed_image, 3, 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Top_Hat_To_Image(self.processed_image, "string", 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Top_Hat_To_Image(self.processed_image, (10, -1), 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Top_Hat_To_Image(self.processed_image, (-10, 1), 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Top_Hat_To_Image(self.processed_image, (0, 0), 0)
+
+    def test_03_apply_top_hat_to_image(self):
+        """
+        Invalid iteration argument raises InvalidIteration
+        """
+        with self.assertRaises(InvalidIteration):
+            Apply_Top_Hat_To_Image(self.processed_image, (1, 1), 0, -1)
+        with self.assertRaises(InvalidIteration):
+            Apply_Top_Hat_To_Image(self.processed_image, (1, 1), 0, 0)
+        with self.assertRaises(InvalidIteration):
+            Apply_Top_Hat_To_Image(self.processed_image, (1, 1), 0, "string")
+        with self.assertRaises(InvalidIteration):
+            Apply_Top_Hat_To_Image(self.processed_image, (1, 1), 0, 1.1)
+        with self.assertRaises(InvalidIteration):
+            Apply_Top_Hat_To_Image(self.processed_image, (1, 1), 0, None)
+
+    def test_04_apply_top_hat_to_image(self):
+        """
+        Invalid kernel type argument raises InvalidKernelType
+        """
+        with self.assertRaises(InvalidKernelType):
+            Apply_Top_Hat_To_Image(self.processed_image, (1, 1), -1)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Top_Hat_To_Image(self.processed_image, (1, 1), 1.1)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Top_Hat_To_Image(self.processed_image, (1, 1), None)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Top_Hat_To_Image(self.processed_image, (1, 1), "1")
+
+    def test_01_apply_black_hat_to_image(self):
+        """
+        End to end flow of Apply Black Hat To Image keyword.
+        """
+        black_hat_image = Apply_Black_Hat_To_Image(self.processed_image, (1, 1), 0)
+        self.assertTrue(isinstance(black_hat_image, numpy.ndarray))
+        black_hat_image = Apply_Black_Hat_To_Image(self.processed_image, (1, 1), 1)
+        self.assertTrue(isinstance(black_hat_image, numpy.ndarray))
+        black_hat_image = Apply_Black_Hat_To_Image(self.processed_image, (1, 1), 2)
+        self.assertTrue(isinstance(black_hat_image, numpy.ndarray))
+
+    def test_02_apply_black_hat_to_image(self):
+        """
+        Invalid kernel size argument raises InvalidKernelSize.
+        """
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Black_Hat_To_Image(self.processed_image, None, 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Black_Hat_To_Image(self.processed_image, 3, 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Black_Hat_To_Image(self.processed_image, "string", 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Black_Hat_To_Image(self.processed_image, (10, -1), 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Black_Hat_To_Image(self.processed_image, (-10, 1), 0)
+        with self.assertRaises(InvalidKernelSize):
+            Apply_Black_Hat_To_Image(self.processed_image, (0, 0), 0)
+
+    def test_03_apply_black_hat_to_image(self):
+        """
+        Invalid iteration argument raises InvalidIteration
+        """
+        with self.assertRaises(InvalidIteration):
+            Apply_Black_Hat_To_Image(self.processed_image, (1, 1), 0, -1)
+        with self.assertRaises(InvalidIteration):
+            Apply_Black_Hat_To_Image(self.processed_image, (1, 1), 0, 0)
+        with self.assertRaises(InvalidIteration):
+            Apply_Black_Hat_To_Image(self.processed_image, (1, 1), 0, "string")
+        with self.assertRaises(InvalidIteration):
+            Apply_Black_Hat_To_Image(self.processed_image, (1, 1), 0, 1.1)
+        with self.assertRaises(InvalidIteration):
+            Apply_Black_Hat_To_Image(self.processed_image, (1, 1), 0, None)
+
+    def test_04_apply_black_hat_to_image(self):
+        """
+        Invalid kernel type argument raises InvalidKernelType
+        """
+        with self.assertRaises(InvalidKernelType):
+            Apply_Black_Hat_To_Image(self.processed_image, (1, 1), -1)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Black_Hat_To_Image(self.processed_image, (1, 1), 1.1)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Black_Hat_To_Image(self.processed_image, (1, 1), None)
+        with self.assertRaises(InvalidKernelType):
+            Apply_Black_Hat_To_Image(self.processed_image, (1, 1), "1")
 
 # class TestColourImageProcessing(unittest.TestCase):
 #     """
