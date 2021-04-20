@@ -2,4 +2,4 @@
 tests module
 """
 
-__all__ = ["test_content_validation"]
+__all__ = ["test_genericImageProcessingKeywords"]

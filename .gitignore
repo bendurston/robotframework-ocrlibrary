@@ -9,3 +9,7 @@ settings.json
 notes.txt
 
 __pycache__/
+
+OCRLibraryKeywords.py
+
+notused/
