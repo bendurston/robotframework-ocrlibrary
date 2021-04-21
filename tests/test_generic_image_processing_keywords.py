@@ -6,7 +6,7 @@ import unittest
 import cv2
 import numpy as np
 
-from OCRLibrary.keywords.genericImageProcessing import GenericImageProcessingKeywords as gipk
+from OCRLibrary.keywords.generic_image_processing import GenericImageProcessingKeywords as gipk
 from OCRLibrary.utils.exceptions.exceptions import InvalidImagePath
 
 class BaseGenericImageProcessingKeywords(unittest.TestCase):

@@ -4,11 +4,10 @@ genericImageProcessing module.
 import cv2
 from ..utils.exceptions.exception_handler import verify_valid_image_path
 
-class GenericImageProcessingKeywords():
+class GenericImageProcessingKeywords:
     """
     GenericImageProcessingKeyword Class
     """
-
     def read_image(self, img_path):
         """
         Purpose:
