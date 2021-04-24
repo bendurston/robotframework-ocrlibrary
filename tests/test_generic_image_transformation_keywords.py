@@ -6,7 +6,8 @@ import cv2
 import numpy as np
 
 from OCRLibrary.keywords.generic_image_transformation import GenericImageTransformationKeywords as gitk
-from OCRLibrary.utils.exceptions.exceptions import InvalidKernelSize, InvalidKernelType, InvalidDepthArgument
+from OCRLibrary.utils.exceptions.exceptions \
+    import (InvalidKernelSize, InvalidKernelType, InvalidDepthArgument, InvalidImageArgument)
 
 class BaseGenericImageTransformationKeywords(unittest.TestCase):
     """
@@ -16,12 +17,13 @@ class BaseGenericImageTransformationKeywords(unittest.TestCase):
     def setUpClass(cls):
         cls.keyword = gitk()
         cls.processed_image = cv2.imread('tests/images/locate_text_coordinates2.png')
+        cls.invalid_image = 'invalid_image.png'
 
     @classmethod
     def tearDownClass(cls):
         del cls.keyword
         del cls.processed_image
-
+        del cls.invalid_image
 
 class TestKeywordAppyFilter2DToImage(BaseGenericImageTransformationKeywords):
     """
@@ -40,7 +42,14 @@ class TestKeywordAppyFilter2DToImage(BaseGenericImageTransformationKeywords):
 
     def test_02_apply_filter2d_to_image(self):
         """
-        Invalid kernel size argument raises InvalidKernelSize.        
+        Invalid image argument raised InvalidImageArgument
+        """
+        with self.assertRaises(InvalidImageArgument):
+            self.keyword.apply_filter2D_to_image(self.invalid_image, (1, 1))
+
+    def test_03_apply_filter2d_to_image(self):
+        """
+        Invalid kernel size argument raises InvalidKernelSize.   
         """
         with self.assertRaises(InvalidKernelSize):
             self.keyword.apply_filter2D_to_image(self.processed_image, None, 0)
@@ -55,7 +64,7 @@ class TestKeywordAppyFilter2DToImage(BaseGenericImageTransformationKeywords):
         with self.assertRaises(InvalidKernelSize):
             self.keyword.apply_filter2D_to_image(self.processed_image, (0, 0), 0)
 
-    def test_03_apply_filter2d_to_image(self):
+    def test_04_apply_filter2d_to_image(self):
         """
         Invalid depth argument raises InvalidDepthArgument.
         """
@@ -68,7 +77,7 @@ class TestKeywordAppyFilter2DToImage(BaseGenericImageTransformationKeywords):
         with self.assertRaises(InvalidDepthArgument):
             self.keyword.apply_filter2D_to_image(self.processed_image, (1, 1), 0, None)
 
-    def test_04_apply_filter2d_to_image(self):
+    def test_05_apply_filter2d_to_image(self):
         """
         Invalid kernel type argument raises InvalidKernelType
         """
@@ -93,6 +102,13 @@ class TestKeywordApplyMedianFilteringToImage(BaseGenericImageTransformationKeywo
         self.assertTrue(isinstance(median_filtering_image, np.ndarray))
 
     def test_02_apply_median_filtering_to_image(self):
+        """
+        Invalid image argument raised InvalidImageArgument
+        """
+        with self.assertRaises(InvalidImageArgument):
+            self.keyword.apply_median_filtering_to_image(self.invalid_image, 0)
+
+    def test_03_apply_median_filtering_to_image(self):
         """
         Invalid non tuple kernel size raises InvalidKernelSize.
         """
@@ -119,6 +135,13 @@ class TestKeywordApplyAveragingBlurToImage(BaseGenericImageTransformationKeyword
         self.assertTrue(isinstance(averaging_blur_image, np.ndarray))
 
     def test_02_apply_averaging_blur_to_image(self):
+        """
+        Invalid image argument raised InvalidImageArgument
+        """
+        with self.assertRaises(InvalidImageArgument):
+            self.keyword.apply_averaging_blur_to_image(self.invalid_image, (1, 1))
+
+    def test_03_apply_averaging_blur_to_image(self):
         """
         Invalid kernel size argument raises InvalidKernelSize.
         """
@@ -147,6 +170,13 @@ class TestKeywordApplyGaussianBlurToImage(BaseGenericImageTransformationKeywords
         self.assertTrue(isinstance(gaussian_image, np.ndarray))
 
     def test_02_apply_gaussian_blur_to_image(self):
+        """
+        Invalid image argument raised InvalidImageArgument
+        """
+        with self.assertRaises(InvalidImageArgument):
+            self.keyword.apply_gaussian_blur_to_image(self.invalid_image, (1, 1))
+
+    def test_03_apply_gaussian_blur_to_image(self):
         """
         Invalid kernel size argument raises InvalidKernelSize.
         """

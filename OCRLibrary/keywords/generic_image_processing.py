@@ -10,25 +10,26 @@ class GenericImageProcessingKeywords:
     """
     def read_image(self, img_path):
         """
-        Purpose:
-            Reads image as is using opencv.
-        Args:
-            img_path - the path to the image.
-        Returns:
-            The read image
+        Reads an image.
+
+        Example:
+        | ${img_path}=    Capture Page Screenshot
+        | ${read_image}=    Read Image    ${img_path}
+
+        See ``introduction`` for details about valid images to provide.
         """
         verify_valid_image_path(img_path)
         return cv2.imread(img_path)
 
     def save_image(self, path, img):
         """
-        Purpose:
-            Saves the image in the specified path.
-        Args:
-            path - the path the save the image at.
-            img - the image being saved (is of type InputArray)
-        Returns:
-            bool - True if successful, false otherwise.
+        Saves the provided image to the specified path. Returns True if successful,
+        otherwise returns False.
+
+        Example:
+        | Save Image    home/usr/Pictures/save_image_result.png    ${processed_img}
+
+        See ``introduction`` for details about valid image formats.
         """
         verify_valid_image_path(path, False)
         return cv2.imwrite(str(path), img)
