@@ -1,15 +1,12 @@
 # vscode directory
 .vscode/
 settings.json
-
+__pycache__/
 # envs
 .env
 
-# misc
-notes.txt
-
-__pycache__/
-
-OCRLibraryKeywords.py
-
-notused/
+# packages
+*.egg
+*.egg-info
+dist
+build

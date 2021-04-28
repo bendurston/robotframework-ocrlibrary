@@ -4,7 +4,7 @@ with open("README.md", "r", encoding="utf-8") as f:
     long_description = f.read()
 
 setuptools.setup(
-    name="robotframework-OCRLibrary-bendurston",
+    name="robotframework-OCRLibrary",
     version="1.0.0",
     author="Ben Durston",
     author_email="bengdurston@gmail.com",
