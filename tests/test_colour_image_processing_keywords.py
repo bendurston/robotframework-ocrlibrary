@@ -7,7 +7,7 @@ import numpy as np
 
 from OCRLibrary.keywords.colour_image_processing import ColourImageProcessingKeywords as cipk
 from OCRLibrary.utils.exceptions.exceptions \
-    import (InvalidImageArgument, InvalidBGRBoundArguments, InvalidHSVBoundArguments)
+    import (InvalidImageArgument, InvalidColourBoundArguments)
 
 class BaseColourImageProcessingKeywords(unittest.TestCase):
     """
@@ -42,7 +42,7 @@ class TestKeywordCovertImageToHSV(BaseColourImageProcessingKeywords):
 
     def test_02_convert_image_to_hsv(self):
         """
-        Invalid image argument raised InvalidImageArgument
+        Invalid image argument raised InvalidImageArgument.
         """
         with self.assertRaises(InvalidImageArgument):
             self.keyword.convert_image_to_HSV(self.invalid_image)
@@ -63,8 +63,8 @@ class TestKeywordMaskColour(BaseColourImageProcessingKeywords):
         """
         End to end flow of Mask Colour keyword.
         """
-        masked_bgr_img = self.keyword.mask_colour(self.mask_img_bgr, (100, 0, 0), (255, 0, 0), 0)
-        masked_hsv_img = self.keyword.mask_colour(self.mask_img_hsv, (0, 75, 75), (0, 100, 100), 1)
+        masked_bgr_img = self.keyword.mask_colour(self.mask_img_bgr, (100, 0, 0), (255, 0, 0))
+        masked_hsv_img = self.keyword.mask_colour(self.mask_img_hsv, (0, 75, 75), (0, 100, 100))
         self.assertTrue(isinstance(masked_bgr_img, np.ndarray))
         self.assertTrue(isinstance(masked_hsv_img, np.ndarray))
 
@@ -73,29 +73,18 @@ class TestKeywordMaskColour(BaseColourImageProcessingKeywords):
         Invalid image argument raises InvalidImageArgument.
         """
         with self.assertRaises(InvalidImageArgument):
-            self.keyword.mask_colour(self.invalid_image,(100, 0, 0), (255, 0, 0), 0)
+            self.keyword.mask_colour(self.invalid_image,(100, 0, 0), (255, 0, 0))
 
     def test_03_mask_colour(self):
         """
-        Invalid bounds raises InvalidBGRBoundArguments.
+        Invalid bounds raises InvalidColourBoundArguments.
         """
-        with self.assertRaises(InvalidBGRBoundArguments):
-            self.keyword.mask_colour(self.mask_img_bgr, (0, 0, 0), (0, 0, 2560), 0)
-        with self.assertRaises(InvalidBGRBoundArguments):
-            self.keyword.mask_colour(self.mask_img_hsv, (0, 0, -2), (0, 0, 255), 0)
-        with self.assertRaises(InvalidBGRBoundArguments):
-            self.keyword.mask_colour(self.mask_img_bgr, (0, 0, 100), (0, "0", 100), 0)
-
-    def test_04_mask_colour(self):
-        """
-        Invalid bounds raises InvalidHSVBoundArguments.
-        """
-        with self.assertRaises(InvalidHSVBoundArguments):
-            self.keyword.mask_colour(self.mask_img_hsv, (0, 0, 0), (0, 0, 2560), 1)
-        with self.assertRaises(InvalidHSVBoundArguments):
-            self.keyword.mask_colour(self.mask_img_hsv, (0, 0, -2), (0, 0, 255), 1)
-        with self.assertRaises(InvalidHSVBoundArguments):
-            self.keyword.mask_colour(self.mask_img_hsv, (0, 0, 100), (0, "0", 100), 1)
+        with self.assertRaises(InvalidColourBoundArguments):
+            self.keyword.mask_colour(self.mask_img_bgr, (0, 0, 0), (0, 0, 2560))
+        with self.assertRaises(InvalidColourBoundArguments):
+            self.keyword.mask_colour(self.mask_img_hsv, (0, 0, -2), (0, 0, 255))
+        with self.assertRaises(InvalidColourBoundArguments):
+            self.keyword.mask_colour(self.mask_img_bgr, (0, 0, 100), (0, "0", 100))
 
 class TestKeywordMaskColours(BaseColourImageProcessingKeywords):
     """
@@ -113,8 +102,8 @@ class TestKeywordMaskColours(BaseColourImageProcessingKeywords):
         """
         End to end flow of Mask Colours keyword.
         """
-        masked_multi_bgr_img = self.keyword.mask_colours(self.mask_multi_img_bgr, (100, 0, 0), (255, 0, 0), (0, 0, 100), (0, 0, 255), 0)
-        masked_multi_hsv_img = self.keyword.mask_colours(self.mask_multi_img_hsv, (0, 75, 75), (0, 100, 100), (50, 75, 75), (60, 100, 100), 1)
+        masked_multi_bgr_img = self.keyword.mask_colours(self.mask_multi_img_bgr, (100, 0, 0), (255, 0, 0), (0, 0, 100), (0, 0, 255))
+        masked_multi_hsv_img = self.keyword.mask_colours(self.mask_multi_img_hsv, (0, 75, 75), (0, 100, 100), (50, 75, 75), (60, 100, 100))
         self.assertTrue(isinstance(masked_multi_bgr_img, np.ndarray))
         self.assertTrue(isinstance(masked_multi_hsv_img, np.ndarray))
 
@@ -123,26 +112,15 @@ class TestKeywordMaskColours(BaseColourImageProcessingKeywords):
         Invalid image argument raises InvalidImageArgument.
         """
         with self.assertRaises(InvalidImageArgument):
-            self.keyword.mask_colours(self.invalid_image,(100, 0, 0), (255, 0, 0), (100, 0, 0), (255, 0, 0), 0)
+            self.keyword.mask_colours(self.invalid_image,(100, 0, 0), (255, 0, 0), (100, 0, 0), (255, 0, 0))
 
     def test_03_mask_colours(self):
         """
-        Invalid bounds raises InvalidBGRBoundArguments
+        Invalid bounds raises InvalidColourBoundArguments.
         """
-        with self.assertRaises(InvalidBGRBoundArguments):
-            self.keyword.mask_colours(self.mask_multi_img_bgr, (0, 0, 0), (0, 0, 2560), (0, 0, 0), (0, 0, 25), 0)
-        with self.assertRaises(InvalidBGRBoundArguments):
-            self.keyword.mask_colours(self.mask_multi_img_bgr, (0, 0, -2), (0, 0, 255), (0, 0, 0), (0, 0, 25), 0)
-        with self.assertRaises(InvalidBGRBoundArguments):
-            self.keyword.mask_colours(self.mask_multi_img_bgr, (0, 0, 100), (0, "0", 100), (0, 0, 0), (0, 0, 25), 0)
-
-    def test_04_mask_colours(self):
-        """
-        Invalid bounds raises InvalidHSVBoundArguments
-        """
-        with self.assertRaises(InvalidHSVBoundArguments):
-            self.keyword.mask_colours(self.mask_multi_img_hsv, (0, 0, 0), (0, 0, 2560), (0, 0, 0), (0, 0, 25), 1)
-        with self.assertRaises(InvalidHSVBoundArguments):
-            self.keyword.mask_colours(self.mask_multi_img_hsv, (0, 0, -2), (0, 0, 255), (0, 0, 0), (0, 0, 25), 1)
-        with self.assertRaises(InvalidHSVBoundArguments):
-            self.keyword.mask_colours(self.mask_multi_img_hsv, (0, 0, 100), (0, "0", 100), (0, 0, 0), (0, 0, 25), 1)
+        with self.assertRaises(InvalidColourBoundArguments):
+            self.keyword.mask_colours(self.mask_multi_img_bgr, (0, 0, 0), (0, 0, 2560), (0, 0, 0), (0, 0, 25))
+        with self.assertRaises(InvalidColourBoundArguments):
+            self.keyword.mask_colours(self.mask_multi_img_bgr, (0, 0, -2), (0, 0, 255), (0, 0, 0), (0, 0, 25))
+        with self.assertRaises(InvalidColourBoundArguments):
+            self.keyword.mask_colours(self.mask_multi_img_bgr, (0, 0, 100), (0, "0", 100), (0, 0, 0), (0, 0, 25))

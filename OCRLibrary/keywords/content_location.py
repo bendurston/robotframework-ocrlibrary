@@ -13,16 +13,14 @@ class ContentLocationKeywords:
     """
     def locate_text_coordinates(self, processed_img, text, pyt_conf='--psm 6', lang='eng'):
         """
-        Purpose:
-            Locates the coordinates of the provided text. This keyword gets the first occurrance of the text.
-            Use Locate Multiple Text Coordinates if there is more than one occurrance of the text.
-        Args:
-            processed_img - the processed image.
-            text - the text to locate.
-            pyt_conf - the pytesseract image reading configuration.
-            lang - the language of the text being read.
-        Returns:
-            The coordinates found, stored in a tuple (x, y). If nothing is found, None is returned.
+        Locates the coordinates of the provided text. This keyword gets the first occurrance of the text.
+        Use ``Locate Multiple Text Coordinates`` if there is more than one occurrance of the text.
+        The coordinates found are returned as a tuple (x, y). If nothing is found, None is returned.
+
+        See `introduction` for details about pyt_conf and lang arguments.
+
+        Please note: as of version 1.0.0 this keyword only finds the coordinates of a single word. This will not
+        work for sentances.
         """
         verify_valid_image(processed_img)
         coordinates = return_text_coordinates(processed_img, text, pyt_conf, lang)
@@ -30,15 +28,14 @@ class ContentLocationKeywords:
 
     def locate_multiple_text_coordinates(self, processed_img, text, pyt_conf='--psm 6', lang='eng'):
         """
-        Purpose:
-            Locates the coordiantes of more than one instance of the provided text. This keyword can also be used if there is one occurrance.
-        Args:
-            processed_img - the processed image.
-            text - the text to locate.
-            pyt_conf - the pytesseract image reading configuration.
-            lang - the language of the text being read.
-        Returns:
-            A list of coordinates found, each index stores a tuple (x, y). If nothing is found, None is returned.
+        Locates the coordiantes of more than one instance of the provided text. This keyword can also be used if there is only
+        one occurrance of the text. A list of coordinates found is return, each index stores a tuple (x, y).
+        If nothing is found, None is returned.
+
+        See `introduction` for details about pyt_conf and lang arguments.
+
+        Please note: as of version 1.0.0 this keyword only finds the coordinates of a single word. This will not
+        work for sentances.
         """
         verify_valid_image(processed_img)
         multiple_coordinates = return_multiple_text_coordinates(processed_img, text, pyt_conf, lang)
@@ -46,20 +43,27 @@ class ContentLocationKeywords:
 
     def locate_text_bounds(self, processed_img, text, pyt_conf='--psm 6', lang='eng'):
         """
-        Purpose:
-            Locates the bounds found around the provided text. This keyword gets the first occurrance of the text.
-            Use Locate Multiple Text bounds if there is more than one occurrance of the text.
-        Args:
-            processed_img - the processed image.
-            text - the text to locate.
-            pyt_conf - the pytesseract image reading configuration.
-            lang - the language of the text being read.
-        Returns:
-            A tuple of the bounds is returned. Returns None if nothing is found.
-                Tuple[0] - x (the x value of the bound furthest to the left)
-                Tuple[1] - y (the y value of the bound on the top)
-                Tuple[2] - w (the width of the bound)
-                Tuple[3] - h (the height of the bound)
+        Locates the bounds found around the provided text. This keyword gets the first occurrance of the text.
+        Use ``Locate Multiple Text Bounds`` if there is more than one occurrance of the text.
+        A tuple of the bounds is returned. Returns None if nothing is found.
+
+        Example:
+        | ${result}=    Locate Text Bounds    ${processed_img}    OK
+        | ${x}=    Set Variable    ${result}[0]
+        | ${y}=    Set Variable    ${result}[1]
+        | ${w}=    Set Variable    ${result}[2]
+        | ${h}=    Set Variable    ${result}[3]
+
+        Bounds refer to the box around the word "OK".
+        - x represents the bound furthest to the left.
+        - y represents the top of the bound.
+        - w represents the width of the bound.
+        - h represents the height of the bound.
+
+        See `introduction` for details about pyt_conf and lang arguments.
+
+        Please note: as of version 1.0.0 this keyword only finds the coordinates of a single word. This will not
+        work for sentances.
         """
         verify_valid_image(processed_img)
         bounds = return_text_bounds(processed_img, text, pyt_conf, lang)
@@ -67,19 +71,15 @@ class ContentLocationKeywords:
 
     def locate_multiple_text_bounds(self, processed_img, text, pyt_conf='--psm 6', lang='eng'):
         """
-        Purpose:
-            Locates the bounds found around more than one instance of the provided text. This keyword can also be used if there is one occurrance.
-        Args:
-            processed_img - the processed image.
-            text - the text to locate.
-            pyt_conf - the pytesseract image reading configuration.
-            lang - the language of the text being read.
-        Returns:
-            A list of tuples containing the bounds are returned if the text is found. Returns None if nothing is found.
-                Tuple[0] - x (the x value of the bound furthest to the left)
-                Tuple[1] - y (the y value of the bound on the top)
-                Tuple[2] - w (the width of the bound)
-                Tuple[3] - h (the height of the bound)
+        Locates the bounds found around more than one instance of the provided text. This keyword can also be used if there is one occurrance
+        of the text. A list of tuples containing the bounds are returned if the text is found. Returns None if nothing is found.
+        
+        See ``Locate Text Bounds`` documentation for an example of what each index in the tuple corresponds to.
+
+        See `introduction` for details about pyt_conf and lang arguments.
+
+        Please note: as of version 1.0.0 this keyword only finds the coordinates of a single word. This will not
+        work for sentances.
         """
         verify_valid_image(processed_img)
         multiple_bounds = return_multiple_text_bounds(processed_img, text, pyt_conf, lang)

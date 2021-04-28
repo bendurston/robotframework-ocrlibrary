@@ -6,7 +6,8 @@ import cv2
 import numpy as np
 
 from OCRLibrary.keywords.binary_image_transformation import BinaryImageTransformationKeywords as bitk
-from OCRLibrary.utils.exceptions.exceptions import InvalidKernelSize, InvalidKernelType, InvalidIteration
+from OCRLibrary.utils.exceptions.exceptions \
+    import (InvalidKernelSize, InvalidKernelType, InvalidIteration, InvalidImageArgument)
 
 class BaseBinaryImageTransformationKeywords(unittest.TestCase):
     """
@@ -16,11 +17,13 @@ class BaseBinaryImageTransformationKeywords(unittest.TestCase):
     def setUpClass(cls):
         cls.keyword = bitk()
         cls.processed_image = cv2.imread('tests/images/locate_text_coordinates2.png')
+        cls.invalid_image = 'invalid_image.png'
 
     @classmethod
     def tearDownClass(cls):
         del cls.keyword
         del cls.processed_image
+        del cls.invalid_image
 
 class TestKeywordApplyErosionToImage(BaseBinaryImageTransformationKeywords):
     """
@@ -39,6 +42,13 @@ class TestKeywordApplyErosionToImage(BaseBinaryImageTransformationKeywords):
 
     def test_02_apply_erosion_to_image(self):
         """
+        Invalid image argument raises InvalidImageArgument.
+        """
+        with self.assertRaises(InvalidImageArgument):
+            self.keyword.apply_erosion_to_image(self.invalid_image, (1, 1))
+
+    def test_03_apply_erosion_to_image(self):
+        """
         Invalid kernel size argument raises InvalidKernelSize.
         """
         with self.assertRaises(InvalidKernelSize):
@@ -54,7 +64,7 @@ class TestKeywordApplyErosionToImage(BaseBinaryImageTransformationKeywords):
         with self.assertRaises(InvalidKernelSize):
             self.keyword.apply_erosion_to_image(self.processed_image, (0, 0), 0)
 
-    def test_03_apply_erosion_to_image(self):
+    def test_04_apply_erosion_to_image(self):
         """
         Invalid iteration argument raises InvalidIteration
         """
@@ -69,7 +79,7 @@ class TestKeywordApplyErosionToImage(BaseBinaryImageTransformationKeywords):
         with self.assertRaises(InvalidIteration):
             self.keyword.apply_erosion_to_image(self.processed_image, (1, 1), 0, None)
 
-    def test_04_apply_erosion_to_image(self):
+    def test_05_apply_erosion_to_image(self):
         """
         Invalid kernel type argument raises InvalidKernelType
         """
@@ -99,6 +109,13 @@ class TestKeywordAppyDilationToImage(BaseBinaryImageTransformationKeywords):
 
     def test_02_apply_dilation_to_image(self):
         """
+        Invalid image argument raises InvalidImageArgument.
+        """
+        with self.assertRaises(InvalidImageArgument):
+            self.keyword.apply_dilation_to_image(self.invalid_image, (1, 1))
+
+    def test_03_apply_dilation_to_image(self):
+        """
         Invalid kernel size argument raises InvalidKernelSize.
         """
         with self.assertRaises(InvalidKernelSize):
@@ -114,7 +131,7 @@ class TestKeywordAppyDilationToImage(BaseBinaryImageTransformationKeywords):
         with self.assertRaises(InvalidKernelSize):
             self.keyword.apply_dilation_to_image(self.processed_image, (0, 0), 0)
 
-    def test_03_apply_dilation_to_image(self):
+    def test_04_apply_dilation_to_image(self):
         """
         Invalid iteration argument raises InvalidIteration
         """
@@ -129,7 +146,7 @@ class TestKeywordAppyDilationToImage(BaseBinaryImageTransformationKeywords):
         with self.assertRaises(InvalidIteration):
             self.keyword.apply_dilation_to_image(self.processed_image, (1, 1), 0, None)
 
-    def test_04_apply_dilation_to_image(self):
+    def test_05_apply_dilation_to_image(self):
         """
         Invalid kernel type argument raises InvalidKernelType
         """
@@ -159,6 +176,13 @@ class TestKeywordApplyOpeningToImage(BaseBinaryImageTransformationKeywords):
 
     def test_02_apply_opening_to_image(self):
         """
+        Invalid image argument raises InvalidImageArgument.
+        """
+        with self.assertRaises(InvalidImageArgument):
+            self.keyword.apply_opening_to_image(self.invalid_image, (1, 1))
+
+    def test_03_apply_opening_to_image(self):
+        """
         Invalid kernel size argument raises InvalidKernelSize.
         """
         with self.assertRaises(InvalidKernelSize):
@@ -174,7 +198,7 @@ class TestKeywordApplyOpeningToImage(BaseBinaryImageTransformationKeywords):
         with self.assertRaises(InvalidKernelSize):
             self.keyword.apply_opening_to_image(self.processed_image, (0, 0), 0)
 
-    def test_03_apply_opening_to_image(self):
+    def test_04_apply_opening_to_image(self):
         """
         Invalid iteration argument raises InvalidIteration
         """
@@ -189,7 +213,7 @@ class TestKeywordApplyOpeningToImage(BaseBinaryImageTransformationKeywords):
         with self.assertRaises(InvalidIteration):
             self.keyword.apply_opening_to_image(self.processed_image, (1, 1), 0, None)
 
-    def test_04_apply_opening_to_image(self):
+    def test_05_apply_opening_to_image(self):
         """
         Invalid kernel type argument raises InvalidKernelType
         """
@@ -219,6 +243,13 @@ class TestKeywordAppyClosingToImage(BaseBinaryImageTransformationKeywords):
 
     def test_02_apply_closing_to_image(self):
         """
+        Invalid image argument raises InvalidImageArgument.
+        """
+        with self.assertRaises(InvalidImageArgument):
+            self.keyword.apply_closing_to_image(self.invalid_image, (1, 1))
+
+    def test_03_apply_closing_to_image(self):
+        """
         Invalid kernel size argument raises InvalidKernelSize.
         """
         with self.assertRaises(InvalidKernelSize):
@@ -234,7 +265,7 @@ class TestKeywordAppyClosingToImage(BaseBinaryImageTransformationKeywords):
         with self.assertRaises(InvalidKernelSize):
             self.keyword.apply_closing_to_image(self.processed_image, (0, 0), 0)
 
-    def test_03_apply_closing_to_image(self):
+    def test_04_apply_closing_to_image(self):
         """
         Invalid iteration argument raises InvalidIteration
         """
@@ -249,7 +280,7 @@ class TestKeywordAppyClosingToImage(BaseBinaryImageTransformationKeywords):
         with self.assertRaises(InvalidIteration):
             self.keyword.apply_closing_to_image(self.processed_image, (1, 1), 0, None)
 
-    def test_04_apply_closing_to_image(self):
+    def test_05_apply_closing_to_image(self):
         """
         Invalid kernel type argument raises InvalidKernelType
         """
@@ -279,6 +310,13 @@ class TestKeywordAppyGradientToImage(BaseBinaryImageTransformationKeywords):
 
     def test_02_apply_gradient_to_image(self):
         """
+        Invalid image argument raises InvalidImageArgument.
+        """
+        with self.assertRaises(InvalidImageArgument):
+            self.keyword.apply_gradient_to_image(self.invalid_image, (1, 1))
+
+    def test_03_apply_gradient_to_image(self):
+        """
         Invalid kernel size argument raises InvalidKernelSize.
         """
         with self.assertRaises(InvalidKernelSize):
@@ -294,7 +332,7 @@ class TestKeywordAppyGradientToImage(BaseBinaryImageTransformationKeywords):
         with self.assertRaises(InvalidKernelSize):
             self.keyword.apply_gradient_to_image(self.processed_image, (0, 0), 0)
 
-    def test_03_apply_gradient_to_image(self):
+    def test_04_apply_gradient_to_image(self):
         """
         Invalid iteration argument raises InvalidIteration
         """
@@ -309,7 +347,7 @@ class TestKeywordAppyGradientToImage(BaseBinaryImageTransformationKeywords):
         with self.assertRaises(InvalidIteration):
             self.keyword.apply_gradient_to_image(self.processed_image, (1, 1), 0, None)
 
-    def test_04_apply_gradient_to_image(self):
+    def test_05_apply_gradient_to_image(self):
         """
         Invalid kernel type argument raises InvalidKernelType
         """
@@ -339,6 +377,13 @@ class TestKeywordAppyTopHatToImage(BaseBinaryImageTransformationKeywords):
 
     def test_02_apply_top_hat_to_image(self):
         """
+        Invalid image argument raises InvalidImageArgument.
+        """
+        with self.assertRaises(InvalidImageArgument):
+            self.keyword.apply_top_hat_to_image(self.invalid_image, (1, 1))
+
+    def test_03_apply_top_hat_to_image(self):
+        """
         Invalid kernel size argument raises InvalidKernelSize.
         """
         with self.assertRaises(InvalidKernelSize):
@@ -354,7 +399,7 @@ class TestKeywordAppyTopHatToImage(BaseBinaryImageTransformationKeywords):
         with self.assertRaises(InvalidKernelSize):
             self.keyword.apply_top_hat_to_image(self.processed_image, (0, 0), 0)
 
-    def test_03_apply_top_hat_to_image(self):
+    def test_04_apply_top_hat_to_image(self):
         """
         Invalid iteration argument raises InvalidIteration
         """
@@ -369,7 +414,7 @@ class TestKeywordAppyTopHatToImage(BaseBinaryImageTransformationKeywords):
         with self.assertRaises(InvalidIteration):
             self.keyword.apply_top_hat_to_image(self.processed_image, (1, 1), 0, None)
 
-    def test_04_apply_top_hat_to_image(self):
+    def test_05_apply_top_hat_to_image(self):
         """
         Invalid kernel type argument raises InvalidKernelType
         """
@@ -399,6 +444,13 @@ class TestKeywordApplyBlackHatToImage(BaseBinaryImageTransformationKeywords):
 
     def test_02_apply_black_hat_to_image(self):
         """
+        Invalid image argument raises InvalidImageArgument.
+        """
+        with self.assertRaises(InvalidImageArgument):
+            self.keyword.apply_black_hat_to_image(self.invalid_image, (1, 1))
+
+    def test_03_apply_black_hat_to_image(self):
+        """
         Invalid kernel size argument raises InvalidKernelSize.
         """
         with self.assertRaises(InvalidKernelSize):
@@ -414,7 +466,7 @@ class TestKeywordApplyBlackHatToImage(BaseBinaryImageTransformationKeywords):
         with self.assertRaises(InvalidKernelSize):
             self.keyword.apply_black_hat_to_image(self.processed_image, (0, 0), 0)
 
-    def test_03_apply_black_hat_to_image(self):
+    def test_04_apply_black_hat_to_image(self):
         """
         Invalid iteration argument raises InvalidIteration
         """
@@ -429,7 +481,7 @@ class TestKeywordApplyBlackHatToImage(BaseBinaryImageTransformationKeywords):
         with self.assertRaises(InvalidIteration):
             self.keyword.apply_black_hat_to_image(self.processed_image, (1, 1), 0, None)
 
-    def test_04_apply_black_hat_to_image(self):
+    def test_05_apply_black_hat_to_image(self):
         """
         Invalid kernel type argument raises InvalidKernelType
         """
