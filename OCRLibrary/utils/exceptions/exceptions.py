@@ -57,20 +57,10 @@ class InvalidImageArgument(Error):
     def __init__(self, message):
         self.message = message
 
-class InvalidBGRBoundArguments(Error):
+class InvalidColourBoundArguments(Error):
     """
     Purpose:
         Exceptions raised when the incorrect bounds are given when masking a BGR image.
-    Attributes:
-        message - explanation of the error.
-    """
-    def __init__(self, message):
-        self.message = message
-
-class InvalidHSVBoundArguments(Error):
-    """
-    Purpose:
-        Exceptions raised when the incorrect bounds are given when masking an HSV image.
     Attributes:
         message - explanation of the error.
     """
