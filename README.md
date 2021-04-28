@@ -3,8 +3,30 @@ A robot framework library that is capable of processing images, validating text,
 
 [![Build](https://github.com/bendurston/robotframework-ocrlibrary/actions/workflows/build.yml/badge.svg)](https://github.com/bendurston/robotframework-ocrlibrary/actions/workflows/build.yml)
 
+## Installation and Usage
+- OCRLibrary can be run on Python 3.6, 3.7, 3.8, and 3.9.
+- To install, run `pip install robotframework-OCRLibrary`
+
+### Dependencies
+OCRLibrary uses two dependencies, opencv-python and pytesseract.
+Pytesseract has more dependencies. Depending on your OS and current packages, this may not work after a pip install.
+
+#### OpenCV Python
+To install opencv-python, run `pip install opencv-python`.
+Please see [opencv-python's installation and usage section](https://github.com/opencv/opencv-python#installation-and-usage) if this does not work.
+
+#### Pytesseract
+To install pytesseract, run `pip install pytesseract`.
+Please see [pytesseracts installation section](https://github.com/madmaze/pytesseract#installation) if this
+does not work.
+
+Pytesseract requires Google's Tesseract OCR software. For installation of tesseract for Linux, MacOS or Windows please see [the following installation guide](https://tesseract-ocr.github.io/tessdoc/Installation.html).
+
+### Usage
+Once OCRLibrary is installed, along with its dependencies, add `Library    OCRLibrary` to your robot file to use.
+
 ## Custom configurations for reading images.
-You can add any combination of these configurations in a string to use as an argument `config=` in `pytesseract.image_to_string()`.
+You can add any combination of the following to the `pyt_conf` string argument.
 
 ### Page segmentation modes
 Page segmentation modes provide different ways a poage of text can be analyzed. Here is a list of supported page segmentation modes:
@@ -45,34 +67,15 @@ Add the characters you want to not detect to the string: `c- tessedit_char_black
 An example to not detect special characters: `c- tessedit_char_whitelist=!@#$%^&*()`
 
 ## Image Processing in OpenCV
-Please note this library will not contain all image preprocessing available by OpenCV. 
-This library assumes the images are screenshots from devices, so images would be clear and do not require 
-processing such as geometric transformations.
+Please see any of the following links for more information on image processing using OpenCV:
+- [Changing Colour Spaces](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_colorspaces/py_colorspaces.html#converting-colorspaces)
+- [Thresholding](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_thresholding/py_thresholding.html#thresholding)
+- [Smoothing Images](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_filtering/py_filtering.html#filtering)
+- [Morphological Transformations](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_morphological_ops/py_morphological_ops.html#morphological-ops)
 
-### Changing Colour Spaces
-There are currently two functions available that will change an images colour: 
-+ `convert_BGR_to_HSV(img, colour)` extracts the given colour or colours from the BGR image
-+ `convert_BGR_to_GRAY(img)` converts a BGR image to a gray scale image
+## Contributing
+When contributing please adhere to the following.
 
-### Image Thresholding
-[Image Thresholding Reference From OpenCV](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_thresholding/py_thresholding.html#thresholding)
-
-Image thresholding is used to convert **gray scale images** to **binary images**. The gray scale image is processed
-and each pixel is checked, if the pixel is greater than the threshold value it is assigned a 1, else it is assigned a 0.
-1 and 0 represent white and black but depends on the thresholding function to determine which is which. 
-Note: these functions will mostlikely fail if the image argument is not gray scale.
-
-#### Image Thresholding without OTSU
-All of the following functions take similar arguments and return similar values.
-The first argument is the gray scale image, the second argument is the threshold value which is used to classify the pixel values.
-The second argument is the max value which represents the value to be given if the pixel value is more than (sometimes less than) the
-threshold value. The fourth argument is the different image thresholding style.
-Available Functions:
-+ `thresholding_binary()`
-+ `thresholding_binary_inv()`
-+ `thresholding_thrunc()`
-+ `thresholding_tozero()`
-+ `thresholding_tozero_inv()`
-Here is a reference of the results of the above functions:
-
-![alt text](https://github.com/bendurston/robotframework-ocrlibrary/blob/main/docs/images/image_thresholding_without_otsu.png)
+To start off, if you find a bug, please submit an issue.
+If you want to fix something or improve upon something, fork the repo, and create a new branch.
+Once you have made the changes and have written unit tests or updated the regression tests (please use pythons Unittest when testing), make a pull request.
