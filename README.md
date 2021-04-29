@@ -3,6 +3,10 @@ A robot framework library that is capable of processing images, validating text,
 
 [![Build](https://github.com/bendurston/robotframework-ocrlibrary/actions/workflows/build.yml/badge.svg)](https://github.com/bendurston/robotframework-ocrlibrary/actions/workflows/build.yml)
 
+## Keyword Documentation
+You can find the [keyword documentation here](https://github.com/bendurston/robotframework-ocrlibrary/docs/html/OCRLibrary.html).
+
+
 ## Installation and Usage
 - OCRLibrary can be run on Python 3.6, 3.7, 3.8, and 3.9.
 - To install, run `pip install robotframework-OCRLibrary`
