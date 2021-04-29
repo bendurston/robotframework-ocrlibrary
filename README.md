@@ -4,7 +4,7 @@ A robot framework library that is capable of processing images, validating text,
 [![Build](https://github.com/bendurston/robotframework-ocrlibrary/actions/workflows/build.yml/badge.svg)](https://github.com/bendurston/robotframework-ocrlibrary/actions/workflows/build.yml)
 
 ## Keyword Documentation
-You can find the [keyword documentation here](https://github.com/bendurston/robotframework-ocrlibrary/docs/html/OCRLibrary.html).
+You can find the [keyword documentation here](https://bendurston.github.io/OCRLibrary.html).
 
 
 ## Installation and Usage
