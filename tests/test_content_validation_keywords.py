@@ -49,3 +49,21 @@ class TestKeywordValidateImageContent(BaseContentValidationKeywords):
         """
         with self.assertRaises(ContentNotFound):
             self.keyword.validate_image_content(self.processed_image, self.incorrect_expected_content)
+
+class TestKeywordGetImageContent(BaseContentValidationKeywords):
+    """
+    TestKeywordGetImageContent Class
+    """
+    def test_01_get_image_content(self):
+        """
+        End to end flow of function. All correct arguments.
+        """
+        content = self.keyword.get_image_content(self.processed_image)
+        self.assertTrue(isinstance(content, str))
+
+    def test_02_get_image_content(self):
+        """
+        Raise InvalidImageArgument by providing incorrect processed_image.
+        """
+        with self.assertRaises(InvalidImageArgument):
+            self.keyword.get_image_content(None)
