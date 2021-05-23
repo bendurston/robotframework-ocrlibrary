@@ -19,3 +19,12 @@ class ContentValidationKeywords:
         verify_valid_image(processed_img)
         actual_content = return_image_content(processed_img, pyt_conf, lang)
         return verify_content(expected_content, actual_content)
+
+    def get_image_content(self, processed_img, pyt_conf='--psm 6', lang='eng'):
+        """
+        Gets the text found within the provided processed image.
+
+        See `introduction` for details about pyt_conf and lang arguments.
+        """
+        verify_valid_image(processed_img)
+        return return_image_content(processed_img, pyt_conf, lang)

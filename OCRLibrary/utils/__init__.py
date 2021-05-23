@@ -2,4 +2,4 @@
 utils module
 """
 
-__all__ = ["imageprocessing", "imagereading"]
+__all__ = ["imageprocessing", "imagereading", "helpers"]
