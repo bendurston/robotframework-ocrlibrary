@@ -11,11 +11,18 @@ jobs:
     name: Execute unit tests
     # Set the type of machine to run on
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        python-version: ['3.6.0', '3.7.0', '3.8.0', '3.9.0']
     steps:
       # Checks out a copy of your repository on the ubuntu-latest machine
       - name: Checkout code
         uses: actions/checkout@v2
+      # Sets up multiple versions of python, credit: https://github.com/actions/setup-python
+      - name: Python Setup
+        uses: actions/setup-python@v2
+        with:
+          python-verison: ${{ matix.python-version }}
       # Installs requirements
       - name: Install Requirements
         run: |
@@ -23,6 +30,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install opencv-python
           pip install pytesseract
+      # Display python version
+      - name: Display Python Version
+        run: python -c "import sys; print(sys.version)"
       # Runs unit tests
       - name: Run Unit Tests
         run: |
