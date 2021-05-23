@@ -35,9 +35,11 @@ class TestKeywordAppyFilter2DToImage(BaseGenericImageTransformationKeywords):
         """
         filter2d_image = self.keyword.apply_filter2D_to_image(self.processed_image, (1, 1), 0)
         self.assertTrue(isinstance(filter2d_image, np.ndarray))
-        filter2d_image = self.keyword.apply_filter2D_to_image(self.processed_image, (1, 1), 1)
+        filter2d_image = self.keyword.apply_filter2D_to_image(self.processed_image, [1.1, 1.1], 1)
         self.assertTrue(isinstance(filter2d_image, np.ndarray))
-        filter2d_image = self.keyword.apply_filter2D_to_image(self.processed_image, (1, 1), 2)
+        filter2d_image = self.keyword.apply_filter2D_to_image(self.processed_image, ("1", "1"), 2)
+        self.assertTrue(isinstance(filter2d_image, np.ndarray))
+        filter2d_image = self.keyword.apply_filter2D_to_image(self.processed_image, ("2", "2"), 2)
         self.assertTrue(isinstance(filter2d_image, np.ndarray))
 
     def test_02_apply_filter2d_to_image(self):
@@ -49,7 +51,7 @@ class TestKeywordAppyFilter2DToImage(BaseGenericImageTransformationKeywords):
 
     def test_03_apply_filter2d_to_image(self):
         """
-        Invalid kernel size argument raises InvalidKernelSize.   
+        Invalid kernel size argument raises InvalidKernelSize.  
         """
         with self.assertRaises(InvalidKernelSize):
             self.keyword.apply_filter2D_to_image(self.processed_image, None, 0)
@@ -122,6 +124,8 @@ class TestKeywordApplyMedianFilteringToImage(BaseGenericImageTransformationKeywo
             self.keyword.apply_median_filtering_to_image(self.processed_image, 2)
         with self.assertRaises(InvalidKernelSize):
             self.keyword.apply_median_filtering_to_image(self.processed_image, -1)
+        with self.assertRaises(InvalidKernelSize):
+            self.keyword.apply_median_filtering_to_image(self.processed_image, 1.1)
 
 class TestKeywordApplyAveragingBlurToImage(BaseGenericImageTransformationKeywords):
     """
@@ -132,6 +136,12 @@ class TestKeywordApplyAveragingBlurToImage(BaseGenericImageTransformationKeyword
         End to end flow of Apply Averaging Blur To Image keyword.
         """
         averaging_blur_image = self.keyword.apply_averaging_blur_to_image(self.processed_image, (1, 1))
+        self.assertTrue(isinstance(averaging_blur_image, np.ndarray))
+        averaging_blur_image = self.keyword.apply_averaging_blur_to_image(self.processed_image, (1.1, 1.1))
+        self.assertTrue(isinstance(averaging_blur_image, np.ndarray))
+        averaging_blur_image = self.keyword.apply_averaging_blur_to_image(self.processed_image, [1.1, 1.1])
+        self.assertTrue(isinstance(averaging_blur_image, np.ndarray))
+        averaging_blur_image = self.keyword.apply_averaging_blur_to_image(self.processed_image, ["2.1", "1.1"])
         self.assertTrue(isinstance(averaging_blur_image, np.ndarray))
 
     def test_02_apply_averaging_blur_to_image(self):
@@ -168,6 +178,10 @@ class TestKeywordApplyGaussianBlurToImage(BaseGenericImageTransformationKeywords
         """
         gaussian_image = self.keyword.apply_gaussian_blur_to_image(self.processed_image, (1,1))
         self.assertTrue(isinstance(gaussian_image, np.ndarray))
+        gaussian_image = self.keyword.apply_gaussian_blur_to_image(self.processed_image, [1, 1])
+        self.assertTrue(isinstance(gaussian_image, np.ndarray))
+        gaussian_image = self.keyword.apply_gaussian_blur_to_image(self.processed_image, ("1.1","1.1"))
+        self.assertTrue(isinstance(gaussian_image, np.ndarray))
 
     def test_02_apply_gaussian_blur_to_image(self):
         """
@@ -192,3 +206,5 @@ class TestKeywordApplyGaussianBlurToImage(BaseGenericImageTransformationKeywords
             self.keyword.apply_gaussian_blur_to_image(self.processed_image, (-10, 1))
         with self.assertRaises(InvalidKernelSize):
             self.keyword.apply_gaussian_blur_to_image(self.processed_image, (0, 0))
+        with self.assertRaises(InvalidKernelSize):
+            self.keyword.apply_gaussian_blur_to_image(self.processed_image, (1, 2))

@@ -3,6 +3,8 @@ binaryImageTransformation module.
 """
 from ..utils.exceptions.exception_handler import \
     (verify_valid_kernel_size, verify_valid_iteration, raise_invalid_kernel_type, verify_valid_image)
+from ..utils.helpers.robot_conversions import \
+    (convert_to_valid_kernel_size)
 from ..utils.imageprocessing.image_processing_gray import \
     (process_erosion_with_rect_kernel, process_erosion_with_ellipse_kernel, process_erosion_with_cross_kernel,
     process_dilation_with_rect_kernel, process_dilation_with_ellipse_kernel, process_dilation_with_cross_kernel,
@@ -30,6 +32,7 @@ class BinaryImageTransformationKeywords:
         verify_valid_image(processed_img)
         verify_valid_kernel_size(kernel_size)
         verify_valid_iteration(iteration)
+        kernel_size = convert_to_valid_kernel_size(kernel_size)
         if kernel_type == 0:
             transformed_image = process_erosion_with_rect_kernel(processed_img, kernel_size, iteration)
         elif kernel_type == 1:
@@ -51,6 +54,7 @@ class BinaryImageTransformationKeywords:
         verify_valid_image(processed_img)
         verify_valid_kernel_size(kernel_size)
         verify_valid_iteration(iteration)
+        kernel_size = convert_to_valid_kernel_size(kernel_size)
         if kernel_type == 0:
             transformed_image = process_dilation_with_rect_kernel(processed_img, kernel_size, iteration)
         elif kernel_type == 1:
@@ -72,6 +76,7 @@ class BinaryImageTransformationKeywords:
         verify_valid_image(processed_img)
         verify_valid_kernel_size(kernel_size)
         verify_valid_iteration(iteration)
+        kernel_size = convert_to_valid_kernel_size(kernel_size)
         if kernel_type == 0:
             transformed_image = process_opening_with_rect_kernel(processed_img, kernel_size)
         elif kernel_type == 1:
@@ -93,6 +98,7 @@ class BinaryImageTransformationKeywords:
         verify_valid_image(processed_img)
         verify_valid_kernel_size(kernel_size)
         verify_valid_iteration(iteration)
+        kernel_size = convert_to_valid_kernel_size(kernel_size)
         if kernel_type == 0:
             transformed_image = process_closing_with_rect_kernel(processed_img, kernel_size)
         elif kernel_type == 1:
@@ -114,6 +120,7 @@ class BinaryImageTransformationKeywords:
         verify_valid_image(processed_img)
         verify_valid_kernel_size(kernel_size)
         verify_valid_iteration(iteration)
+        kernel_size = convert_to_valid_kernel_size(kernel_size)
         if kernel_type == 0:
             transformed_image = process_gradient_with_rect_kernel(processed_img, kernel_size)
         elif kernel_type == 1:
@@ -135,6 +142,7 @@ class BinaryImageTransformationKeywords:
         verify_valid_image(processed_img)
         verify_valid_kernel_size(kernel_size)
         verify_valid_iteration(iteration)
+        kernel_size = convert_to_valid_kernel_size(kernel_size)
         if kernel_type == 0:
             transformed_image = process_tophat_with_rect_kernel(processed_img, kernel_size)
         elif kernel_type == 1:
@@ -156,6 +164,7 @@ class BinaryImageTransformationKeywords:
         verify_valid_image(processed_img)
         verify_valid_kernel_size(kernel_size)
         verify_valid_iteration(iteration)
+        kernel_size = convert_to_valid_kernel_size(kernel_size)
         if kernel_type == 0:
             transformed_image = process_blackhat_with_rect_kernel(processed_img, kernel_size)
         elif kernel_type == 1:

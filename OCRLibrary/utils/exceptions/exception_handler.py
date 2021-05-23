@@ -13,19 +13,30 @@ def verify_content(expected_content, actual_content):
     otherwise a ContentNotFound error is raised.
     """
     if expected_content not in actual_content:
-        raise ContentNotFound(f"The expected content: {expected_content}\nwas not found in the actual content: {actual_content}")
+        raise ContentNotFound(f"The expected content: {expected_content} was not found in the actual content: {actual_content}")
     return True
 
 def verify_valid_kernel_size(kernel_size):
     """
     Function verifies if the given kernel size is valid.
-    Kernel size must be a tuple
+    Kernel size must be a tuple/list of ints with positive values.
     """
-    if isinstance(kernel_size, tuple):
-        if (kernel_size[0] > 0 and isinstance(kernel_size[0], int)):
-            if (kernel_size[1] > 0 and isinstance(kernel_size[1], int)):
+    if isinstance(kernel_size, (tuple, list)):
+        if (int(float(kernel_size[0])) > 0 and int(float(kernel_size[1])) > 0):
+            if (int(float(kernel_size[0])) and int(float(kernel_size[1]))):
                 return True
-    raise InvalidKernelSize("The kernel size argument provided is invalid. Please provide a size that is a positive odd number of type tuple.")
+    raise InvalidKernelSize("The kernel size argument provided is invalid. Please provide a size that is a positive number of type int, and the kernel_size is of type tuple or list.")
+
+def verify_valid_kernel_size_only_odds(kernel_size):
+    """
+    Function verifies if the given kernel size is valid.
+    Kernel size must be a tuple/list of ints with positive odd values.
+    """
+    if isinstance(kernel_size, (tuple, list)):
+        if (int(float(kernel_size[0])) > 0 and int(float(kernel_size[1])) > 0):
+            if (int(float(kernel_size[0])) % 2 == 1 and int(float(kernel_size[1])) % 2 == 1):
+                return True
+    raise InvalidKernelSize("The kernel size argument provided is invalid. Please provide a size that is a positive odd number of type int, and the kernel_size is of type tuple or list.")
 
 def verify_valid_kernel_size_non_tuple(kernel_size):
     """
@@ -33,7 +44,7 @@ def verify_valid_kernel_size_non_tuple(kernel_size):
     Kernel size must be a an int that is greater than zero and is odd.
     """
     if isinstance(kernel_size, int):
-        if kernel_size > 0 and kernel_size % 2 == 1:
+        if (kernel_size > 0 and kernel_size % 2 == 1):
             return True
     raise InvalidKernelSize("The kernel size argument provided is invalid. Please provide a size that is a positive odd number of type int.")
 

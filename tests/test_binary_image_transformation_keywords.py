@@ -33,11 +33,11 @@ class TestKeywordApplyErosionToImage(BaseBinaryImageTransformationKeywords):
         """
         End to end flow of Apply Erosion To Image keyword.
         """
-        erosion_image = self.keyword.apply_erosion_to_image(self.processed_image, (1, 1), 0)
+        erosion_image = self.keyword.apply_erosion_to_image(self.processed_image, (2, 2), 0)
         self.assertTrue(isinstance(erosion_image, np.ndarray))
-        erosion_image = self.keyword.apply_erosion_to_image(self.processed_image, (1, 1), 1)
+        erosion_image = self.keyword.apply_erosion_to_image(self.processed_image, [1, 1], 1)
         self.assertTrue(isinstance(erosion_image, np.ndarray))
-        erosion_image = self.keyword.apply_erosion_to_image(self.processed_image, (1, 1), 2)
+        erosion_image = self.keyword.apply_erosion_to_image(self.processed_image, ("1.1", "1.1"), 2)
         self.assertTrue(isinstance(erosion_image, np.ndarray))
 
     def test_02_apply_erosion_to_image(self):
@@ -100,11 +100,11 @@ class TestKeywordAppyDilationToImage(BaseBinaryImageTransformationKeywords):
         """
         End to end flow of Apply Dilation To Image keyword.
         """
-        dilation_image = self.keyword.apply_dilation_to_image(self.processed_image, (1, 1), 0)
+        dilation_image = self.keyword.apply_dilation_to_image(self.processed_image, (2, 2), 0)
         self.assertTrue(isinstance(dilation_image, np.ndarray))
-        dilation_image = self.keyword.apply_dilation_to_image(self.processed_image, (1, 1), 1)
+        dilation_image = self.keyword.apply_dilation_to_image(self.processed_image, [1, 1], 1)
         self.assertTrue(isinstance(dilation_image, np.ndarray))
-        dilation_image = self.keyword.apply_dilation_to_image(self.processed_image, (1, 1), 2)
+        dilation_image = self.keyword.apply_dilation_to_image(self.processed_image, ("1.1", "1.1"), 2)
         self.assertTrue(isinstance(dilation_image, np.ndarray))
 
     def test_02_apply_dilation_to_image(self):
@@ -167,11 +167,11 @@ class TestKeywordApplyOpeningToImage(BaseBinaryImageTransformationKeywords):
         """
         End to end flow of Apply Opening To Image keyword.
         """
-        opening_image = self.keyword.apply_opening_to_image(self.processed_image, (1, 1), 0)
+        opening_image = self.keyword.apply_opening_to_image(self.processed_image, (2, 2), 0)
         self.assertTrue(isinstance(opening_image, np.ndarray))
-        opening_image = self.keyword.apply_opening_to_image(self.processed_image, (1, 1), 1)
+        opening_image = self.keyword.apply_opening_to_image(self.processed_image, [1, 1], 1)
         self.assertTrue(isinstance(opening_image, np.ndarray))
-        opening_image = self.keyword.apply_opening_to_image(self.processed_image, (1, 1), 2)
+        opening_image = self.keyword.apply_opening_to_image(self.processed_image, ("1.1", "1.1"), 2)
         self.assertTrue(isinstance(opening_image, np.ndarray))
 
     def test_02_apply_opening_to_image(self):
@@ -234,11 +234,11 @@ class TestKeywordAppyClosingToImage(BaseBinaryImageTransformationKeywords):
         """
         End to end flow of Apply Closing To Image keyword.
         """
-        closing_image = self.keyword.apply_closing_to_image(self.processed_image, (1, 1), 0)
+        closing_image = self.keyword.apply_closing_to_image(self.processed_image, (2, 2), 0)
         self.assertTrue(isinstance(closing_image, np.ndarray))
-        closing_image = self.keyword.apply_closing_to_image(self.processed_image, (1, 1), 1)
+        closing_image = self.keyword.apply_closing_to_image(self.processed_image, [1, 1], 1)
         self.assertTrue(isinstance(closing_image, np.ndarray))
-        closing_image = self.keyword.apply_closing_to_image(self.processed_image, (1, 1), 2)
+        closing_image = self.keyword.apply_closing_to_image(self.processed_image, ("1.1", "1.1"), 2)
         self.assertTrue(isinstance(closing_image, np.ndarray))
 
     def test_02_apply_closing_to_image(self):
@@ -301,11 +301,11 @@ class TestKeywordAppyGradientToImage(BaseBinaryImageTransformationKeywords):
         """
         End to end flow of Apply Gradient To Image keyword.
         """
-        gradient_image = self.keyword.apply_gradient_to_image(self.processed_image, (1, 1), 0)
+        gradient_image = self.keyword.apply_gradient_to_image(self.processed_image, (2, 2), 0)
         self.assertTrue(isinstance(gradient_image, np.ndarray))
-        gradient_image = self.keyword.apply_gradient_to_image(self.processed_image, (1, 1), 1)
+        gradient_image = self.keyword.apply_gradient_to_image(self.processed_image, [1, 1], 1)
         self.assertTrue(isinstance(gradient_image, np.ndarray))
-        gradient_image = self.keyword.apply_gradient_to_image(self.processed_image, (1, 1), 2)
+        gradient_image = self.keyword.apply_gradient_to_image(self.processed_image, ("1.1", "1.1"), 2)
         self.assertTrue(isinstance(gradient_image, np.ndarray))
 
     def test_02_apply_gradient_to_image(self):
@@ -368,11 +368,11 @@ class TestKeywordAppyTopHatToImage(BaseBinaryImageTransformationKeywords):
         """
         End to end flow of Apply Top Hat To Image keyword.
         """
-        top_hat_image = self.keyword.apply_top_hat_to_image(self.processed_image, (1, 1), 0)
+        top_hat_image = self.keyword.apply_top_hat_to_image(self.processed_image, (2, 2), 0)
         self.assertTrue(isinstance(top_hat_image, np.ndarray))
-        top_hat_image = self.keyword.apply_top_hat_to_image(self.processed_image, (1, 1), 1)
+        top_hat_image = self.keyword.apply_top_hat_to_image(self.processed_image, [1, 1], 1)
         self.assertTrue(isinstance(top_hat_image, np.ndarray))
-        top_hat_image = self.keyword.apply_top_hat_to_image(self.processed_image, (1, 1), 2)
+        top_hat_image = self.keyword.apply_top_hat_to_image(self.processed_image, ("1.1", "1.1"), 2)
         self.assertTrue(isinstance(top_hat_image, np.ndarray))
 
     def test_02_apply_top_hat_to_image(self):
@@ -435,11 +435,11 @@ class TestKeywordApplyBlackHatToImage(BaseBinaryImageTransformationKeywords):
         """
         End to end flow of Apply Black Hat To Image keyword.
         """
-        black_hat_image = self.keyword.apply_black_hat_to_image(self.processed_image, (1, 1), 0)
+        black_hat_image = self.keyword.apply_black_hat_to_image(self.processed_image, (2, 2), 0)
         self.assertTrue(isinstance(black_hat_image, np.ndarray))
-        black_hat_image = self.keyword.apply_black_hat_to_image(self.processed_image, (1, 1), 1)
+        black_hat_image = self.keyword.apply_black_hat_to_image(self.processed_image, [1, 1], 1)
         self.assertTrue(isinstance(black_hat_image, np.ndarray))
-        black_hat_image = self.keyword.apply_black_hat_to_image(self.processed_image, (1, 1), 2)
+        black_hat_image = self.keyword.apply_black_hat_to_image(self.processed_image, ("1.1", "1.1"), 2)
         self.assertTrue(isinstance(black_hat_image, np.ndarray))
 
     def test_02_apply_black_hat_to_image(self):

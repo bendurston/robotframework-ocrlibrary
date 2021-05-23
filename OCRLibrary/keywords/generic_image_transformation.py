@@ -3,7 +3,9 @@ generic_image_transformation module.
 """
 from ..utils.exceptions.exception_handler \
     import (verify_valid_kernel_size, verify_valid_depth, raise_invalid_kernel_type, verify_valid_kernel_size_non_tuple,
-    verify_valid_image)
+    verify_valid_image, verify_valid_kernel_size_only_odds)
+from ..utils.helpers.robot_conversions \
+    import (convert_to_valid_kernel_size)
 from ..utils.imageprocessing.image_processing_generic \
     import (process_image_filtering_with_rect_kernel, process_image_filtering_with_ellipse_kernel, process_image_filtering_with_cross_kernel,
     process_median_filtering, process_blurring_averaging, process_blurring_gaussian)
@@ -26,6 +28,7 @@ class GenericImageTransformationKeywords:
         verify_valid_image(processed_img)
         verify_valid_kernel_size(kernel_size)
         verify_valid_depth(depth)
+        kernel_size = convert_to_valid_kernel_size(kernel_size)
         if kernel_type == 0:
             transformed_image = process_image_filtering_with_rect_kernel(processed_img, kernel_size, depth)
         elif kernel_type == 1:
@@ -59,6 +62,7 @@ class GenericImageTransformationKeywords:
         """
         verify_valid_image(processed_img)
         verify_valid_kernel_size(kernel_size)
+        kernel_size = convert_to_valid_kernel_size(kernel_size)
         return process_blurring_averaging(processed_img, kernel_size)
 
     def apply_gaussian_blur_to_image(self, processed_img, kernel_size):
@@ -70,5 +74,6 @@ class GenericImageTransformationKeywords:
         See `introduction` for details about using arguments.
         """
         verify_valid_image(processed_img)
-        verify_valid_kernel_size(kernel_size)
+        verify_valid_kernel_size_only_odds(kernel_size)
+        kernel_size = convert_to_valid_kernel_size(kernel_size)
         return process_blurring_gaussian(processed_img, kernel_size)
