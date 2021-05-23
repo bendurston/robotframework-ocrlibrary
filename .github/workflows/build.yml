@@ -22,7 +22,7 @@ jobs:
       - name: Python Setup
         uses: actions/setup-python@v2
         with:
-          python-verison: ${{ matix.python-version }}
+          python-verison: ${{ matrix.python-version }}
       # Installs requirements
       - name: Install Requirements
         run: |
