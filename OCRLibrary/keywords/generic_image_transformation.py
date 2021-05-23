@@ -16,12 +16,13 @@ class GenericImageTransformationKeywords:
     """
     def apply_filter2D_to_image(self, processed_img, kernel_size, kernel_type=0, depth=-1):
         """
-        Applies the filter2D filter to the provided image.
+        Applies the filter2D filter to the provided image. Kernel size must be a tuple/list of positive ints.
 
         Example:
         | ${img_path}=    Capture Page Screenshot
         | ${processed_img}=    Read Image    ${img_path}
-        | ${filtered_img}=    Apply Filter2D To Image    ${processed_img}    (1, 1)
+        | ${kernel_size}=    Create List    1    1
+        | ${filtered_img}=    Apply Filter2D To Image    ${processed_img}    ${kernel_size}
 
         See `introduction` for details about using arguments.
         """
@@ -42,7 +43,7 @@ class GenericImageTransformationKeywords:
     def apply_median_filtering_to_image(self, processed_img, kernel_size):
         """
         Applies the median filter to the provided image.
-        ``kernel_size`` takes an integer that is odd and greater than 0. Not a tuple.
+        ``kernel_size`` takes an integer that is odd and greater than 0. Not a tuple/list.
 
         See ``Apply Filter2D To Image`` for example of general usage.
 
@@ -54,7 +55,7 @@ class GenericImageTransformationKeywords:
 
     def apply_averaging_blur_to_image(self, processed_img, kernel_size):
         """
-        Applies the averaging blur to the provided image.
+        Applies the averaging blur to the provided image.  Kernel size must be a tuple/list of positive ints.
 
         See ``Apply Filter2D To Image`` for example of general usage.
 
@@ -67,7 +68,7 @@ class GenericImageTransformationKeywords:
 
     def apply_gaussian_blur_to_image(self, processed_img, kernel_size):
         """
-        Applies the gaussian blur to the provided image.
+        Applies the gaussian blur to the provided image. Kernel size must be a tuple/list of positive and odd ints.
 
         See ``Apply Filter2D To Image`` for example of general usage.
 

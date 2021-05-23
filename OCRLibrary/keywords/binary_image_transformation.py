@@ -20,12 +20,13 @@ class BinaryImageTransformationKeywords:
     """
     def apply_erosion_to_image(self, processed_img, kernel_size, kernel_type=0, iteration=1):
         """
-        Applies the erosion morphological transformation to a binary image.
+        Applies the erosion morphological transformation to a binary image. Kernel size must be a tuple/list of positive ints.
 
         Example:
         | ${img_path}=    Capture Page Screenshot
         | ${processed_img}=    Get Binary Image    ${img_path}
-        | ${eroded_img}=    Apply Erosion To Image    ${processed_img}    (1, 1)
+        | ${kernel_size}=    Create List    1    1
+        | ${eroded_img}=    Apply Erosion To Image    ${processed_img}    ${kernel_size}
 
         See `introduction` for details about using the arguments.
         """
@@ -45,7 +46,7 @@ class BinaryImageTransformationKeywords:
 
     def apply_dilation_to_image(self, processed_img, kernel_size, kernel_type=0, iteration=1):
         """
-        Applies the dilation morphological transformation to a binary image.
+        Applies the dilation morphological transformation to a binary image. Kernel size must be a tuple/list of positive ints.
 
         See ``Apply Erosion To Image`` for example of general usage.
 
@@ -67,7 +68,7 @@ class BinaryImageTransformationKeywords:
 
     def apply_opening_to_image(self, processed_img, kernel_size, kernel_type=0, iteration=1):
         """
-        Applies the opening morphological transformation to a binary image.
+        Applies the opening morphological transformation to a binary image. Kernel size must be a tuple/list of positive ints.
 
         See ``Apply Erosion To Image`` for example of general usage.
 
@@ -89,7 +90,7 @@ class BinaryImageTransformationKeywords:
 
     def apply_closing_to_image(self, processed_img, kernel_size, kernel_type=0, iteration=1):
         """
-        Applies the closing morphological transformation to a binary image.
+        Applies the closing morphological transformation to a binary image. Kernel size must be a tuple/list of positive ints.
 
         See ``Apply Erosion To Image`` for example of general usage.
 
@@ -111,7 +112,7 @@ class BinaryImageTransformationKeywords:
 
     def apply_gradient_to_image(self, processed_img, kernel_size, kernel_type=0, iteration=1):
         """
-        Applies the gradient morphological transformation to a binary image.
+        Applies the gradient morphological transformation to a binary image. Kernel size must be a tuple/list of positive ints.
 
         See ``Apply Erosion To Image`` for example of general usage.
 
@@ -133,7 +134,7 @@ class BinaryImageTransformationKeywords:
 
     def apply_top_hat_to_image(self, processed_img, kernel_size, kernel_type=0, iteration=1):
         """
-        Applies the top hat morphological transformation to a binary image.
+        Applies the top hat morphological transformation to a binary image. Kernel size must be a tuple/list of positive ints.
 
         See ``Apply Erosion To Image`` for example of general usage.
 
@@ -155,7 +156,7 @@ class BinaryImageTransformationKeywords:
 
     def apply_black_hat_to_image(self, processed_img, kernel_size, kernel_type=0, iteration=1):
         """
-        Applies the black hat morphological transformation to a binary image.
+        Applies the black hat morphological transformation to a binary image. Kernel size must be a tuple/list of positive ints.
 
         See ``Apply Erosion To Image`` for example of general usage.
 
