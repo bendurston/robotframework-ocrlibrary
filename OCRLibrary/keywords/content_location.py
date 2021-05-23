@@ -19,7 +19,7 @@ class ContentLocationKeywords:
 
         See `introduction` for details about pyt_conf and lang arguments.
 
-        Please note: as of version 1.0.0 this keyword only finds the coordinates of a single word. This will not
+        Please note: as of version 1.2.0 this keyword only finds the coordinates of a single word. This will not
         work for sentances.
         """
         verify_valid_image(processed_img)
@@ -34,7 +34,7 @@ class ContentLocationKeywords:
 
         See `introduction` for details about pyt_conf and lang arguments.
 
-        Please note: as of version 1.0.0 this keyword only finds the coordinates of a single word. This will not
+        Please note: as of version 1.2.0 this keyword only finds the coordinates of a single word. This will not
         work for sentances.
         """
         verify_valid_image(processed_img)
@@ -62,7 +62,7 @@ class ContentLocationKeywords:
 
         See `introduction` for details about pyt_conf and lang arguments.
 
-        Please note: as of version 1.0.0 this keyword only finds the coordinates of a single word. This will not
+        Please note: as of version 1.2.0 this keyword only finds the coordinates of a single word. This will not
         work for sentances.
         """
         verify_valid_image(processed_img)
@@ -78,7 +78,7 @@ class ContentLocationKeywords:
 
         See `introduction` for details about pyt_conf and lang arguments.
 
-        Please note: as of version 1.0.0 this keyword only finds the coordinates of a single word. This will not
+        Please note: as of version 1.2.0 this keyword only finds the coordinates of a single word. This will not
         work for sentances.
         """
         verify_valid_image(processed_img)

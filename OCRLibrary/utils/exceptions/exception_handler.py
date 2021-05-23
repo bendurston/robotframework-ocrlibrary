@@ -43,10 +43,10 @@ def verify_valid_kernel_size_non_tuple(kernel_size):
     Function verifies if the given kernel size is valid.
     Kernel size must be a an int that is greater than zero and is odd.
     """
-    if isinstance(kernel_size, int):
-        if (kernel_size > 0 and kernel_size % 2 == 1):
+    if isinstance(kernel_size, (int, str, float)):
+        if (int(kernel_size) > 0 and int(kernel_size) % 2 == 1):
             return True
-    raise InvalidKernelSize("The kernel size argument provided is invalid. Please provide a size that is a positive odd number of type int.")
+    raise InvalidKernelSize(f"The kernel size argument provided is invalid. Please provide a size that is a positive odd number of type int. {type(kernel_size)}")
 
 def raise_invalid_kernel_type(kernel_type):
     """
@@ -118,6 +118,6 @@ def verify_valid_depth(depth):
     """
     Function verifies if the given depth if valid. Must be a negative int.
     """
-    if (isinstance(depth, int) and depth < 0):
+    if (isinstance(depth, (int, str, float)) and int(depth) < 0):
         return True
     raise InvalidDepthArgument("The depth value provided is invalid. Please provide a negative integer.")

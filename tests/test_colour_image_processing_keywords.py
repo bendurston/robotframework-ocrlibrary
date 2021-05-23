@@ -83,8 +83,6 @@ class TestKeywordMaskColour(BaseColourImageProcessingKeywords):
             self.keyword.mask_colour(self.mask_img_bgr, (0, 0, 0), (0, 0, 2560))
         with self.assertRaises(InvalidColourBoundArguments):
             self.keyword.mask_colour(self.mask_img_hsv, (0, 0, -2), (0, 0, 255))
-        with self.assertRaises(InvalidColourBoundArguments):
-            self.keyword.mask_colour(self.mask_img_bgr, (0, 0, 100), (0, "0", 100))
 
 class TestKeywordMaskColours(BaseColourImageProcessingKeywords):
     """
@@ -122,5 +120,3 @@ class TestKeywordMaskColours(BaseColourImageProcessingKeywords):
             self.keyword.mask_colours(self.mask_multi_img_bgr, (0, 0, 0), (0, 0, 2560), (0, 0, 0), (0, 0, 25))
         with self.assertRaises(InvalidColourBoundArguments):
             self.keyword.mask_colours(self.mask_multi_img_bgr, (0, 0, -2), (0, 0, 255), (0, 0, 0), (0, 0, 25))
-        with self.assertRaises(InvalidColourBoundArguments):
-            self.keyword.mask_colours(self.mask_multi_img_bgr, (0, 0, 100), (0, "0", 100), (0, 0, 0), (0, 0, 25))

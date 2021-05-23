@@ -73,10 +73,6 @@ class TestKeywordAppyFilter2DToImage(BaseGenericImageTransformationKeywords):
         with self.assertRaises(InvalidDepthArgument):
             self.keyword.apply_filter2D_to_image(self.processed_image, (1, 1), 0, 1)
         with self.assertRaises(InvalidDepthArgument):
-            self.keyword.apply_filter2D_to_image(self.processed_image, (1, 1), 0, "1")
-        with self.assertRaises(InvalidDepthArgument):
-            self.keyword.apply_filter2D_to_image(self.processed_image, (1, 1), 0, -1.1)
-        with self.assertRaises(InvalidDepthArgument):
             self.keyword.apply_filter2D_to_image(self.processed_image, (1, 1), 0, None)
 
     def test_05_apply_filter2d_to_image(self):
@@ -85,12 +81,6 @@ class TestKeywordAppyFilter2DToImage(BaseGenericImageTransformationKeywords):
         """
         with self.assertRaises(InvalidKernelType):
             self.keyword.apply_filter2D_to_image(self.processed_image, (1, 1), -1)
-        with self.assertRaises(InvalidKernelType):
-            self.keyword.apply_filter2D_to_image(self.processed_image, (1, 1), 1.1)
-        with self.assertRaises(InvalidKernelType):
-            self.keyword.apply_filter2D_to_image(self.processed_image, (1, 1), None)
-        with self.assertRaises(InvalidKernelType):
-            self.keyword.apply_filter2D_to_image(self.processed_image, (1, 1), "1")
 
 class TestKeywordApplyMedianFilteringToImage(BaseGenericImageTransformationKeywords):
     """
@@ -101,6 +91,8 @@ class TestKeywordApplyMedianFilteringToImage(BaseGenericImageTransformationKeywo
         End to end flow of Apply Median Filtering To Image keyword.
         """
         median_filtering_image = self.keyword.apply_median_filtering_to_image(self.processed_image, 1)
+        self.assertTrue(isinstance(median_filtering_image, np.ndarray))
+        median_filtering_image = self.keyword.apply_median_filtering_to_image(self.processed_image, "1")
         self.assertTrue(isinstance(median_filtering_image, np.ndarray))
 
     def test_02_apply_median_filtering_to_image(self):
@@ -119,13 +111,9 @@ class TestKeywordApplyMedianFilteringToImage(BaseGenericImageTransformationKeywo
         with self.assertRaises(InvalidKernelSize):
             self.keyword.apply_median_filtering_to_image(self.processed_image, None)
         with self.assertRaises(InvalidKernelSize):
-            self.keyword.apply_median_filtering_to_image(self.processed_image, "1")
-        with self.assertRaises(InvalidKernelSize):
             self.keyword.apply_median_filtering_to_image(self.processed_image, 2)
         with self.assertRaises(InvalidKernelSize):
             self.keyword.apply_median_filtering_to_image(self.processed_image, -1)
-        with self.assertRaises(InvalidKernelSize):
-            self.keyword.apply_median_filtering_to_image(self.processed_image, 1.1)
 
 class TestKeywordApplyAveragingBlurToImage(BaseGenericImageTransformationKeywords):
     """
