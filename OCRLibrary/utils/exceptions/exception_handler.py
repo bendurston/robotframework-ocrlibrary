@@ -72,8 +72,7 @@ def verify_valid_image(processed_img):
     """
     if isinstance(processed_img, numpy.ndarray):
         return True
-    raise InvalidImageArgument("The image argument provided is invalid. Please give an image that has \
-        been returned from any of the image processing keywords.")
+    raise InvalidImageArgument("The image argument provided is invalid. Please give an image that has been returned from any of the image processing keywords.")
 
 def verify_valid_colour_bounds(*arg):
     """
@@ -98,12 +97,10 @@ def verify_valid_image_path(filename, read=True):
     if read:
         if cv2.haveImageReader(filename):
             return True
-        raise InvalidImagePath("The image path provided is invalid. Please insure the path is correct \
-            or the file format is supported.")
+        raise InvalidImagePath("The image path provided is invalid. Please insure the path is correct or the file format is supported.")
     if cv2.haveImageWriter(filename):
         return True
-    raise InvalidImagePath("The provided filename cannot be encoded by OpenCV. Please \
-        insure your desired file format is supported.")
+    raise InvalidImagePath("The provided filename cannot be encoded by OpenCV. Please insure your desired file format is supported.")
 
 def verify_valid_threshold_values(threshold, max_threshold):
     """
@@ -111,8 +108,7 @@ def verify_valid_threshold_values(threshold, max_threshold):
     """
     if (isinstance(threshold, (int, float)) and isinstance(max_threshold, (int, float))):
         return True
-    raise InvalidThresholdValue(f"Either threshold value {threshold} or {max_threshold} are invalid.\
-         Please insure the thresholds are either of type int or float.")
+    raise InvalidThresholdValue(f"Either threshold value {threshold} or {max_threshold} are invalid. Please insure the thresholds are either of type int or float.")
 
 def verify_valid_depth(depth):
     """

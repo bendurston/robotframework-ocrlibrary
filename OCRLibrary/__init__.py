@@ -1,25 +1,25 @@
 """
 OCRLibrary module
 """
-from OCRLibrary.keywords.generic_image_transformation import GenericImageTransformationKeywords
-from OCRLibrary.keywords.generic_image_processing import GenericImageProcessingKeywords
-from OCRLibrary.keywords.binary_image_transformation import BinaryImageTransformationKeywords
-from OCRLibrary.keywords.binary_image_processing import BinaryImageProcessingKeywords
-from OCRLibrary.keywords.colour_image_processing import ColourImageProcessingKeywords
-from OCRLibrary.keywords.content_validation import ContentValidationKeywords
+from OCRLibrary.keywords.binary_image_transformation import ImageThresholdingKeywords, MorphologicalTransformationKeywords
+from OCRLibrary.keywords.changing_colourspace_transformation import ChangingColourspaceKeywords
 from OCRLibrary.keywords.content_location import ContentLocationKeywords
+from OCRLibrary.keywords.content_validation import ContentValidationKeywords
+from OCRLibrary.keywords.read_and_save_images import ReadImageKeywords, SaveImageKeywords
+from OCRLibrary.keywords.smoothing_image_transformation import SmoothingImageKeywords
 
 from OCRLibrary.version import VERSION
 
 __version__ = VERSION
 
-class OCRLibrary(GenericImageTransformationKeywords,
-                GenericImageProcessingKeywords,
-                BinaryImageTransformationKeywords,
-                BinaryImageProcessingKeywords,
-                ColourImageProcessingKeywords,
+class OCRLibrary(ImageThresholdingKeywords,
+                MorphologicalTransformationKeywords,
+                ChangingColourspaceKeywords,
+                ContentLocationKeywords,
                 ContentValidationKeywords,
-                ContentLocationKeywords):
+                ReadImageKeywords,
+                SaveImageKeywords,
+                SmoothingImageKeywords):
     """
     OCRLibrary is an image reading and processing library for Robot Framework.
 

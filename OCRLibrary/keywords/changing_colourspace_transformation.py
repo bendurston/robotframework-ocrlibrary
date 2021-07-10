@@ -1,17 +1,32 @@
 """
 colourImageProcessing module.
+
+This module is responsible for changing the colourspace of an image.
 """
 from ..utils.exceptions.exception_handler import \
     (verify_valid_image, verify_valid_colour_bounds)
 from ..utils.helpers.robot_conversions import \
     (convert_to_valid_colour_bounds)
 from ..utils.imageprocessing.image_processing_colour import \
-    (process_colour_image_to_hsv, mask_colour_bgr_or_hsv, mask_colours_bgr_or_hsv)
+    (process_to_gray_scale, process_colour_image_to_hsv, mask_colour_bgr_or_hsv, mask_colours_bgr_or_hsv)
 
-class ColourImageProcessingKeywords:
+class ChangingColourspaceKeywords:
     """
-    ColourImageProcessingKeywords Class
+    ChangingColourspaceKeywords Class
+    Reference: https://docs.opencv.org/4.5.2/df/d9d/tutorial_py_colorspaces.html
     """
+    def convert_image_to_gray_scale(self, processed_img):
+        """
+        Converts any image read to gray scale.
+
+        Example:
+        | ${path}=    Capture Page Screenshot
+        | ${processed_img}=    Read Image   ${img_path}
+        | ${gray_scale_image}=    Get Gray Scale Image    ${path}
+        """
+        verify_valid_image(processed_img)
+        return process_to_gray_scale(processed_img)
+
     def convert_image_to_HSV(self, processed_img):
         """
         Converts any image read as bgr into hsv colour scheme.

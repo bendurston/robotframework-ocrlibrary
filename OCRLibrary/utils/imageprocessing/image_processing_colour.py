@@ -2,7 +2,18 @@
 Image processing colour module.
 """
 from OCRLibrary.utils.imageprocessing.imagetransformation.changing_colourspaces \
-    import (convert_bgr_to_hsv, mask_single_colour, mask_double_colour)
+    import (convert_bgr_to_gray, convert_bgr_to_hsv, mask_single_colour, mask_double_colour)
+
+def process_to_gray_scale(img):
+    """
+    Purpose:
+        Converts read image to gray scale.
+    Args:
+        img_path - path to the image to process.
+    Returns:
+        gray scale image read by opencv.
+    """
+    return convert_bgr_to_gray(img)
 
 def process_colour_image_to_hsv(img):
     """

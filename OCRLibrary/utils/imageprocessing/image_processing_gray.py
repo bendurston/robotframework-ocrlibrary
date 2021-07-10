@@ -2,7 +2,6 @@
 High level implementations of functions within image transformation/
 """
 import cv2
-import numpy as np
 from OCRLibrary.utils.imageprocessing.imagetransformation.changing_colourspaces import convert_bgr_to_gray
 from OCRLibrary.utils.imageprocessing.imagetransformation.image_thresholding \
     import (threshold_binary, threshold_binary_inv, threshold_trunc, threshold_tozero, threshold_tozero_inv,
@@ -12,19 +11,6 @@ from OCRLibrary.utils.imageprocessing.imagetransformation.morphological_transfor
     morph_top_hat, morph_black_hat)
 from OCRLibrary.utils.imageprocessing.imagetransformation.structuring_element \
     import (get_rect_kernel, get_ellipse_kernel, get_cross_kernel)
-
-def process_to_gray_scale(img_path):
-    """
-    Purpose:
-        Process an image to gray scale.
-    Args:
-        img_path - path to the image to process.
-    Returns:
-        gray scale image read by opencv.
-    """
-    img = cv2.imread(img_path)
-    gray_img = convert_bgr_to_gray(img)
-    return gray_img
 
 ### Image thresholding
 

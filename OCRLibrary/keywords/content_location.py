@@ -73,7 +73,7 @@ class ContentLocationKeywords:
         """
         Locates the bounds found around more than one instance of the provided text. This keyword can also be used if there is one occurrance
         of the text. A list of tuples containing the bounds are returned if the text is found. Returns None if nothing is found.
-        
+
         See ``Locate Text Bounds`` documentation for an example of what each index in the tuple corresponds to.
 
         See `introduction` for details about pyt_conf and lang arguments.

@@ -4,9 +4,9 @@ genericImageProcessing module.
 import cv2
 from ..utils.exceptions.exception_handler import verify_valid_image_path
 
-class GenericImageProcessingKeywords:
+class ReadImageKeywords:
     """
-    GenericImageProcessingKeyword Class
+    ReadImageKeywords Class
     """
     def read_image(self, img_path):
         """
@@ -21,6 +21,10 @@ class GenericImageProcessingKeywords:
         verify_valid_image_path(img_path)
         return cv2.imread(img_path)
 
+class SaveImageKeywords:
+    """
+    SaveImageKeywords Class
+    """
     def save_image(self, path, img):
         """
         Saves the provided image to the specified path. Returns True if successful,

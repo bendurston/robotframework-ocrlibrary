@@ -1,5 +1,7 @@
 """
-generic_image_transformation module.
+smoothing_image_transformation module.
+
+This module is responsible for smoothing image transformations to any type of processed image (gray, binary, or coloured images).
 """
 from ..utils.exceptions.exception_handler \
     import (verify_valid_kernel_size, verify_valid_depth, raise_invalid_kernel_type, verify_valid_kernel_size_non_tuple,
@@ -10,9 +12,10 @@ from ..utils.imageprocessing.image_processing_generic \
     import (process_image_filtering_with_rect_kernel, process_image_filtering_with_ellipse_kernel, process_image_filtering_with_cross_kernel,
     process_median_filtering, process_blurring_averaging, process_blurring_gaussian)
 
-class GenericImageTransformationKeywords:
+class SmoothingImageKeywords:
     """
-    GenericImageTransformationKeywords Class
+    SmoothingImageKeywords Class
+    Reference: https://docs.opencv.org/4.5.2/d4/d13/tutorial_py_filtering.html
     """
     def apply_filter2D_to_image(self, processed_img, kernel_size, kernel_type=0, depth=-1):
         """
@@ -25,6 +28,7 @@ class GenericImageTransformationKeywords:
         | ${filtered_img}=    Apply Filter2D To Image    ${processed_img}    ${kernel_size}
 
         See `introduction` for details about using arguments.
+        See `Smoothing Images` for more details.
         """
         verify_valid_image(processed_img)
         verify_valid_kernel_size(kernel_size)
@@ -50,6 +54,7 @@ class GenericImageTransformationKeywords:
         See ``Apply Filter2D To Image`` for example of general usage.
 
         See `introduction` for details about using arguments.
+        See `Smoothing Images` for more details.
         """
         verify_valid_image(processed_img)
         verify_valid_kernel_size_non_tuple(kernel_size)
@@ -63,6 +68,7 @@ class GenericImageTransformationKeywords:
         See ``Apply Filter2D To Image`` for example of general usage.
 
         See `introduction` for details about using arguments.
+        See `Smoothing Images` for more details.
         """
         verify_valid_image(processed_img)
         verify_valid_kernel_size(kernel_size)
@@ -76,6 +82,7 @@ class GenericImageTransformationKeywords:
         See ``Apply Filter2D To Image`` for example of general usage.
 
         See `introduction` for details about using arguments.
+        See `Smoothing Images` for more details.
         """
         verify_valid_image(processed_img)
         verify_valid_kernel_size_only_odds(kernel_size)

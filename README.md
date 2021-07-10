@@ -15,6 +15,9 @@ You can find the [keyword documentation here](https://bendurston.github.io/OCRLi
 OCRLibrary uses two dependencies, opencv-python and pytesseract.
 Pytesseract has more dependencies. Depending on your OS and current packages, this may not work after a pip install.
 
+#### Tesseract OCR
+install tesseract-ocr
+
 #### OpenCV Python
 To install opencv-python, run `pip install opencv-python`.
 Please see [opencv-python's installation and usage section](https://github.com/opencv/opencv-python#installation-and-usage) if this does not work.
