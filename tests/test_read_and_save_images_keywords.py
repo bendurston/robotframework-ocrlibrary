@@ -5,6 +5,7 @@ Module to test keywords within GenericImageProcessingKeywords class.
 import unittest
 import cv2
 import numpy as np
+from robot.libraries.BuiltIn import RobotNotRunningError
 
 from OCRLibrary.keywords.read_and_save_images import ReadImageKeywords as rik
 from OCRLibrary.keywords.read_and_save_images import SaveImageKeywords as sik
@@ -35,7 +36,6 @@ class BaseSaveImageKeywords(unittest.TestCase):
         cls.keyword = sik()
         cls.processed_image = cv2.imread('tests/images/test_colour_masking.png')
         cls.invalid_path_to_image_dir = 'invalid/path/to/image/dir/'
-        cls.img_name = 'test_image.png'
         cls.valid_path_to_image_dir = 'tests/images/save_result.png'
 
     @classmethod
@@ -43,7 +43,6 @@ class BaseSaveImageKeywords(unittest.TestCase):
         del cls.keyword
         del cls.processed_image
         del cls.invalid_path_to_image_dir
-        del cls.img_name
         del cls.valid_path_to_image_dir
 
 class TestKeywordReadImage(BaseReadImageKeywords):
@@ -67,16 +66,33 @@ class TestKeywordReadImage(BaseReadImageKeywords):
 class TestKeywordSaveImage(BaseSaveImageKeywords):
     """
     TestKeywordSaveImage Class
+
+    Test cases require to except RobotNotRunningError because the keyword is not called from robot.
     """
     def test_01_save_image(self):
         """
-        End to end flow of Save Image keyword.
+        End to end flow of Save Image keyword with unspecified image path.
         """
-        self.assertTrue(self.keyword.save_image(self.valid_path_to_image_dir, self.processed_image))
+        try:
+            self.assertTrue(self.keyword.save_image(self.processed_image))
+        except RobotNotRunningError:
+            pass
 
     def test_02_save_image(self):
         """
+        End to end flow of Save Image keyword with specified image path.
+        """
+        try:
+            self.assertTrue(self.keyword.save_image(self.processed_image, self.valid_path_to_image_dir))
+        except RobotNotRunningError:
+            pass
+
+    def test_03_save_image(self):
+        """
         Invalid image path to raise InvalidImagePath
         """
-        with self.assertRaises(InvalidImagePath):
-            self.keyword.save_image(self.invalid_path_to_image_dir, self.img_name)
+        try:
+            with self.assertRaises(InvalidImagePath):
+                self.keyword.save_image(self.processed_image, self.invalid_path_to_image_dir)
+        except RobotNotRunningError:
+            pass
