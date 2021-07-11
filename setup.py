@@ -22,5 +22,11 @@ setuptools.setup(
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
     ],
+    install_requires=[
+          'robotframework >= 3.0',
+          'opencv-python >= 4.0.0.21',
+          'pytesseract >= 0.3.8',
+          'numpy >= 1.19.3'
+      ],
     python_requires='>=3.6',
 )
