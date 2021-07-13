@@ -82,11 +82,6 @@ Using Get Image Content
     [Return]    ${content}
 ###
 ###
-Using Get Gray Scale Image
-    [Arguments]     ${path}
-    ${img}=     Get Gray Scale Image    ${path}
-    [Return]    ${img}
-
 Using Get Binary Image
     [Arguments]     ${path}
     ${img}=      Get Binary Image    ${path}     ${TRUE}     255    170    
@@ -104,6 +99,11 @@ Using Get Trunc Image
     ${img}=      Get Trunc Image    ${path}     ${FALSE}     255    170    
     [Return]    ${img}
 ###
+Using Convert Image To Gray Scale
+    [Arguments]     ${processed_img}
+    ${gray_scale_img}=     Convert Image To HSV    ${processed_img}
+    [Return]    ${gray_scale_img}
+
 Using Convert Image To HSV
     [Arguments]     ${processed_img}
     ${hsv_img}=     Convert Image To HSV    ${processed_img}

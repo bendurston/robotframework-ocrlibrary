@@ -51,6 +51,8 @@ class ChangingColourspaceKeywords:
         | ${masked_img}=      Mask Colour     ${processed_img}    ${lower}    ${upper}
 
         See `introduction` for details about using the arguments.
+
+        For more details about this transformation see the OpenCV changing colourspaces documentation in the `Information On Image Transformations` section of the introduction.
         """
         verify_valid_image(processed_img)
         colours = convert_to_valid_colour_bounds(lower_bound_colour, upper_bound_colour)
@@ -73,6 +75,8 @@ class ChangingColourspaceKeywords:
         | ${masked_img}=    Mask Colours    ${processed_img}    ${lower1}    ${upper1}    ${lower2}    ${upper2}
 
         See `introduction` for details about using the arguments.
+
+        For more details about this transformation see the OpenCV changing colourspaces documentation in the `Information On Image Transformations` section of the introduction.
         """
         colours = convert_to_valid_colour_bounds(lower_bound_colour1, upper_bound_colour1, lower_bound_colour2, upper_bound_colour2)
         lower_bound_colour1 = colours[0]

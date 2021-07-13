@@ -29,39 +29,71 @@ class OCRLibrary(ImageThresholdingKeywords,
     Please note that recogizing all characters and their locations from screenshots is not guaranteed. Although processing the
     image will increase the chances for the desired characters to be read or located.
 
-    == Arguments for image processing keywords ==
+    == Information On Image Transformations ==
+    [https://docs.opencv.org/4.5.2/d7/d4d/tutorial_py_thresholding.html | OpenCV Thresholding Documentation]
+    [https://docs.opencv.org/4.5.2/d9/d61/tutorial_py_morphological_ops.html | OpenCV Morphological Transformation Documentation]
+    [https://docs.opencv.org/4.5.2/df/d9d/tutorial_py_colorspaces.html | OpenCV Changing Colourspaces Documentation]
+    [https://docs.opencv.org/4.5.2/d4/d13/tutorial_py_filtering.html | OpenCV Smoothing Image Documentation]
 
-    === Using OTSU For Binary Image Processing ===
+    === Using And Not Using OSTU ===
+    Information on keywords that use the ``apply_otsu`` argument.
+
+    List of current keywords that can use OTSU: 
+    ``Get Binary Image``
+    ``Get To Zero Image``
+    ``Get Trunc Image``
+
+    ==== Using OTSU ====
     Enabling otsu ``apply_otsu = True`` for thresholding keywords determines the threshold value automatically.
     When apply_otsu is true, the image processing keyword will return a tuple. Index 0 contains the optimal threshold
     value found by the ostu threshold, and index 1 has the binary image.
 
-    List of current keywords that can use otsu: Get Binary Image, Get To Zero Image and, Get Trunc Image
+    For an example, please see the example ``Using Get To Zero Image`` [https://github.com/bendurston/robotframework-ocrlibrary/blob/main/examples/keyword_usage.robot | in the keyword usage file.]
 
-    === Image Transformation Arguments ===
-    Most of the image transformation keywords require a kernel size. All but ``Apply Median Filtering To Image`` take
-    kernel size as a tuple/list. The keywords that take kernel size as a tuple/list must be positve (even & odd) ints.
-    ```Apply Gaussian Blur To Image``` is the one keyword where the values in the tuple/list must be positive odd ints.
-    The keywords take the kernel size and create a structured element in the shape of either a
-    rectangle, ellipse or a cross. These shapes are chosen by the value passed to ``kernel_type``. 0 will be arectangle,
-    1 will be an ellipse, and 2 will be a cross.
+    ==== Not Using OTSU ====
+    When ``apply_otsu = False`` threshold values must be provided. For more detail about the thresholding arguments,
+    please see the OpenCV thresholding documentation listed above.
 
-    For the keywords that require an ``iteration`` value - iteration is the number of times the transformation is performed
-    on the image.
+    For an example, please see the example ``Using Get Trunc Image`` [https://github.com/bendurston/robotframework-ocrlibrary/blob/main/examples/keyword_usage.robot | in the keyword usage file.]
 
-    For the keywords that require a ``depth`` value - depth represents the desired depth of the destination image.
-    When ``depth=-1`` the output image will have the same depth as the source.
+    === Keywords with Apply prefix ===
+    This information pertains to the keywords with the ``Apply`` prefix.
+    ==== Kernel Size Argument ====
+    There are a few minor differences with this argument for some keywords.
 
-    === Pytesseract Config and Language Arguments ===
+    ``Apply Median Filtering To Image`` takes a kernel size as an integer that is odd and greater than 0.
+
+    ``Apply Gaussian Blur To Image`` takes a kernel size as a tuple/list where the values must be positive odd integers.
+
+    The rest of the keywords takes a kernel size as a tuple/list where the values must be postive.
+
+    ==== Kernel Type Argument ====
+    Keywords that require a ``kernel_type`` take the given kernel size and create a structured element. The integer provided as
+    the kernel type will determine the shape of the structured element. 0 will be a rectangle, 1 will be an ellipse, 
+    and 2 will be a cross.
+
+    ==== Iteration Argument ====
+    Iteration is the number of times the transformation is performed on the image. The ``iteration`` can be any positive integer
+    greater than 0.
+
+    ==== Depth Argument ====
+    Depth represents the desired depth of the destination image. When ``depth=-1`` the output image will have the same depth as the source.
+
+    == Pytesseract Configuration Strings ==
     Please see [https://github.com/bendurston/robotframework-ocrlibrary#custom-configurations-for-reading-images |the OCRLibrary README.md] for an in depth explanation of the ``pyt_conf`` argument.
 
-    List of [https://tesseract-ocr.github.io/tessdoc/Data-Files#data-files-for-version-400-november-29-2016 |supported languages] as of Tesseract OCR version 4.0.0, along with language codes used
-    for the ``lang`` argument.
+    Example:
+    | ${img_path}=    Capture Page Screenshot
+    | ${processed_img}=     Read Image  ${img_path}
+    | ${content}=   Get Image Content   ${processed_img}    --psm 6 -c tessedit_char_whitelist=0123456789   eng
+    Note: Only use one space between each configuration in the ``pyt_conf`` argument.
 
     == Masking Colours ==
     Users are able to mask (maintain) colours that exist within the provided upper and lower bounds. A BGR or HSV image can be
     used for either ``Mask Colour`` or ``Mask Colours``. Bounds can be either a list of a tuple, and each index must be of type int.
     Representation of BGR and HSV bounds respectively: (blue value, green value, red value), (hue value, saturation value, brightness value).
+
+    Please see the [https://github.com/bendurston/robotframework-ocrlibrary/blob/main/examples/keyword_usage.robot |keyword_usage.robot file] for an example of the Mask Colour or Mask Colours keywords.
 
     == Reading and Saving Images ==
     Please see the list of the following [https://docs.opencv.org/master/d4/da8/group__imgcodecs.html#ga288b8b3da0892bd651fce07b3bbd3a56 |formats that are supported] for image reading.

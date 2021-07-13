@@ -29,6 +29,8 @@ class ImageThresholdingKeywords:
         Converts an image to a binary image.
 
         See `introduction` for details about using arguments.
+
+        For more details about this transformation see the OpenCV image thresholding documentation in the `Information On Image Transformations` section of the introduction.
         """
         verify_valid_image_path(img_path)
         verify_valid_threshold_values(threshold, max_threshold)
@@ -46,6 +48,8 @@ class ImageThresholdingKeywords:
         the rest of the image will remain in gray scale.
 
         See `introduction` for details about using the arguments.
+
+        For more details about this transformation see the OpenCV image thresholding documentation in the `Information On Image Transformations` section of the introduction.
         """
         verify_valid_image_path(img_path)
         verify_valid_threshold_values(threshold, max_threshold)
@@ -61,6 +65,8 @@ class ImageThresholdingKeywords:
         rest of the image will remain gray scale.
 
         See `introduction` for details about using the arguments.
+
+        For more details about this transformation see the OpenCV image thresholding documentation in the `Information On Image Transformations` section of the introduction.
         """
         verify_valid_image_path(img_path)
         verify_valid_threshold_values(threshold, max_threshold)
@@ -87,6 +93,8 @@ class MorphologicalTransformationKeywords:
         | ${eroded_img}=    Apply Erosion To Image    ${processed_img}    ${kernel_size}
 
         See `introduction` for details about using the arguments.
+
+        For more details about this transformation see the OpenCV morphological transformation documentation in the `Information On Image Transformations` section of the introduction.
         """
         verify_valid_image(processed_img)
         verify_valid_kernel_size(kernel_size)
@@ -109,6 +117,8 @@ class MorphologicalTransformationKeywords:
         See ``Apply Erosion To Image`` for example of general usage.
 
         See `introduction` for details about using the arguments.
+
+        For more details about this transformation see the OpenCV morphological transformation documentation in the `Information On Image Transformations` section of the introduction.
         """
         verify_valid_image(processed_img)
         verify_valid_kernel_size(kernel_size)
@@ -131,6 +141,8 @@ class MorphologicalTransformationKeywords:
         See ``Apply Erosion To Image`` for example of general usage.
 
         See `introduction` for details about using the arguments.
+
+        For more details about this transformation see the OpenCV morphological transformation documentation in the `Information On Image Transformations` section of the introduction.
         """
         verify_valid_image(processed_img)
         verify_valid_kernel_size(kernel_size)
@@ -153,6 +165,8 @@ class MorphologicalTransformationKeywords:
         See ``Apply Erosion To Image`` for example of general usage.
 
         See `introduction` for details about using the arguments.
+
+        For more details about this transformation see the OpenCV morphological transformation documentation in the `Information On Image Transformations` section of the introduction.
         """
         verify_valid_image(processed_img)
         verify_valid_kernel_size(kernel_size)
@@ -175,6 +189,8 @@ class MorphologicalTransformationKeywords:
         See ``Apply Erosion To Image`` for example of general usage.
 
         See `introduction` for details about using the arguments.
+        
+        For more details about this transformation see the OpenCV morphological transformation documentation in the `Information On Image Transformations` section of the introduction.
         """
         verify_valid_image(processed_img)
         verify_valid_kernel_size(kernel_size)
@@ -197,6 +213,8 @@ class MorphologicalTransformationKeywords:
         See ``Apply Erosion To Image`` for example of general usage.
 
         See `introduction` for details about using the arguments.
+
+        For more details about this transformation see the OpenCV morphological transformation documentation in the `Information On Image Transformations` section of the introduction.
         """
         verify_valid_image(processed_img)
         verify_valid_kernel_size(kernel_size)
@@ -219,6 +237,8 @@ class MorphologicalTransformationKeywords:
         See ``Apply Erosion To Image`` for example of general usage.
 
         See `introduction` for details about using the arguments.
+
+        For more details about this transformation see the OpenCV morphological transformation documentation in the `Information On Image Transformations` section of the introduction.
         """
         verify_valid_image(processed_img)
         verify_valid_kernel_size(kernel_size)

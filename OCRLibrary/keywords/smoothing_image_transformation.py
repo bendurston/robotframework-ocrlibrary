@@ -28,7 +28,8 @@ class SmoothingImageKeywords:
         | ${filtered_img}=    Apply Filter2D To Image    ${processed_img}    ${kernel_size}
 
         See `introduction` for details about using arguments.
-        See `Smoothing Images` for more details.
+        
+        For more details about this transformation see the OpenCV smoothing images documentation in the `Information On Image Transformations` section of the introduction.
         """
         verify_valid_image(processed_img)
         verify_valid_kernel_size(kernel_size)
@@ -51,10 +52,9 @@ class SmoothingImageKeywords:
         Applies the median filter to the provided image.
         ``kernel_size`` takes an integer that is odd and greater than 0. Not a tuple/list.
 
-        See ``Apply Filter2D To Image`` for example of general usage.
-
         See `introduction` for details about using arguments.
-        See `Smoothing Images` for more details.
+
+        For more details about this transformation see the OpenCV smoothing images documentation in the `Information On Image Transformations` section of the introduction.
         """
         verify_valid_image(processed_img)
         verify_valid_kernel_size_non_tuple(kernel_size)
@@ -68,7 +68,8 @@ class SmoothingImageKeywords:
         See ``Apply Filter2D To Image`` for example of general usage.
 
         See `introduction` for details about using arguments.
-        See `Smoothing Images` for more details.
+
+        For more details about this transformation see the OpenCV smoothing images documentation in the `Information On Image Transformations` section of the introduction.
         """
         verify_valid_image(processed_img)
         verify_valid_kernel_size(kernel_size)
@@ -79,10 +80,9 @@ class SmoothingImageKeywords:
         """
         Applies the gaussian blur to the provided image. Kernel size must be a tuple/list of positive and odd ints.
 
-        See ``Apply Filter2D To Image`` for example of general usage.
-
         See `introduction` for details about using arguments.
-        See `Smoothing Images` for more details.
+
+        For more details about this transformation see the OpenCV smoothing images documentation in the `Information On Image Transformations` section of the introduction.
         """
         verify_valid_image(processed_img)
         verify_valid_kernel_size_only_odds(kernel_size)

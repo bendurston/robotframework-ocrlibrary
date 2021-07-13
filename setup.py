@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setuptools.setup(
     name="robotframework-ocrlibrary",
-    version="1.2.0",
+    version="2.0.0",
     author="Ben Durston",
     author_email="bengdurston@gmail.com",
     description="A robot framework library that utilizes OpenCV image processing and pytesseract OCR.",
