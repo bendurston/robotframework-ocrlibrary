@@ -50,8 +50,6 @@ class ChangingColourspaceKeywords:
         | ${upper}=   Create List     0   0   255
         | ${masked_img}=      Mask Colour     ${processed_img}    ${lower}    ${upper}
 
-        See `introduction` for details about using the arguments.
-
         For more details about this transformation see the OpenCV changing colourspaces documentation in the `Information On Image Transformations` section of the introduction.
         """
         verify_valid_image(processed_img)
@@ -73,8 +71,6 @@ class ChangingColourspaceKeywords:
         | ${lower2}=   Create List     0   200  0
         | ${upper2}=   Create List     0   255  0
         | ${masked_img}=    Mask Colours    ${processed_img}    ${lower1}    ${upper1}    ${lower2}    ${upper2}
-
-        See `introduction` for details about using the arguments.
 
         For more details about this transformation see the OpenCV changing colourspaces documentation in the `Information On Image Transformations` section of the introduction.
         """

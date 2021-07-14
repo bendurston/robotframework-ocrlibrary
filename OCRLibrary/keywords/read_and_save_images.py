@@ -18,7 +18,7 @@ class ReadImageKeywords:
         | ${img_path}=    Capture Page Screenshot
         | ${read_image}=    Read Image    ${img_path}
 
-        See ``introduction`` for details about valid images to provide.
+        See `Reading And Saving Images` for details about valid images to provide.
         """
         verify_valid_image_path(img_path)
         return cv2.imread(img_path)
@@ -41,7 +41,7 @@ class SaveImageKeywords:
         Example with specified location:
         | Save Image    ${processed_img}    home/usr/Pictures/save_image_result.png    
 
-        See ``introduction`` for details about valid image formats.
+        See `Reading And Saving Images` for details about valid image formats.
         """
         if path is not None:
             verify_valid_image_path(path, False)

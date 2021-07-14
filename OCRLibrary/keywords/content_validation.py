@@ -14,7 +14,7 @@ class ContentValidationKeywords:
         """
         Confirms that an image contains the expected content. If the content is not found, ``ContentNotFound`` will be raised.
 
-        See `introduction` for details about pyt_conf and lang arguments.
+        See `Pytesseract Configuration Strings` for details about pyt_conf and lang arguments.
         """
         verify_valid_image(processed_img)
         actual_content = return_image_content(processed_img, pyt_conf, lang)
@@ -24,7 +24,7 @@ class ContentValidationKeywords:
         """
         Gets the text found within the provided processed image.
 
-        See `introduction` for details about pyt_conf and lang arguments.
+        See `Pytesseract Configuration Strings` for details about pyt_conf and lang arguments.
         """
         verify_valid_image(processed_img)
         return return_image_content(processed_img, pyt_conf, lang)

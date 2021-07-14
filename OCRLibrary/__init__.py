@@ -38,14 +38,12 @@ class OCRLibrary(ImageThresholdingKeywords,
     == Using And Not Using OSTU ==
     Information on keywords that use the ``apply_otsu`` argument.
 
-    List of current keywords that can use OTSU: 
-    ``Get Binary Image``
-    ``Get To Zero Image``
-    ``Get Trunc Image``
+    List of current keywords that can use OTSU:
+    ``Get Binary Image``, ``Get To Zero Image`` and, ``Get Trunc Image``
 
     === Using OTSU ===
-    Enabling otsu ``apply_otsu = True`` for thresholding keywords determines the threshold value automatically.
-    When apply_otsu is true, the image processing keyword will return a tuple. Index 0 contains the optimal threshold
+    Enabling otsu (``apply_otsu = True``) for thresholding keywords determines the threshold value automatically.
+    When otsu is enabled, the image processing keyword will return a tuple. Index 0 contains the optimal threshold
     value found by the ostu threshold, and index 1 has the binary image.
 
     For an example, please see the example ``Using Get To Zero Image`` [https://github.com/bendurston/robotframework-ocrlibrary/blob/main/examples/keyword_usage.robot | in the keyword usage file.]
@@ -56,7 +54,7 @@ class OCRLibrary(ImageThresholdingKeywords,
 
     For an example, please see the example ``Using Get Trunc Image`` [https://github.com/bendurston/robotframework-ocrlibrary/blob/main/examples/keyword_usage.robot | in the keyword usage file.]
 
-    == Keywords with Apply prefix ==
+    == Keywords With Apply Prefix ==
     This information pertains to the keywords with the ``Apply`` prefix.
     === Kernel Size Argument ===
     There are a few minor differences with this argument for some keywords.
@@ -65,7 +63,7 @@ class OCRLibrary(ImageThresholdingKeywords,
 
     ``Apply Gaussian Blur To Image`` takes a kernel size as a tuple/list where the values must be positive odd integers.
 
-    The rest of the keywords takes a kernel size as a tuple/list where the values must be postive.
+    The rest of the keywords take a kernel size as a tuple/list where the values must be postive.
 
     === Kernel Type Argument ===
     Keywords that require a ``kernel_type`` take the given kernel size and create a structured element. The integer provided as
@@ -93,9 +91,11 @@ class OCRLibrary(ImageThresholdingKeywords,
     used for either ``Mask Colour`` or ``Mask Colours``. Bounds can be either a list of a tuple, and each index must be of type int.
     Representation of BGR and HSV bounds respectively: (blue value, green value, red value), (hue value, saturation value, brightness value).
 
+    For more detail about the masking colours, please see the OpenCV changing colourspaces documentation listed above.
+
     Please see the [https://github.com/bendurston/robotframework-ocrlibrary/blob/main/examples/keyword_usage.robot |keyword_usage.robot file] for an example of the Mask Colour or Mask Colours keywords.
 
-    == Reading and Saving Images ==
+    == Reading And Saving Images ==
     Please see the list of the following [https://docs.opencv.org/master/d4/da8/group__imgcodecs.html#ga288b8b3da0892bd651fce07b3bbd3a56 |formats that are supported] for image reading.
 
     Please see the [https://docs.opencv.org/master/d4/da8/group__imgcodecs.html#gabbc7ef1aa2edfaa87772f1202d67e0ce |list of exceptions] for saving an image.

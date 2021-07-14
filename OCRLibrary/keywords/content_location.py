@@ -17,7 +17,7 @@ class ContentLocationKeywords:
         Use ``Locate Multiple Text Coordinates`` if there is more than one occurrance of the text.
         The coordinates found are returned as a tuple (x, y). If nothing is found, None is returned.
 
-        See `introduction` for details about pyt_conf and lang arguments.
+        See `Pytesseract Configuration Strings` for details about pyt_conf and lang arguments.
 
         Please note: as of version 1.2.0 this keyword only finds the coordinates of a single word. This will not
         work for sentances.
@@ -32,7 +32,7 @@ class ContentLocationKeywords:
         one occurrance of the text. A list of coordinates found is return, each index stores a tuple (x, y).
         If nothing is found, None is returned.
 
-        See `introduction` for details about pyt_conf and lang arguments.
+        See `Pytesseract Configuration Strings` for details about pyt_conf and lang arguments.
 
         Please note: as of version 1.2.0 this keyword only finds the coordinates of a single word. This will not
         work for sentances.
@@ -60,7 +60,7 @@ class ContentLocationKeywords:
         - w represents the width of the bound.
         - h represents the height of the bound.
 
-        See `introduction` for details about pyt_conf and lang arguments.
+        See `Pytesseract Configuration Strings` for details about pyt_conf and lang arguments.
 
         Please note: as of version 1.2.0 this keyword only finds the coordinates of a single word. This will not
         work for sentances.
@@ -76,7 +76,7 @@ class ContentLocationKeywords:
 
         See ``Locate Text Bounds`` documentation for an example of what each index in the tuple corresponds to.
 
-        See `introduction` for details about pyt_conf and lang arguments.
+        See `Pytesseract Configuration Strings` for details about pyt_conf and lang arguments.
 
         Please note: as of version 1.2.0 this keyword only finds the coordinates of a single word. This will not
         work for sentances.

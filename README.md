@@ -1,7 +1,7 @@
 # Robot Framework OCR Library
 A robot framework library that is capable of processing images, validating text, and locating specified text by coordinates within images.
 
-[![Build](https://github.com/bendurston/robotframework-ocrlibrary/actions/workflows/build.yml/badge.svg)](https://github.com/bendurston/robotframework-ocrlibrary/actions/workflows/build.yml) [![Version](https://img.shields.io/badge/Version-2.0.0-blue)](https://img.shields.io/badge/Version-2.0.0-blue) [![Licence](https://img.shields.io/badge/Licence-Apache%202.0-blue)](https://img.shields.io/badge/Licence-Apache%202.0-blue) [![Downloads](https://static.pepy.tech/personalized-badge/robotframework-ocrlibrary?period=total&units=international_system&left_color=black&right_color=blue&left_text=Downloads)](https://pepy.tech/project/robotframework-ocrlibrary)
+[![Build](https://github.com/bendurston/robotframework-ocrlibrary/actions/workflows/build.yml/badge.svg)](https://github.com/bendurston/robotframework-ocrlibrary/actions/workflows/build.yml) [![Version](https://img.shields.io/badge/Version-2.0.0-blue)](https://img.shields.io/badge/Version-2.0.0-blue) [![Licence](https://img.shields.io/badge/Licence-Apache%202.0-blue)](https://img.shields.io/badge/Licence-Apache%202.0-blue) [[![Downloads](https://static.pepy.tech/personalized-badge/robotframework-ocrlibrary?period=total&units=international_system&left_color=grey&right_color=blue&left_text=Downloads)](https://pepy.tech/project/robotframework-ocrlibrary)
 
 ## Keyword Documentation
 You can find the [keyword documentation here](https://bendurston.github.io/OCRLibrary.html).
@@ -25,10 +25,10 @@ To install tesseract on MacOS, run `brew install tesseract`
 To install tesseract on Windows, download one of the installers from [UB-Mannhiem/tesseract](https://github.com/UB-Mannheim/tesseract/wiki)
 Once installed add the path to the tesseract folder (ex: C:\User\Program/ Files\tesseract) to your environment variables.
 
-###### Download verification
+##### Download verification
 Run the command `tesseract -v` to confirm that tesseract was downloaded successfully.
 
-###### More installation instructions
+##### More installation instructions
 For more detailed installation instructions of tesseract please see [the following installation guide](https://tesseract-ocr.github.io/tessdoc/Installation.html).
 
 #### OpenCV Python
@@ -54,7 +54,7 @@ To install a specific language on Linux, run `sudo apt install tesseract-ocr-<la
 To install all language on MacOS, run `brew install tesseract-lang`.
 
 ##### Windows
-To download a language on Windows, you must install the trained model for your desired language. (This repo has many language models to download)[https://github.com/tesseract-ocr/tessdata/]. Here are [more tessdata files](https://tesseract-ocr.github.io/tessdoc/Data-Files#data-files-for-version-400-november-29-2016). Once downloaded, place the trained model in the tessdata directory (i.e. where the tesseract.exe is located).
+To download a language on Windows, you must install the trained model for your desired language. [This repo has many language models to download](https://github.com/tesseract-ocr/tessdata/). Here are [more tessdata files](https://tesseract-ocr.github.io/tessdoc/Data-Files#data-files-for-version-400-november-29-2016). Once downloaded, place the trained model in the tessdata directory (i.e. where the tesseract.exe is located).
 
 ### Custom configurations for reading images
 You can add any combination of the following to the `pyt_conf` string argument.
@@ -85,10 +85,10 @@ To change your page segmentation mode, add `--psm <mode>` to your custom configu
 Select the OCR engine modes to be used by pytesseract:
 | Mode | Description |
 |------|-------------|
-| 0    Legacy engine only.  |
-| 1    Neural nets LSTM engine only.    |
-| 2    Legacy + LSTM engines.   |
-| 3    Default, based on what is available. |
+| 0    | Legacy engine only.  |
+| 1    | Neural nets LSTM engine only.    |
+| 2    | Legacy + LSTM engines.   |
+| 3    | Default, based on what is available. |
 
 To change your ocr engine mode, add `--oem <mode>` to your custom configuration string.
 
@@ -107,7 +107,7 @@ An example to not detect special characters: `-c tessedit_char_whitelist=!@#$%^&
 
 ##### Example of custom configuration string usage
 In this example, the content will be returned from the processed image using page segmentation mode 6 and it will ignore all numbers.
-`${content}=    Get Image Content   ${processed_image}  --psm 6 -c tessedit_char_blacklist=0123456789   `
+`${content}=    Get Image Content   ${processed_image}  --psm 6 -c tessedit_char_blacklist=0123456789`
 
 ## Image processing using OpenCV
 Please see any of the following links for more information on image processing using OpenCV:
