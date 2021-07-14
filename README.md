@@ -1,7 +1,7 @@
 # Robot Framework OCR Library
 A robot framework library that is capable of processing images, validating text, and locating specified text by coordinates within images.
 
-[![Build](https://github.com/bendurston/robotframework-ocrlibrary/actions/workflows/build.yml/badge.svg)](https://github.com/bendurston/robotframework-ocrlibrary/actions/workflows/build.yml) [![Version](https://img.shields.io/badge/Version-2.0.0-blue)](https://img.shields.io/badge/Version-2.0.0-blue) [![Licence](https://img.shields.io/badge/Licence-Apache%202.0-blue)](https://img.shields.io/badge/Licence-Apache%202.0-blue) [[![Downloads](https://static.pepy.tech/personalized-badge/robotframework-ocrlibrary?period=total&units=international_system&left_color=grey&right_color=blue&left_text=Downloads)](https://pepy.tech/project/robotframework-ocrlibrary)
+[![Build](https://github.com/bendurston/robotframework-ocrlibrary/actions/workflows/build.yml/badge.svg)](https://github.com/bendurston/robotframework-ocrlibrary/actions/workflows/build.yml) [![Version](https://img.shields.io/badge/Version-2.0.0-blue)](https://img.shields.io/badge/Version-2.0.0-blue) [![Licence](https://img.shields.io/badge/Licence-Apache%202.0-blue)](https://img.shields.io/badge/Licence-Apache%202.0-blue) [![Downloads](https://static.pepy.tech/personalized-badge/robotframework-ocrlibrary?period=total&units=international_system&left_color=grey&right_color=blue&left_text=Downloads)](https://pepy.tech/project/robotframework-ocrlibrary)
 
 ## Keyword Documentation
 You can find the [keyword documentation here](https://bendurston.github.io/OCRLibrary.html).
@@ -68,7 +68,7 @@ Page segmentation modes provide different ways a page of text can be analyzed. H
 | 1    | Automatic page segmentation with OSD.   |
 | 2    | Automatic page segmentation, but no OSD, or OCR.    |
 | 3    | Fully automatic page segmentation, but no OSD. (Default)    |
-| 4    | Assume a single column o ftext of variable sizes.   |
+| 4    | Assume a single column of text of variable sizes.   |
 | 5    | Assume a single uniform block of vertically aligned text.   |
 | 6    | Assume a single uniform block of text.  |
 | 7    | Treat the image as a single text line.  |
