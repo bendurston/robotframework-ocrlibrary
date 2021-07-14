@@ -8,7 +8,7 @@ You can find the [keyword documentation here](https://bendurston.github.io/OCRLi
 
 ## Installation and Usage
 - OCRLibrary can be run on Python 3.6, 3.7, 3.8, and 3.9.
-- To install, run `pip install robotframework-OCRLibrary`
+- To install, run `pip install robotframework-ocrlibrary`
 
 ### Dependencies
 OCRLibrary uses two dependencies downloadable through the pip package manager, opencv-python and pytesseract. As well as Tesseract OCR.
@@ -117,34 +117,13 @@ Please see any of the following links for more information on image processing u
 - [Morphological Transformations](https://docs.opencv.org/4.5.2/d9/d61/tutorial_py_morphological_ops.html)
 
 ## Contributing
-Folder structure.
-.github/
-└── workflows/
-    └── build.yml
-        linter.yml
-docs/
-└── html/
-    └── OCRLibrary.html
-examples/
-└──keyword_usage.robot
-OCRLibrary/
-└──keywords
-    └── __init__.py
-        binary_image_transformation.py
-        changing
-
-Adding a new image processing feature.
-
-When adding a new image processing feature, please create a new file under `OCRLibrary/utils/imageprocessing/imagetransformation`. If the image processing feature falls under any of [these categories](https://docs.opencv.org/4.5.2/d2/d96/tutorial_py_table_of_contents_imgproc.html), please name the file to resemble that category (see existing files for example), or add to the existing file.
-
-Once low level image transformation functions are create, call those functions in one of the three image processing files in `OCRLibrary/utils/imageprocessing/`. `image_processing_colour.py` is for all image transformations that should be used on coloured images (e.g. masking colours), `image_processing_generic.py` is for all image transformations that involve any image (coloured/gray scale/binary) such as image smoothing, and `image_processing_gray.py` is for all image transformation that should only be used on gray or binary images. If the new feature does not meet these specifications, please create a new file and define the specification.
-
-Creating new keywords follows the same rules as when creating new image processing features mentioned above. The keywords will call the higher level functions in `OCRLibrary/utils/`.
+Thank you for thinking of contributing to the robotframework-ocrlibrary!
 
 When contributing please adhere to the following.
 
-Please put the files in the appropriate directories with the appropriate names. The image processing features fall under any of [these categories](https://docs.opencv.org/4.5.2/d2/d96/tutorial_py_table_of_contents_imgproc.html), please name the file to resemble that category (see existing files for example), or add to the existing file.
+If you find a bug, please submit an issue.
 
-To start off, if you find a bug, please submit an issue.
 If you want to fix something or improve upon something, fork the repo, and create a new branch.
 Once you have made the changes and have written unit tests or updated the regression tests (please use pythons Unittest when testing), make a pull request.
+
+Please put the files in the appropriate directories with the appropriate names. The image processing features fall under any of [these categories](https://docs.opencv.org/4.5.2/d2/d96/tutorial_py_table_of_contents_imgproc.html), please name the file to resemble that category (see [existing files](https://github.com/bendurston/robotframework-ocrlibrary/tree/main/OCRLibrary/utils/imageprocessing/imagetransformation) for examples), or add to an existing file.

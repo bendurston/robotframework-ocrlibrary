@@ -46,7 +46,7 @@ def verify_valid_kernel_size_non_tuple(kernel_size):
     if isinstance(kernel_size, (int, str, float)):
         if (int(kernel_size) > 0 and int(kernel_size) % 2 == 1):
             return True
-    raise InvalidKernelSize(f"The kernel size argument provided is invalid. Please provide a size that is a positive odd number of type int. {type(kernel_size)}")
+    raise InvalidKernelSize("The kernel size argument provided is invalid. Please provide a size that is a positive odd number of type int.")
 
 def raise_invalid_kernel_type(kernel_type):
     """

@@ -29,13 +29,13 @@ class OCRLibrary(ImageThresholdingKeywords,
     Please note that recogizing all characters and their locations from screenshots is not guaranteed. Although processing the
     image will increase the chances for the desired characters to be read or located.
 
-    == Information On Image Transformations ==
+    = Information On Image Transformations =
     [https://docs.opencv.org/4.5.2/d7/d4d/tutorial_py_thresholding.html | OpenCV Thresholding Documentation]
     [https://docs.opencv.org/4.5.2/d9/d61/tutorial_py_morphological_ops.html | OpenCV Morphological Transformation Documentation]
     [https://docs.opencv.org/4.5.2/df/d9d/tutorial_py_colorspaces.html | OpenCV Changing Colourspaces Documentation]
     [https://docs.opencv.org/4.5.2/d4/d13/tutorial_py_filtering.html | OpenCV Smoothing Image Documentation]
 
-    === Using And Not Using OSTU ===
+    == Using And Not Using OSTU ==
     Information on keywords that use the ``apply_otsu`` argument.
 
     List of current keywords that can use OTSU: 
@@ -43,22 +43,22 @@ class OCRLibrary(ImageThresholdingKeywords,
     ``Get To Zero Image``
     ``Get Trunc Image``
 
-    ==== Using OTSU ====
+    === Using OTSU ===
     Enabling otsu ``apply_otsu = True`` for thresholding keywords determines the threshold value automatically.
     When apply_otsu is true, the image processing keyword will return a tuple. Index 0 contains the optimal threshold
     value found by the ostu threshold, and index 1 has the binary image.
 
     For an example, please see the example ``Using Get To Zero Image`` [https://github.com/bendurston/robotframework-ocrlibrary/blob/main/examples/keyword_usage.robot | in the keyword usage file.]
 
-    ==== Not Using OTSU ====
+    === Not Using OTSU ===
     When ``apply_otsu = False`` threshold values must be provided. For more detail about the thresholding arguments,
     please see the OpenCV thresholding documentation listed above.
 
     For an example, please see the example ``Using Get Trunc Image`` [https://github.com/bendurston/robotframework-ocrlibrary/blob/main/examples/keyword_usage.robot | in the keyword usage file.]
 
-    === Keywords with Apply prefix ===
+    == Keywords with Apply prefix ==
     This information pertains to the keywords with the ``Apply`` prefix.
-    ==== Kernel Size Argument ====
+    === Kernel Size Argument ===
     There are a few minor differences with this argument for some keywords.
 
     ``Apply Median Filtering To Image`` takes a kernel size as an integer that is odd and greater than 0.
@@ -67,16 +67,16 @@ class OCRLibrary(ImageThresholdingKeywords,
 
     The rest of the keywords takes a kernel size as a tuple/list where the values must be postive.
 
-    ==== Kernel Type Argument ====
+    === Kernel Type Argument ===
     Keywords that require a ``kernel_type`` take the given kernel size and create a structured element. The integer provided as
     the kernel type will determine the shape of the structured element. 0 will be a rectangle, 1 will be an ellipse, 
     and 2 will be a cross.
 
-    ==== Iteration Argument ====
+    === Iteration Argument ===
     Iteration is the number of times the transformation is performed on the image. The ``iteration`` can be any positive integer
     greater than 0.
 
-    ==== Depth Argument ====
+    === Depth Argument ===
     Depth represents the desired depth of the destination image. When ``depth=-1`` the output image will have the same depth as the source.
 
     == Pytesseract Configuration Strings ==
