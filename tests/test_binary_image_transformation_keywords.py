@@ -5,17 +5,34 @@ import unittest
 import cv2
 import numpy as np
 
-from OCRLibrary.keywords.binary_image_transformation import BinaryImageTransformationKeywords as bitk
+from OCRLibrary.keywords.binary_image_transformation import ImageThresholdingKeywords as itk
+from OCRLibrary.keywords.binary_image_transformation import MorphologicalTransformationKeywords  as mtk
 from OCRLibrary.utils.exceptions.exceptions \
-    import (InvalidKernelSize, InvalidKernelType, InvalidIteration, InvalidImageArgument)
+    import (InvalidImagePath, InvalidThresholdValue, InvalidKernelSize, InvalidKernelType, InvalidIteration, InvalidImageArgument)
 
-class BaseBinaryImageTransformationKeywords(unittest.TestCase):
+class BaseImageThresholdingKeywords(unittest.TestCase):
     """
     Base Class for testing BinaryImageTransformationKeywords
     """
     @classmethod
     def setUpClass(cls):
-        cls.keyword = bitk()
+        cls.keyword = itk()
+        cls.img_path = 'tests/images/locate_text_coordinates1.png'
+        cls.invalid_img_path = 'invalid/path/to/image.png'
+
+    @classmethod
+    def tearDownClass(cls):
+        del cls.keyword
+        del cls.img_path
+        del cls.invalid_img_path
+
+class BaseMorphologicalTransformationKeywords(unittest.TestCase):
+    """
+    Base Class for testing BaseMorphologicalTransformationKeywords
+    """
+    @classmethod
+    def setUpClass(cls):
+        cls.keyword = mtk()
         cls.processed_image = cv2.imread('tests/images/locate_text_coordinates2.png')
         cls.invalid_image = 'invalid_image.png'
 
@@ -25,7 +42,121 @@ class BaseBinaryImageTransformationKeywords(unittest.TestCase):
         del cls.processed_image
         del cls.invalid_image
 
-class TestKeywordApplyErosionToImage(BaseBinaryImageTransformationKeywords):
+class TestKeywordGetBinaryImage(BaseImageThresholdingKeywords):
+    """
+    TestKeywordGetBinaryImage Class
+    """
+    def test_01_get_binary_image(self):
+        """
+        End to end test of Get Binary Image keyword.
+        """
+        binary_image = self.keyword.get_binary_image(self.img_path)
+        binary_image_otsu = self.keyword.get_binary_image(self.img_path, True)
+        self.assertTrue(isinstance(binary_image, np.ndarray))
+        self.assertTrue(isinstance(binary_image_otsu[0], float))
+        self.assertTrue(isinstance(binary_image_otsu[1], np.ndarray))
+
+    def test_02_get_binary_image(self):
+        """
+        Invalid image path to raise InvalidImagePath.
+        """
+        with self.assertRaises(InvalidImagePath):
+            self.keyword.get_binary_image(self.invalid_img_path)
+
+    def test_03_get_binary_image(self):
+        """
+        Invalid threshold values to raise InvalidThesholdValue.
+        """
+        with self.assertRaises(InvalidThresholdValue):
+            self.keyword.get_binary_image(self.img_path, False, False, None, None)
+        with self.assertRaises(InvalidThresholdValue):
+            self.keyword.get_binary_image(self.img_path, False, False, "255", None)
+        with self.assertRaises(InvalidThresholdValue):
+            self.keyword.get_binary_image(self.img_path, False, False, None, "127")
+        with self.assertRaises(InvalidThresholdValue):
+            self.keyword.get_binary_image(self.img_path, False, False, "255", "127")
+        with self.assertRaises(InvalidThresholdValue):
+            self.keyword.get_binary_image(self.img_path, False, False, 255, None)
+        with self.assertRaises(InvalidThresholdValue):
+            self.keyword.get_binary_image(self.img_path, False, False, None, 127)
+
+class TestKeywordGetToZeroImage(BaseImageThresholdingKeywords):
+    """
+    TestKeywordGetToZeroImage Class
+    """
+    def test_01_get_to_zero_image(self):
+        """
+        End to end test of Get To Zero Image keyword.
+        """
+        to_zero_image = self.keyword.get_to_zero_image(self.img_path)
+        to_zero_image_otsu = self.keyword.get_to_zero_image(self.img_path, True)
+        self.assertTrue(isinstance(to_zero_image, np.ndarray))
+        self.assertTrue(isinstance(to_zero_image_otsu[0], float))
+        self.assertTrue(isinstance(to_zero_image_otsu[1], np.ndarray))
+
+    def test_02_get_to_zero_image(self):
+        """
+        Invalid image path to raise InvalidImagePath.
+        """
+        with self.assertRaises(InvalidImagePath):
+            self.keyword.get_to_zero_image(self.invalid_img_path)
+
+    def test_03_get_to_zero_image(self):
+        """
+        Invalid threshold values to raise InvalidThresholdValue.
+        """
+        with self.assertRaises(InvalidThresholdValue):
+            self.keyword.get_to_zero_image(self.img_path, False, False, None, None)
+        with self.assertRaises(InvalidThresholdValue):
+            self.keyword.get_to_zero_image(self.img_path, False, False, "255", None)
+        with self.assertRaises(InvalidThresholdValue):
+            self.keyword.get_to_zero_image(self.img_path, False, False, None, "127")
+        with self.assertRaises(InvalidThresholdValue):
+            self.keyword.get_to_zero_image(self.img_path, False, False, "255", "127")
+        with self.assertRaises(InvalidThresholdValue):
+            self.keyword.get_to_zero_image(self.img_path, False, False, 255, None)
+        with self.assertRaises(InvalidThresholdValue):
+            self.keyword.get_to_zero_image(self.img_path, False, False, None, 127)
+
+class TestKeywordGetTruncImage(BaseImageThresholdingKeywords):
+    """
+    TestKeywordGetTruncImage Class
+    """
+    def test_01_get_trunc_image(self):
+        """
+        End to end test of Get Trunc Image keyword.
+        """
+        trunc_image = self.keyword.get_trunc_image(self.img_path)
+        trunc_image_otsu = self.keyword.get_trunc_image(self.img_path, True)
+        self.assertTrue(isinstance(trunc_image, np.ndarray))
+        self.assertTrue(isinstance(trunc_image_otsu[0], float))
+        self.assertTrue(isinstance(trunc_image_otsu[1], np.ndarray))
+
+    def test_02_get_trunc_image(self):
+        """
+        Invalid image path to raise InvalidImagePath.
+        """
+        with self.assertRaises(InvalidImagePath):
+            self.keyword.get_trunc_image(self.invalid_img_path)
+
+    def test_03_get_trunc_image(self):
+        """
+        Invalid threshold values to raise InvalidThresholdValue.
+        """
+        with self.assertRaises(InvalidThresholdValue):
+            self.keyword.get_trunc_image(self.img_path, False, None, None)
+        with self.assertRaises(InvalidThresholdValue):
+            self.keyword.get_trunc_image(self.img_path, False, "255", None)
+        with self.assertRaises(InvalidThresholdValue):
+            self.keyword.get_trunc_image(self.img_path, False, None, "127")
+        with self.assertRaises(InvalidThresholdValue):
+            self.keyword.get_trunc_image(self.img_path, False, "255", "127")
+        with self.assertRaises(InvalidThresholdValue):
+            self.keyword.get_trunc_image(self.img_path, False, 255, None)
+        with self.assertRaises(InvalidThresholdValue):
+            self.keyword.get_trunc_image(self.img_path, False, None, 127)
+
+class TestKeywordApplyErosionToImage(BaseMorphologicalTransformationKeywords):
     """
     TestKeywordApplyErosionToImage Class
     """
@@ -92,7 +223,7 @@ class TestKeywordApplyErosionToImage(BaseBinaryImageTransformationKeywords):
         with self.assertRaises(InvalidKernelType):
             self.keyword.apply_erosion_to_image(self.processed_image, (1, 1), "1")
 
-class TestKeywordAppyDilationToImage(BaseBinaryImageTransformationKeywords):
+class TestKeywordAppyDilationToImage(BaseMorphologicalTransformationKeywords):
     """
     TestKeywordAppyDilationToImage Class
     """
@@ -159,7 +290,7 @@ class TestKeywordAppyDilationToImage(BaseBinaryImageTransformationKeywords):
         with self.assertRaises(InvalidKernelType):
             self.keyword.apply_dilation_to_image(self.processed_image, (1, 1), "1")
 
-class TestKeywordApplyOpeningToImage(BaseBinaryImageTransformationKeywords):
+class TestKeywordApplyOpeningToImage(BaseMorphologicalTransformationKeywords):
     """
     TestKeywordApplyOpeningToImage Class
     """
@@ -226,7 +357,7 @@ class TestKeywordApplyOpeningToImage(BaseBinaryImageTransformationKeywords):
         with self.assertRaises(InvalidKernelType):
             self.keyword.apply_opening_to_image(self.processed_image, (1, 1), "1")
 
-class TestKeywordAppyClosingToImage(BaseBinaryImageTransformationKeywords):
+class TestKeywordAppyClosingToImage(BaseMorphologicalTransformationKeywords):
     """
     TestKeywordAppyClosingToImage Class
     """
@@ -293,7 +424,7 @@ class TestKeywordAppyClosingToImage(BaseBinaryImageTransformationKeywords):
         with self.assertRaises(InvalidKernelType):
             self.keyword.apply_closing_to_image(self.processed_image, (1, 1), "1")
 
-class TestKeywordAppyGradientToImage(BaseBinaryImageTransformationKeywords):
+class TestKeywordAppyGradientToImage(BaseMorphologicalTransformationKeywords):
     """
     TestKeywordAppyGradientToImage Class
     """
@@ -360,7 +491,7 @@ class TestKeywordAppyGradientToImage(BaseBinaryImageTransformationKeywords):
         with self.assertRaises(InvalidKernelType):
             self.keyword.apply_gradient_to_image(self.processed_image, (1, 1), "1")
 
-class TestKeywordAppyTopHatToImage(BaseBinaryImageTransformationKeywords):
+class TestKeywordAppyTopHatToImage(BaseMorphologicalTransformationKeywords):
     """
     TestKeywordAppyTopHatToImage Class
     """
@@ -427,7 +558,7 @@ class TestKeywordAppyTopHatToImage(BaseBinaryImageTransformationKeywords):
         with self.assertRaises(InvalidKernelType):
             self.keyword.apply_top_hat_to_image(self.processed_image, (1, 1), "1")
 
-class TestKeywordApplyBlackHatToImage(BaseBinaryImageTransformationKeywords):
+class TestKeywordApplyBlackHatToImage(BaseMorphologicalTransformationKeywords):
     """
     TestKeywordApplyBlackHatToImage Class
     """

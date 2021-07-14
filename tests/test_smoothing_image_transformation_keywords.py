@@ -5,17 +5,17 @@ import unittest
 import cv2
 import numpy as np
 
-from OCRLibrary.keywords.generic_image_transformation import GenericImageTransformationKeywords as gitk
+from OCRLibrary.keywords.smoothing_image_transformation import SmoothingImageKeywords as sik
 from OCRLibrary.utils.exceptions.exceptions \
     import (InvalidKernelSize, InvalidKernelType, InvalidDepthArgument, InvalidImageArgument)
 
-class BaseGenericImageTransformationKeywords(unittest.TestCase):
+class BaseSmoothingImageKeywords(unittest.TestCase):
     """
-    Base Class for testing GenericImageTransformationKeywords
+    Base Class for testing SmoothingImageKeywords
     """
     @classmethod
     def setUpClass(cls):
-        cls.keyword = gitk()
+        cls.keyword = sik()
         cls.processed_image = cv2.imread('tests/images/locate_text_coordinates2.png')
         cls.invalid_image = 'invalid_image.png'
 
@@ -25,7 +25,7 @@ class BaseGenericImageTransformationKeywords(unittest.TestCase):
         del cls.processed_image
         del cls.invalid_image
 
-class TestKeywordAppyFilter2DToImage(BaseGenericImageTransformationKeywords):
+class TestKeywordAppyFilter2DToImage(BaseSmoothingImageKeywords):
     """
     TestKeywordAppyFilter2DToImage Class
     """
@@ -82,7 +82,7 @@ class TestKeywordAppyFilter2DToImage(BaseGenericImageTransformationKeywords):
         with self.assertRaises(InvalidKernelType):
             self.keyword.apply_filter2D_to_image(self.processed_image, (1, 1), -1)
 
-class TestKeywordApplyMedianFilteringToImage(BaseGenericImageTransformationKeywords):
+class TestKeywordApplyMedianFilteringToImage(BaseSmoothingImageKeywords):
     """
     TestKeywordApplyMedianFilteringToImage Class
     """
@@ -115,7 +115,7 @@ class TestKeywordApplyMedianFilteringToImage(BaseGenericImageTransformationKeywo
         with self.assertRaises(InvalidKernelSize):
             self.keyword.apply_median_filtering_to_image(self.processed_image, -1)
 
-class TestKeywordApplyAveragingBlurToImage(BaseGenericImageTransformationKeywords):
+class TestKeywordApplyAveragingBlurToImage(BaseSmoothingImageKeywords):
     """
     TestKeywordApplyAveragingBlurToImage Class
     """
@@ -156,7 +156,7 @@ class TestKeywordApplyAveragingBlurToImage(BaseGenericImageTransformationKeyword
         with self.assertRaises(InvalidKernelSize):
             self.keyword.apply_averaging_blur_to_image(self.processed_image, (0, 0))
 
-class TestKeywordApplyGaussianBlurToImage(BaseGenericImageTransformationKeywords):
+class TestKeywordApplyGaussianBlurToImage(BaseSmoothingImageKeywords):
     """
     TestKeywordApplyGaussianBlurToImage Class
     """

@@ -3,7 +3,7 @@ High level functions to apply image processing to any photo (i.e. colour or gray
 """
 from OCRLibrary.utils.imageprocessing.imagetransformation.structuring_element \
     import get_rect_kernel, get_ellipse_kernel, get_cross_kernel
-from OCRLibrary.utils.imageprocessing.imagetransformation.image_blurring \
+from OCRLibrary.utils.imageprocessing.imagetransformation.image_smoothing \
     import image_filtering, blurring_averaging, blurring_gaussian, median_filtering
 
 def process_image_filtering_with_rect_kernel(img, kernel_size, depth):

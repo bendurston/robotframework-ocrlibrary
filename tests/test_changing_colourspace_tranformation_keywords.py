@@ -1,38 +1,52 @@
 """
-Module to test keywords within ColourImageProcessingKeywords class.
+Module to test keywords within ChangingColourspaceKeywords class.
 """
 import unittest
 import cv2
 import numpy as np
 
-from OCRLibrary.keywords.colour_image_processing import ColourImageProcessingKeywords as cipk
+from OCRLibrary.keywords.changing_colourspace_transformation import ChangingColourspaceKeywords as cck
 from OCRLibrary.utils.exceptions.exceptions \
     import (InvalidImageArgument, InvalidColourBoundArguments)
 
-class BaseColourImageProcessingKeywords(unittest.TestCase):
+class BaseChangingColourspaceTransformationKeywords(unittest.TestCase):
     """
     Base Class for testing ColourImageProcessingKeywords
     """
     @classmethod
     def setUpClass(cls):
-        cls.keyword = cipk()
+        cls.keyword = cck()
+        cls.processed_image = cv2.imread('tests/images/locate_text_coordinates1.png')
         cls.invalid_image = 'path/to/invalid/image.png'
 
     @classmethod
     def tearDownClass(cls):
         del cls.keyword
+        del cls.processed_image
         del cls.invalid_image
 
-class TestKeywordCovertImageToHSV(BaseColourImageProcessingKeywords):
+class TestKeywordConvertImageToGrayScale(BaseChangingColourspaceTransformationKeywords):
+    """
+    TestKeywordConvertImageToGrayScale Class
+    """
+    def test_01_convert_image_to_gray_scale(self):
+        """
+        End to end flow of Convert Image To Gray Scale keyword. All correct arguments.
+        """
+        gray_scale_image = self.keyword.convert_image_to_gray_scale(self.processed_image)
+        self.assertTrue(isinstance(gray_scale_image, np.ndarray))
+
+    def test_02_convert_image_to_gray_scale(self):
+        """
+        Invalid image path to raise InvalidImagePath.
+        """
+        with self.assertRaises(InvalidImageArgument):
+            self.keyword.convert_image_to_gray_scale(self.invalid_image)
+
+class TestKeywordCovertImageToHSV(BaseChangingColourspaceTransformationKeywords):
     """
     TestKeywordCovertImageToHSV Class
     """
-    def setUp(self):
-        self.processed_image = cv2.imread('tests/images/locate_text_coordinates1.png')
-
-    def tearDown(self):
-        del self.processed_image
-
     def test_01_convert_image_to_hsv(self):
         """
         End to end flow of Convert Image To HSV keyword.
@@ -47,7 +61,7 @@ class TestKeywordCovertImageToHSV(BaseColourImageProcessingKeywords):
         with self.assertRaises(InvalidImageArgument):
             self.keyword.convert_image_to_HSV(self.invalid_image)
 
-class TestKeywordMaskColour(BaseColourImageProcessingKeywords):
+class TestKeywordMaskColour(BaseChangingColourspaceTransformationKeywords):
     """
     TestKeywordsMaskColour Class
     """
@@ -84,7 +98,7 @@ class TestKeywordMaskColour(BaseColourImageProcessingKeywords):
         with self.assertRaises(InvalidColourBoundArguments):
             self.keyword.mask_colour(self.mask_img_hsv, (0, 0, -2), (0, 0, 255))
 
-class TestKeywordMaskColours(BaseColourImageProcessingKeywords):
+class TestKeywordMaskColours(BaseChangingColourspaceTransformationKeywords):
     """
     TestKeywordMaskColours Class
     """

@@ -1,18 +1,18 @@
 """
 Keywords module.
 """
-from .generic_image_transformation import GenericImageTransformationKeywords
-from .generic_image_processing import GenericImageProcessingKeywords
-from .binary_image_transformation import BinaryImageTransformationKeywords
-from .binary_image_processing import BinaryImageProcessingKeywords
-from .colour_image_processing import ColourImageProcessingKeywords
+from .binary_image_transformation import ImageThresholdingKeywords, MorphologicalTransformationKeywords
+from .changing_colourspace_transformation import ChangingColourspaceKeywords
 from .content_validation import ContentValidationKeywords
 from .content_location import ContentLocationKeywords
+from .read_and_save_images import ReadImageKeywords, SaveImageKeywords
+from .smoothing_image_transformation import SmoothingImageKeywords
 
-__all__ = ["GenericImageTransformationKeywords",
-            "GenericImageProcessingKeywords",
-            "BinaryImageTransformationKeywords",
-            "BinaryImageProcessingKeywords",
-            "ColourImageProcessingKeywords",
+__all__ = ["ImageThresholdingKeywords",
+            "MorphologicalTransformationKeywords",
+            "ChangingColourspaceKeywords",
+            "ContentLocationKeywords",
             "ContentValidationKeywords",
-            "ContentLocationKeywords"]
+            "ReadImageKeywords",
+            "SaveImageKeywords",
+            "SmoothingImageKeywords"]
